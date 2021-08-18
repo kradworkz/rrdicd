@@ -16,9 +16,9 @@ class OrganizationsTableSeeder extends Seeder
     {
         
 
-        \DB::table('Organizations')->delete();
+        \DB::table('organizations')->delete();
         
-        \DB::table('Organizations')->insert(array (
+        \DB::table('organizations')->insert(array (
             0 => 
             array (
                 'id' => 1,

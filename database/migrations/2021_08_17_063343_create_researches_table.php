@@ -17,7 +17,7 @@ class CreateResearchesTable extends Migration
             $table->engine = 'InnoDB';
             $table->smallIncrements('id');
             $table->string('title',200);
-            $table->longText('content')->default('Aa');
+            $table->longText('content');
             $table->smallInteger('iprstatus_id')->unsigned()->index();
             $table->foreign('iprstatus_id')->references('id')->on('dropdowns')->onDelete('cascade');
             $table->smallInteger('classification_id')->unsigned()->index();

@@ -16,7 +16,7 @@ class CreateResearchStatusesTable extends Migration
         Schema::create('research_statuses', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->longText('remarks')->default('n/a');
+            $table->longText('remarks')->nullable();
             $table->smallInteger('status_id')->unsigned()->index();
             $table->foreign('status_id')->references('id')->on('dropdowns')->onDelete('cascade');
             $table->smallInteger('research_id')->unsigned()->index();

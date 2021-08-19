@@ -39,7 +39,6 @@
                             <tr>
                                 <th class="text-center">Title</th>  
                                 <th class="text-center">Classification</th>
-                                <th class="text-center">Specialty</th>
                                 <th class="text-center">IPR Status</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Created Date</th>
@@ -50,10 +49,9 @@
                             <tr v-for="(research,index) in researches" v-bind:key="research.id">
                                 <td class="text-center"> {{research.title.substring(0,40)+".."}}</td>
                                 <td class="text-center">{{research.classification.name}}</td>
-                                 <td class="text-center">{{research.specialty.name}}</td>
                                 <td class="text-center">{{research.iprstatus.name}}</td>
                                 <td class="text-center">
-                                    <span :class="'font-size-11 badge badge-'+research.color">{{research.status}}</span>
+                                    <span :class="'font-size-11 badge badge-'+research.status.color">{{research.status.name}}</span>
                                 </td>
                                 <td class="text-center font-size-11">{{research.created_at}}</td>
                                 <td class="text-right">
@@ -114,7 +112,7 @@ export default {
         fetch(page_url) {
             let vm = this; let key;
             (this.keyword != '' && this.keyword != null) ? key = this.keyword : key = '-';
-            page_url = page_url || this.currentUrl + '/request/researcher/researches/'+key;
+            page_url = page_url || this.currentUrl + '/request/common/researches/'+key;
 
             axios.get(page_url)
             .then(response => {

@@ -77,7 +77,7 @@
                                         </multiselect>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div v-if="type != 'Secretariat'" class="col-md-8">
                                     <div class="form-group">
                                         <label>Institution<span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
                                         <multiselect 
@@ -135,6 +135,7 @@
     import Multiselect from 'vue-multiselect';
     import myUpload from 'vue-image-crop-upload/upload-2.vue';
     export default {
+        props : ['type'],
         data(){
             return {
                 currentUrl: window.location.origin,
@@ -189,13 +190,13 @@
 
             create(){
                 this.isLoading = true;
-                axios.post(this.currentUrl + '/request/admin/researcher/store', {
+                axios.post(this.currentUrl + '/request/common/researcher/store', {
                     id: this.user.id,
                     firstname: this.user.firstname,
                     lastname: this.user.lastname,
                     middlename: this.user.middlename,
                     designation: this.user.designation.id,
-                    institution: this.user.institution.id,
+                    institution: this.user.institution,
                     specialty: this.user.specialty.id,
                     email: this.user.email,
                     birthdate: this.user.birthdate,

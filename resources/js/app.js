@@ -29,9 +29,11 @@ Vue.component('dropdown-create', require('./components/Admin/Dropdown/Create.vue
 Vue.component('organizations', require('./components/Admin/Organization/Index.vue').default);
 Vue.component('organization-create', require('./components/Admin/Organization/Create.vue').default);
 
-Vue.component('researchers', require('./components/Admin/Researcher/Index.vue').default);
-Vue.component('researcher-create', require('./components/Admin/Researcher/Create.vue').default);
-Vue.component('researcher-view', require('./components/Admin/Researcher/View.vue').default);
+Vue.component('events', require('./components/Admin/Event/Index.vue').default);
+Vue.component('event-create', require('./components/Admin/Event/Create.vue').default);
+Vue.component('event-view', require('./components/Admin/Event/View.vue').default);
+Vue.component('event-attendance', require('./components/Admin/Event/Attendance.vue').default);
+
 
 // COMMON TO SOME USERS //
 
@@ -43,6 +45,16 @@ Vue.component('research-create', require('./components/Common/Research/Create.vu
 Vue.component('research-add', require('./components/Common/Research/Add.vue').default);
 Vue.component('research-view', require('./components/Common/Research/View.vue').default);
 
+Vue.component('researchers', require('./components/Common/Researcher/Index.vue').default);
+Vue.component('researcher-create', require('./components/Common/Researcher/Create.vue').default);
+Vue.component('researcher-view', require('./components/Common/Researcher/View.vue').default);
+
+
+// LABORATORY COORDINATOR// 
+Vue.component('coordinator', require('./components/Coordinator/Index.vue').default);
+Vue.component('inventory', require('./components/Coordinator/Inventory/Index.vue').default);
+Vue.component('inventory-create', require('./components/Coordinator/Inventory/Create.vue').default);
+Vue.component('inventory-view', require('./components/Coordinator/Inventory/View.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

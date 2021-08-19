@@ -121,7 +121,7 @@ export default {
         fetch(page_url) {
             let vm = this; let key;
             (this.keyword != '' && this.keyword != null) ? key = this.keyword : key = '-';
-            page_url = page_url || this.currentUrl + '/request/admin/staffs/'+key;
+            page_url = page_url || this.currentUrl + '/request/common/staffs/'+key;
 
             axios.get(page_url)
             .then(response => {
@@ -145,7 +145,7 @@ export default {
         message(val){
             if(val){
                 if(this.editable == true){
-                    let page_url = '/request/admin/staffs/-?page=' + this.pagination.current_page;
+                    let page_url = '/request/common/staffs/-?page=' + this.pagination.current_page;
                     this.fetch(page_url);
                     Vue.$toast.success('<strong>Successfully Updated</strong>', {
                         position: 'bottom-right'

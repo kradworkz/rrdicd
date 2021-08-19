@@ -6,9 +6,11 @@ use Auth;
 use App\Models\User;
 use App\Models\UserOrganization;
 use App\Models\UserProfile;
+use App\Models\EventAttendance;
 use Illuminate\Http\Request;
 use App\Services\StoreImage;
 use App\Http\Resources\StaffResource;
+use App\Http\Resources\MemberResource;
 use App\Http\Requests\StaffRequest;
 use App\Jobs\EmailNewAccount;
 
@@ -21,10 +23,10 @@ class StaffController extends Controller
     public function lists($keyword){
 
         if(Auth::user()->type == "Secretariat"){
-            $types = ['Laboratory Coordinator'];
+            $types = ['Laboratory Coordinator','Regular Member'];
             $org_id = Auth::user()->organization->organization_id;
         }else{
-            $types = ['Secretariat','Laboratory Coordinator'];
+            $types = ['Secretariat','Laboratory Coordinator','Regular Member'];
         }
 
         ($keyword == '-') ? $keyword = '' : $keyword;
@@ -53,7 +55,7 @@ class StaffController extends Controller
             $data = ($request->input('editable')) ? User::findOrFail($request->input('id')) : new User;
             $data->email = strtolower($request->input('email'));
             $data->password = (!$request->input('editable')) ? bcrypt("DostRegion9") : ''; 
-            $data->type = (!empty(Auth::user()->organization->organization_id)) ? 'Laboratory Coordinator' : $request->input('type');
+            $data->type = $request->input('type');
             
             if($data->save()){
                 $organization_id = (!empty(Auth::user()->organization->organization_id)) ? Auth::user()->organization->organization_id : $request->input('organization')['id'];
@@ -95,6 +97,30 @@ class StaffController extends Controller
 
             }
         });
+    }
+
+    public function search(Request $request){
+        $keyword = $request->input('word');
+        $id = $request->input('event');
+
+        $members = EventAttendance::where('event_id',$id)->pluck('user_id');
+    
+        if(count($members) == 0){
+            $data =  User::where('type','Regular Member')->with('profile')
+            ->whereHas('profile',function ($query) use ($keyword) {
+                $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', '%'.$keyword.'%')->orWhere(\DB::raw('concat(lastname," ",firstname)'), 'LIKE', '%'.$keyword.'%');
+            })
+            ->take(5)->get();
+        }else{
+            $data =  User::where('type','Regular Member')->with('profile')
+            ->whereNotIn('id',$members)
+            ->whereHas('profile',function ($query) use ($keyword) {
+                $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', '%'.$keyword.'%')->orWhere(\DB::raw('concat(lastname," ",firstname)'), 'LIKE', '%'.$keyword.'%');
+            })
+            ->take(5)->get();
+        }
+
+        return MemberResource::collection($data);
     }
 
 }

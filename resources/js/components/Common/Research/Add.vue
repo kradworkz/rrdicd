@@ -24,7 +24,7 @@
                                 :custom-label="nameWithLang"
                                 v-model="research.researcher" 
                                 :options="researchers" 
-                                id="ajax" @search-change="fetchResearcher" @input="onChangeCustomer(researcher.researcher_id)"
+                                id="ajax" @search-change="fetchResearcher" 
                                 label="name" track-by="id" :show-labels="false" :allow-empty="false"
                                 placeholder="Search Researcher">
                                 </multiselect>
@@ -47,15 +47,16 @@
                                 <multiselect 
                                 v-model="research.iprstatus" 
                                 :options="iprs" 
+                                @input="onChange(research.iprstatus.id)"
                                 label="name" track-by="id" :show-labels="false" :allow-empty="false"
-                                placeholder="Select Specialty">
+                                placeholder="Select IPR Status">
                                 </multiselect>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Period IPR Covered: <span v-if="errors.period" class="haveerror">({{ errors.period[0] }})</span></label>
-                                <input type="text" class="form-control" v-model="research.period">
+                                <input :disabled="addc" type="text" class="form-control" v-model="research.period">
                             </div>
                         </div>
 
@@ -90,8 +91,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Year Funded: <span v-if="errors.year" class="haveerror">({{ errors.year[0] }})</span></label>
-                                <input type="number" min="1900" max="2099" step="1" class="form-control" v-model="research.year">
+                                <label>Date Funded: <span v-if="errors.date" class="haveerror">({{ errors.date[0] }})</span></label>
+                                <input type="date" class="form-control" v-model="research.date">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -100,7 +101,7 @@
                                 <multiselect 
                                 v-model="research.institution" 
                                 :options="institutions" 
-                                id="ajax" @search-change="asyncFind" @input="onChangeCustomer(institution.institution_id)"
+                                id="ajax" @search-change="asyncFind" 
                                 label="name" track-by="id" :show-labels="false" :allow-empty="false"
                                 placeholder="Select Institution">
                                 </multiselect>
@@ -131,11 +132,10 @@
                     id: '',
                     title : '',
                     classification: '',
-                    specialty: '',
                     iprstatus: '',
                     researcher: '',
                     amount: '',
-                    year: '',
+                    date: '',
                     period: '',
                     status: '',
                     institution: ''
@@ -146,6 +146,7 @@
                 institutions: [],
                 editable : false,
                 old: false,
+                addc : true
             }
         },
 
@@ -160,7 +161,11 @@
                 return `${firstname} ${lastname}`;
             },
 
-             asyncFind(value) {
+            onChange(id){
+                (id == 10) ? this.addc = false : this.addc = true;
+            },
+
+            asyncFind(value) {
                 axios.post(this.currentUrl + '/request/admin/organization/funding/search', {
                     word: value,
                 })
@@ -187,7 +192,7 @@
             },
 
             fetchResearcher(value) {
-                axios.post(this.currentUrl + '/request/admin/researcher/search', {
+                axios.post(this.currentUrl + '/request/common/researcher/search', {
                     word: value,
                 })
                 .then(response => {
@@ -205,18 +210,23 @@
             },
 
             create(){
-                axios.post(this.currentUrl + '/request/researcher/research/store', {
-                    id: this.research.id,
-                    title: this.research.title,
-                    classification: this.research.classification.id,
-                    specialty: this.research.specialty.id,
-                    iprstatus: this.research.iprstatus.id,
-                    amount: this.research.amount,
-                    funded_at: this.research.year,
-                    funded_by: this.research.institution.id,
-                    editable: this.editable,
-                    old: this.old
-                })
+                let frm = new FormData();
+                frm.append('id', this.research.id);
+                frm.append('title', this.research.title);
+                frm.append('classification', this.research.classification.id);
+                frm.append('iprstatus', this.research.iprstatus.id);
+                frm.append('period', this.research.period);
+                frm.append('editable', this.editable);
+                frm.append('old', this.old);
+
+                if(this.old == true){
+                    frm.append('amount', this.research.amount);
+                    frm.append('date', this.research.date);
+                    frm.append('institution', this.research.institution.id);
+                    frm.append('status', this.research.status.id);
+                }
+
+                axios.post(this.currentUrl + '/request/common/research/store', frm)
                 .then(response => {
                     (this.editable == true) ? this.$emit('status', 'edit') : this.$emit('status', true) ;
                     this.clear();

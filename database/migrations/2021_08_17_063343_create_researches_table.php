@@ -18,6 +18,7 @@ class CreateResearchesTable extends Migration
             $table->smallIncrements('id');
             $table->string('title',200);
             $table->longText('content');
+            $table->date('period')->nullable();
             $table->smallInteger('iprstatus_id')->unsigned()->index();
             $table->foreign('iprstatus_id')->references('id')->on('dropdowns')->onDelete('cascade');
             $table->smallInteger('classification_id')->unsigned()->index();

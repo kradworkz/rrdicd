@@ -31,7 +31,7 @@ class DropdownController extends Controller
     public function store(Request $request){
         $data = new Dropdown;
         $data->name =  ucwords(strtolower($request->input('name')));
-        $data->type = ($request->input('type')) ? $request->input('type') : 'n/a';
+        $data->type = ($request->input('type')!= null) ? $request->input('type') : 'n/a';
         $data->classification = $request->input('selected');
         ($request->input('selected') == 'Status') ? $data->color = $request->input('color') : '';
         $data->save();

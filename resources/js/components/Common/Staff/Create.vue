@@ -66,12 +66,13 @@
                                         <input type="date" class="form-control" v-model="user.birthdate">
                                     </div>
                                 </div>
-                                <div class="col-md-4" v-if="type != 'Secretariat'">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type <span v-if="errors.type" class="haveerror">({{ errors.type[0] }})</span></label>
                                         <multiselect 
                                         v-model="user.type" 
-                                        :options="types" 
+                                        :options="(type != 'Secretariat') ? types : types2" 
+                                        :show-labels="false"
                                         placeholder="Select Type">
                                         </multiselect>
                                     </div>
@@ -129,7 +130,8 @@
             return {
                 currentUrl: window.location.origin,
                 errors: [], 
-                types: ['Secretariat','Laboratory Coordinator'],
+                types: ['Secretariat','Regular Member','Laboratory Coordinator'],
+                types2: ['Regular Member','Laboratory Coordinator'],
                 user: {id: '',firstname: '',lastname: '',middlename: '',type: '', gender: '', mobile_no: '',birthdate: '',avatar: '', organization:''},
                 photo: {show: false,url: '',signature: ''},
                 params: {token: '123456798',name: 'avatar'},
@@ -153,7 +155,7 @@
             },
 
             create(){
-                axios.post(this.currentUrl + '/request/admin/staff/store', {
+                axios.post(this.currentUrl + '/request/common/staff/store', {
                     id: this.user.id,
                     firstname: this.user.firstname,
                     lastname: this.user.lastname,

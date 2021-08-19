@@ -84,7 +84,7 @@
     </div>
 
     <div class="modal fade exampleModal" id="new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <researcher-create @status="message" ref="create"></researcher-create>
+        <researcher-create @status="message" :type="user_type" ref="create"></researcher-create>
     </div>
     <div class="modal fade exampleModal" id="view" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <researcher-view @status="message" :user="user"></researcher-view>
@@ -95,6 +95,7 @@
 
 <script>
 export default {
+    props : ['user_type'],
     data(){
         return {
             currentUrl: window.location.origin,
@@ -128,7 +129,7 @@ export default {
         fetch(page_url) {
             let vm = this; let key;
             (this.keyword != '' && this.keyword != null) ? key = this.keyword : key = '-';
-            page_url = page_url || this.currentUrl + '/request/admin/researchers/'+key;
+            page_url = page_url || this.currentUrl + '/request/common/researchers/'+key;
 
             axios.get(page_url)
             .then(response => {

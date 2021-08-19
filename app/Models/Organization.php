@@ -14,6 +14,11 @@ class Organization extends Model
         return $this->hasOne('App\Models\UserOrganization', 'organization_id');
     } 
 
+    public function researchinfo()
+    {
+        return $this->hasOne('App\Models\ResarchInfo', 'organization_id');
+    } 
+
     public function getUpdatedAtAttribute($value)
     {
         return date('M d, Y g:i a', strtotime($value));

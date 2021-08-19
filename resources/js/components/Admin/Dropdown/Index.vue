@@ -27,6 +27,9 @@
                                 <a @click="change('Designations')" :class="{active:selected == 'Designations'}">
                                     <i class='bx bx-list-check mr-2'></i>Designations
                                 </a>
+                                <a @click="change('Events')" :class="{active:selected == 'Events'}">
+                                    <i class='bx bx-list-check mr-2'></i>Events
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -167,7 +170,7 @@ export default {
             status: 'Research Status',
             selected: 'Status',
             editable: false,
-            options : ["Research Status","IPR Status"],
+            options : ["Research Status","IPR Status","Inventory"],
             colors : ["green","red","blue","yellow","black","gray"],
         }
     },

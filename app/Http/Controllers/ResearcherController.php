@@ -15,18 +15,27 @@ use App\Http\Resources\SearchResearcherResource;
 class ResearcherController extends Controller
 {
     public function index(){
-        return view('user_admin.researcher');
+        return view('user_common.researcher');
     }
 
     public function lists($keyword){
         ($keyword == '-') ? $keyword = '' : $keyword;
-        $users =  User::with('profile')->with('researcher.designation','researcher.institution')
+        
+        $query = User::query();
+        $query->with('profile')->with('researcher.designation','researcher.institution')
         ->where('type','Researcher')
         ->whereHas('profile',function ($query) use ($keyword) {
             $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', '%'.$keyword.'%');
-        })->paginate(10);
+        });
+        if(Auth::user()->type == "Secretariat"){
+            $org_id = Auth::user()->organization->organization_id;
+            $query->whereHas('researcher',function ($query) use ($org_id) {
+                $query->where('institution_id',$org_id);
+            });
+        }
+        $data = $query->paginate(10);
 
-        return ResearcherResource::collection($users);
+        return ResearcherResource::collection($data);
     }
 
     public function store(StoreImage $strmg, Request $request){
@@ -67,23 +76,24 @@ class ResearcherController extends Controller
     }
 
     public function researcher(Request $request,$id){
-       $data = new Researcher;
-       $data->designation_id = $request->designation;
-       $data->specialty_id = $request->specialty;
-       $data->institution_id = $request->institution;
-       $data->user_id = $id;
-       if($data->save()){
-           return true;
-       }else{
-           return false;
-       }
+        $organization_id = (!empty(Auth::user()->organization->organization_id)) ? Auth::user()->organization->organization_id : $request->input('institution')['id'];
+        $data = new Researcher;
+        $data->designation_id = $request->designation;
+        $data->specialty_id = $request->specialty;
+        $data->institution_id = $organization_id;
+        $data->user_id = $id;
+        if($data->save()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function search(Request $request)
     {
         $keyword = $request->input('word');
         $query = User::query();
-        $query->with('profile');
+        $query->with('profile')->where('type','Researcher');
         $query->whereHas('profile',function ($query) use ($keyword) {
             $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', '%'.$keyword.'%')->orWhere(\DB::raw('concat(lastname," ",firstname)'), 'LIKE', '%'.$keyword.'%');
         });

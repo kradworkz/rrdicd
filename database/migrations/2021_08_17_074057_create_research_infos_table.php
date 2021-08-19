@@ -17,8 +17,7 @@ class CreateResearchInfosTable extends Migration
             $table->engine = 'InnoDB';
             $table->smallIncrements('id');
             $table->string('amount');
-            $table->date('period');
-            $table->date('funded_at');
+            $table->date('funded_date');
             $table->smallInteger('funded_id')->unsigned()->index();
             $table->foreign('funded_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->smallInteger('research_id')->unsigned()->index();

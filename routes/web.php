@@ -61,7 +61,7 @@ Route::prefix('request')->group(function () {
         Route::post('/organization/funding/search', 'OrganizationController@fundingagency');
         Route::post('/organization/store', 'OrganizationController@store');
 
-        Route::get('/events', 'EventController@lists');
+        Route::get('/events/{keyword}', 'EventController@lists');
         Route::post('/event/store', 'EventController@store');
         Route::post('/event/attendance', 'EventController@attendance');
         Route::get('/event/attendees/{id}', 'EventController@attendees');
@@ -90,6 +90,8 @@ Route::prefix('request')->group(function () {
         Route::get('/equipments/{type}/{keyword}', 'InventoryController@lists');
         Route::post('/equipment/store', 'InventoryController@store');
         Route::get('/equipment/list/{id}/{keyword}', 'InventoryController@equipments');
+        Route::post('/equipment/update', 'InventoryController@update');
+        Route::get('/equipment/{type}/{id}/{quantity}', 'InventoryController@list');
     });
 
 });

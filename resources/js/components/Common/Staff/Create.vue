@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Type <span v-if="errors.type" class="haveerror">({{ errors.type[0] }})</span></label>
+                                        <label>Type: <span v-if="errors.type" class="haveerror">({{ errors.type[0] }})</span></label>
                                         <multiselect 
                                         v-model="user.type" 
                                         :options="(type != 'Secretariat') ? types : types2" 
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="col-md-8" v-if="type != 'Secretariat'">
                                     <div class="form-group">
-                                        <label>Organization<span v-if="errors.organization" class="haveerror">({{ errors.organization[0] }})</span></label>
+                                        <label>Organization: <span v-if="errors.organization" class="haveerror">({{ errors.organization[0] }})</span></label>
                                         <multiselect 
                                         v-model="user.organization" 
                                         :options="organizations" 
@@ -91,18 +91,18 @@
                                 </div>
                                 <div class="col-md-4" style="margin-top: 5px;">
                                     <div class="row" style="margin-top: 20px;">
-                                    <div class="col-md-4">
-                                        <div class="custom-control custom-radio mb-3">
-                                            <input type="radio" id="customRadio1" class="custom-control-input" checked="checked" value="Male" v-model="user.gender">
-                                            <label class="custom-control-label" for="customRadio1">Male</label>
+                                        <div class="col-md-4">
+                                            <div class="custom-control custom-radio mb-3">
+                                                <input type="radio" id="customRadio1" class="custom-control-input" checked="checked" value="Male" v-model="user.gender">
+                                                <label class="custom-control-label" for="customRadio1">Male</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="custom-control custom-radio mb-3">
-                                            <input type="radio" id="customRadio2" class="custom-control-input" checked="checked" value="Female" v-model="user.gender">
-                                            <label class="custom-control-label" for="customRadio2">Female</label>
+                                        <div class="col-md-8">
+                                            <div class="custom-control custom-radio mb-3">
+                                                <input type="radio" id="customRadio2" class="custom-control-input" checked="checked" value="Female" v-model="user.gender">
+                                                <label class="custom-control-label" for="customRadio2">Female</label>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                 errors: [], 
                 types: ['Secretariat','Regular Member','Laboratory Coordinator'],
                 types2: ['Regular Member','Laboratory Coordinator'],
-                user: {id: '',firstname: '',lastname: '',middlename: '',type: '', gender: '', mobile_no: '',birthdate: '',avatar: '', organization:''},
+                user: {id: '',firstname: '',lastname: '',middlename: '',type: '', gender: '', mobile: '',birthdate: '',avatar: '', organization:''},
                 photo: {show: false,url: '',signature: ''},
                 params: {token: '123456798',name: 'avatar'},
                 headers: {smail: '*_~'},
@@ -163,7 +163,7 @@
                     email: this.user.email,
                     birthdate: this.user.birthdate,
                     gender: this.user.gender,
-                    mobile_no: this.user.mobile,
+                    mobile: this.user.mobile,
                     type: this.user.type,
                     organization: this.user.organization,
                     avatar: this.photo.url,

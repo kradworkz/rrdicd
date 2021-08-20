@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\InventoryResource;
 use App\Http\Resources\EquipmentResource;
+use App\Http\Requests\InventoryRequest;
 
 class InventoryController extends Controller
 {
@@ -39,12 +40,10 @@ class InventoryController extends Controller
         return EquipmentResource::collection($data);
     }
 
-    public function store(Request $request){
+    public function store(InventoryRequest $request){
         \DB::transaction(function () use ($request){
             $data = ($request->input('editable')) ? Inventory::findOrFail($request->input('id')) : new Inventory;
             $data->name = ucwords($request->input('name'));
-            $data->quantity = $request->input('quantity');
-            $data->description = $request->input('description');
             $data->type = $request->input('type');
             $data->organization_id = Auth::user()->organization->organization_id;
             if($data->save()){
@@ -54,9 +53,10 @@ class InventoryController extends Controller
         });
     }
 
-    public function list($type,$id,$quantity){
-        $count = 1; 
+    public function list($type,$id,$quantity){ 
         ($type == "Basic") ? $type = 'BSC' : $type = 'SPCLZD';
+        $count = InventoryList::where('inventory_id',$id)->count();
+        $count = $count + 1;
 
         for($x = 0; $x<$quantity; $x++){
             $data = new InventoryList;
@@ -67,5 +67,14 @@ class InventoryController extends Controller
 
             $count ++;
         }
+    }
+
+    public function update(Request $request){
+        $data = InventoryList::findOrFail($request->input('id'));
+        ($request->purchase != null) ? $data->purchased_at = $request->purchase : '';
+        ($request->status != null) ? $data->status_id = $request->status['id'] : '';
+        $data->save();
+
+        return new EquipmentResource($data);
     }
 }

@@ -64,7 +64,7 @@
                 event : {
                     name: '',
                     schedule: '',
-                    type: '',
+                    type: {id: ''},
                     time: ''
                 },
                 types: [],
@@ -90,7 +90,7 @@
                     id: this.event.id,
                     name: this.event.name,
                     schedule: this.event.schedule,
-                    type: this.event.type.id,
+                    type: this.event.type,
                     time: this.event.time,
                     editable: this.editable,
                 })

@@ -13,7 +13,7 @@
                     <div class="customerform">
                        <div class="col-md-12">
                             <div class="form-group">
-                                <label>Member<span v-if="errors.member" class="haveerror">({{ errors.member[0] }})</span></label>
+                                <label>Member <span v-if="errors.member" class="haveerror">({{ errors.member[0] }})</span></label>
                                 <multiselect 
                                 v-model="member" 
                                 :options="members" 
@@ -75,7 +75,7 @@
 
             create(){
                 axios.post(this.currentUrl + '/request/admin/event/attendance', {
-                    user: this.member.id,
+                    member: this.member.id,
                     event: this.event.id,
                     representative: this.representative
                 })

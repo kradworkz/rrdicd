@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\ResearchResource;
 use App\Http\Requests\UploadRequest;
+use App\Http\Requests\ResearchRequest;
 use App\Models\ResearchTrainingAttachment as Attachment;
 
 class ResearchController extends Controller
@@ -36,15 +37,22 @@ class ResearchController extends Controller
         return ResearchResource::collection($data);
     }
 
-    public function store(Request $request){
+    public function store(ResearchRequest $request){
         \DB::transaction(function () use ($request){
+            
+            $i = json_decode($request->iprstatus);
+            $c = json_decode($request->classification);
+            $r = json_decode($request->researcher);
+
+
+            (\Auth::user()->type == 'Researcher') ? $user_id = \Auth::user()->id : $user_id = $r->id;
             
             $data = ($request->input('editable') == 'true') ? Research::findOrFail($request->input('id')) : new Research;
             $data->title = ucfirst(strtolower($request->input('title')));
             $data->content = 'Aa';
-            $data->iprstatus_id = $request->input('iprstatus');
-            $data->classification_id = $request->input('classification');
-            $data->user_id = \Auth::user()->id;
+            $data->iprstatus_id = $i->id;
+            $data->classification_id = $c->id;
+            $data->user_id = $user_id;
             
             if($data->save()){
                 if($request->input('old') == 'true'){

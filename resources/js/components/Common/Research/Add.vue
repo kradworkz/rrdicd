@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Reasearch Information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" @click="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -19,7 +19,7 @@
                         </div>
                          <div class="col-md-4">
                             <div class="form-group">
-                                <label>Researcher<span v-if="errors.researcher" class="haveerror">({{ errors.researcher[0] }})</span></label>
+                                <label>Researcher: <span v-if="errors.researcher" class="haveerror">({{ errors.researcher[0] }})</span></label>
                                 <multiselect 
                                 :custom-label="nameWithLang"
                                 v-model="research.researcher" 
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Classification<span v-if="errors.classification" class="haveerror">({{ errors.classification[0] }})</span></label>
+                                <label>Classification: <span v-if="errors.classification" class="haveerror">({{ errors.classification[0] }})</span></label>
                                 <multiselect 
                                 v-model="research.classification" 
                                 :options="classifications" 
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>IPR Status<span v-if="errors.iprstatus" class="haveerror">({{ errors.iprstatus[0] }})</span></label>
+                                <label>IPR Status: <span v-if="errors.iprstatus" class="haveerror">({{ errors.iprstatus[0] }})</span></label>
                                 <multiselect 
                                 v-model="research.iprstatus" 
                                 :options="iprs" 
@@ -74,7 +74,7 @@
                         
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Status<span v-if="errors.status" class="haveerror">({{ errors.status[0] }})</span></label>
+                                <label>Status: <span v-if="errors.status" class="haveerror">({{ errors.status[0] }})</span></label>
                                 <multiselect 
                                 v-model="research.status" 
                                 :options="statuses" 
@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Institution<span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
+                                <label>Institution: <span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
                                 <multiselect 
                                 v-model="research.institution" 
                                 :options="institutions" 
@@ -112,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><span v-if="editable == false">Save</span><span v-else>Update</span></button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" @click="close" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </form>
 
@@ -210,12 +210,14 @@
             },
 
             create(){
+                console.log(this.research.researcher);
                 let frm = new FormData();
                 frm.append('id', this.research.id);
                 frm.append('title', this.research.title);
-                frm.append('classification', this.research.classification.id);
-                frm.append('iprstatus', this.research.iprstatus.id);
+                frm.append('classification', (this.research.classification != '') ? JSON.stringify(this.research.classification) : '');
+                frm.append('iprstatus', (this.research.iprstatus != '') ? JSON.stringify(this.research.iprstatus) : '');
                 frm.append('period', this.research.period);
+                frm.append('researcher', (this.research.researcher != '') ? JSON.stringify(this.research.researcher) : '');
                 frm.append('editable', this.editable);
                 frm.append('old', this.old);
 
@@ -245,7 +247,18 @@
             },
 
             clear(){
-                this.research = {};
+               this.research = {
+                    id: '',
+                    title : '',
+                    classification: '',
+                    iprstatus: '',
+                    researcher: '',
+                    amount: '',
+                    date: '',
+                    period: '',
+                    status: '',
+                    institution: ''
+                },
                 this.editable = false;
             },
 
@@ -255,6 +268,10 @@
                 }else{
                     this.old = false;
                 }
+            },
+
+            close(){
+                this.errors = [];
             }
 
            

@@ -14,6 +14,16 @@ class Inventory extends Model
         return $this->hasMany('App\Models\InventoryList', 'inventory_id');
     } 
 
+    public function quantity()
+    {
+        return  $this->hasMany('App\Models\InventoryList', 'inventory_id')->count();
+    }
+
+    public function available()
+    {
+        return  $this->hasMany('App\Models\InventoryList', 'inventory_id')->where('status_id',41)->count();
+    }
+
     public function organization()
     {
         return $this->belongsTo('App\Models\Organization', 'organization_id', 'id');

@@ -28,7 +28,7 @@ class ResearcherResource extends JsonResource
             'birthdate' => $this->profile->birthdate,
             'lastname' => $this->profile->lastname,
             'designation' => $this->researcher->designation,
-            // 'specialty' => $this->researcher->specialty,
+            'specialty' => $this->researcher->specialty,
             'institution' => $this->researcher->institution,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

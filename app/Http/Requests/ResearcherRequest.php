@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StaffRequest extends FormRequest
+class ResearcherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class StaffRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'firstname' => 'required|string|max:100',
             'lastname' => 'required|string|max:100',
             'middlename' => 'required|string|max:10',
@@ -32,14 +32,11 @@ class StaffRequest extends FormRequest
             'gender' => 'required',
             'mobile' => 'required',
             'type' => 'required|string',
+            'institution' => 'required|array|min:1',
+            'designation' => 'required|array|min:1',
+            'specialty' => 'required|array|min:1',
             'avatar' => 'nullable|image64:jpeg,jpg,png',
         ];
-        
-        if(\Auth::user()->type == 'Administrator'){
-            $rules = array_merge($rules, ['organization' => 'required|array|min:1']);
-        }
-
-        return $rules;
     }
 
     public function messages()
@@ -53,7 +50,9 @@ class StaffRequest extends FormRequest
             'gender.required' => '* required',
             'mobile.required' => '* required',
             'type.required' => '* required',
-            'organization.required' => '* required',
+            'institution.required' => '* required',
+            'designation.required' => '* required',
+            'specialty.required' => '* required',
 
         ];
 

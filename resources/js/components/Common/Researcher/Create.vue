@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Designation <span v-if="errors.designation" class="haveerror">({{ errors.designation[0] }})</span></label>
+                                        <label>Designation: <span v-if="errors.designation" class="haveerror">({{ errors.designation[0] }})</span></label>
                                         <multiselect 
                                         v-model="user.designation" 
                                         :options="designations" 
@@ -79,7 +79,7 @@
                                 </div>
                                 <div v-if="type != 'Secretariat'" class="col-md-8">
                                     <div class="form-group">
-                                        <label>Institution<span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
+                                        <label>Institution: <span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
                                         <multiselect 
                                         v-model="user.institution" 
                                         :options="institutions" 
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Specialty<span v-if="errors.specialty" class="haveerror">({{ errors.specialty[0] }})</span></label>
+                                        <label>Specialty: <span v-if="errors.specialty" class="haveerror">({{ errors.specialty[0] }})</span></label>
                                         <multiselect 
                                         v-model="user.specialty" 
                                         :options="specialties" 
@@ -195,9 +195,9 @@
                     firstname: this.user.firstname,
                     lastname: this.user.lastname,
                     middlename: this.user.middlename,
-                    designation: this.user.designation.id,
+                    designation: this.user.designation,
                     institution: this.user.institution,
-                    specialty: this.user.specialty.id,
+                    specialty: this.user.specialty,
                     email: this.user.email,
                     birthdate: this.user.birthdate,
                     gender: this.user.gender,

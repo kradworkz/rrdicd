@@ -17,8 +17,6 @@ class CreateInventoriesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
-            $table->string('quantity');
-            $table->string('description')->nullable();
             $table->string('type',20);
             $table->smallInteger('organization_id')->unsigned()->index();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');

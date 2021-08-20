@@ -49,7 +49,7 @@ class StaffController extends Controller
         return StaffResource::collection($data);
     }
 
-    public function store(StoreImage $strmg, Request $request){
+    public function store(StoreImage $strmg, StaffRequest $request){
         \DB::transaction(function () use ($request,$strmg){
             
             $data = ($request->input('editable')) ? User::findOrFail($request->input('id')) : new User;
@@ -75,7 +75,7 @@ class StaffController extends Controller
                 $profile->lastname = ucwords(strtolower($request->input('lastname')));
                 $profile->middlename = ucwords(strtolower($request->input('middlename')));
                 $profile->birthdate = $request->input('birthdate');
-                $profile->mobile_no = $request->input('mobile_no');
+                $profile->mobile_no = $request->input('mobile');
                 $profile->gender = $request->input('gender');
                 $profile->user_id = $data->id;
                 $profile->save();

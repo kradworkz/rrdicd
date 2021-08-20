@@ -7,6 +7,7 @@ use App\Models\EventAttendance;
 use Illuminate\Http\Request;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\AttendeesResource;
+use App\Http\Requests\EventRequest;
 
 class EventController extends Controller
 {
@@ -14,21 +15,26 @@ class EventController extends Controller
         return view('user_admin.event');
     }
 
-    public function lists(){
-        $data = Event::with('status')->with('type')->orderBy('created_at','DESC')->paginate(5);
+    public function lists($keyword){
+        ($keyword == '-') ? $keyword = '' : $keyword;
+        $data = Event::with('status')->with('type')
+        ->where(function($q) use ($keyword) {
+            $q->where('name','LIKE','%'.$keyword.'%');
+        })
+        ->orderBy('created_at','DESC')->paginate(5);
 
         return EventResource::collection($data);
     }
 
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        $time = $request->time['hh'].':'.$request->time['mm'].' '.$request->time['A'];
+         $time = $request->time['hh'].':'.$request->time['mm'].' '.$request->time['A'];
         $time = date("H:i:s", strtotime($time));
 
         $data = ($request->input('editable')) ? Event::findOrFail($request->input('id')) : new Event;
         $data->name = ucwords($request->input('name'));
         $data->schedule = $request->input('schedule').' '.$time;
-        $data->type_id = $request->input('type');
+        $data->type_id = $request->input('type')['id'];
         $data->status_id = 5;
         $data->save();
 
@@ -36,6 +42,11 @@ class EventController extends Controller
     }
 
     public function attendance(Request $request){
+
+        $validated = $request->validate([
+            'member' => 'required',
+        ]);
+    
         $data = new EventAttendance;
         $data->user_id = $request->input('user');
         $data->event_id = $request->input('event');

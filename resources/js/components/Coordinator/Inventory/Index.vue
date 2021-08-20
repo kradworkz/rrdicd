@@ -36,8 +36,8 @@
                     <table class="table table-centered table-nowrap">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Available</th>
                                 <th class="text-center">Created At</th>
                                 <th class="text-center">Updated At</th>
                                 <th class="text-center">Action</th>
@@ -46,8 +46,8 @@
                         <tbody>
                             <tr v-for="equipment in equipments" v-bind:key="equipment.id">
                               
-                                <td>{{equipment.name}}</td>
-                                <td class="text-center">{{equipment.quantity}}</td>
+                                <td class="text-center">{{equipment.name}}</td>
+                                <td class="text-center">{{equipment.available}} of {{equipment.quantity}}</td>
                                 <td class="text-center font-size-12">{{equipment.created_at}}</td>
                                 <td class="text-center font-size-12">{{equipment.updated_at}}</td>
                                 <td class="text-center">
@@ -65,7 +65,7 @@
     </div>
 
     <div class="w-100" v-else>
-        <inventory-view :equipment="equipment" @status="message"></inventory-view>
+        <inventory-view :equipment="equipment" :type="type" @status="message"></inventory-view>
     </div>
     
     <div class="modal fade exampleModal" id="new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -140,6 +140,7 @@ export default {
                     this.fetch(page_url);
                 }else if(val == 'back'){
                     this.view = false;
+                    this.fetch();
                 }else{
                     this.fetch();
                 }

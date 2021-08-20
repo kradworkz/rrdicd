@@ -7,6 +7,7 @@ use App\Models\Organization;
 use Illuminate\Http\Request;
 use App\Services\StoreImage;
 use App\Http\Resources\DefaultResource;
+use App\Http\Requests\OrganizationRequest;
 
 class OrganizationController extends Controller
 {
@@ -22,7 +23,7 @@ class OrganizationController extends Controller
         return view('user_admin.a-funding');
     }
 
-    public function store(StoreImage $strmg, Request $request)
+    public function store(StoreImage $strmg, OrganizationRequest $request)
     {   
         $type = $request->input('type');
         $data = ($request->input('editable')) ? Organization::findOrFail($request->input('id')) : new Organization;

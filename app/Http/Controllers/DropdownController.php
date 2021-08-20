@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dropdown;
 use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
+use App\Http\Requests\DropdownRequest;
 
 class DropdownController extends Controller
 {
@@ -28,7 +29,7 @@ class DropdownController extends Controller
         return DefaultResource::collection($data);
     }
 
-    public function store(Request $request){
+    public function store(DropdownRequest $request){
         $data = new Dropdown;
         $data->name =  ucwords(strtolower($request->input('name')));
         $data->type = ($request->input('type')!= null) ? $request->input('type') : 'n/a';

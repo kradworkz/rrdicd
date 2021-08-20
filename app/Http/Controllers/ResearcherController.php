@@ -11,6 +11,7 @@ use App\Services\StoreImage;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\ResearcherResource;
 use App\Http\Resources\SearchResearcherResource;
+use App\Http\Requests\ResearcherRequest;
 
 class ResearcherController extends Controller
 {
@@ -38,7 +39,7 @@ class ResearcherController extends Controller
         return ResearcherResource::collection($data);
     }
 
-    public function store(StoreImage $strmg, Request $request){
+    public function store(StoreImage $strmg, ResearcherRequest $request){
         \DB::transaction(function () use ($request,$strmg){
 
             $data = ($request->input('editable')) ? User::findOrFail($request->input('id')) : new User;
@@ -78,8 +79,8 @@ class ResearcherController extends Controller
     public function researcher(Request $request,$id){
         $organization_id = (!empty(Auth::user()->organization->organization_id)) ? Auth::user()->organization->organization_id : $request->input('institution')['id'];
         $data = new Researcher;
-        $data->designation_id = $request->designation;
-        $data->specialty_id = $request->specialty;
+        $data->designation_id = $request->designation['id'];
+        $data->specialty_id = $request->specialty['id'];
         $data->institution_id = $organization_id;
         $data->user_id = $id;
         if($data->save()){

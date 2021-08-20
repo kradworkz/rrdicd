@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Institution: <span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
+                                <label>Funding Agency: <span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
                                 <multiselect 
                                 v-model="research.institution" 
                                 :options="institutions" 

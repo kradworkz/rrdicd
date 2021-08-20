@@ -1901,16 +1901,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       currentUrl: window.location.origin,
       errors: [],
-      statuses: []
+      statuses: [],
+      total: []
     };
   },
   created: function created() {
     this.fetchStatuses();
+    this.fetchTotals();
   },
   methods: {
     fetchStatuses: function fetchStatuses() {
@@ -1918,6 +1938,16 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(this.currentUrl + '/request/admin/dropdowncount/Status/Research Status').then(function (response) {
         _this.statuses = response.data.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    fetchTotals: function fetchTotals() {
+      var _this2 = this;
+
+      axios.get(this.currentUrl + '/request/admin/totals').then(function (response) {
+        _this2.total = response.data[0];
+        console.log(_this2.total);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -62827,35 +62857,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "text-center text-muted" }, [
-            _c(
-              "div",
-              { staticClass: "row justify-content-center" },
-              _vm._l(_vm.statuses, function(list, index) {
-                return _c("div", { key: list.id, staticClass: "col-lg-2" }, [
-                  _c("div", { staticClass: "mt-2" }, [
-                    _c("p", { staticClass: "mb-2 text-truncate" }, [
-                      _c("i", {
-                        class: "bx bxs-circle text-" + list.color + " mr-1"
-                      }),
-                      _vm._v(_vm._s(list.name))
-                    ]),
-                    _vm._v(" "),
-                    _c("h5", [_vm._v(_vm._s(list.counts))])
+  return _c(
+    "div",
+    { staticClass: "row" },
+    [
+      _vm._l(_vm.total, function(list, index) {
+        return _c("div", { key: list.id, staticClass: "col-lg-4" }, [
+          _c("div", { staticClass: "card mini-stats-wid" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "d-flex flex-wrap" }, [
+                _c("div", { staticClass: "mr-3" }, [
+                  _c("p", { staticClass: "text-muted text-truncate mb-2" }, [
+                    _vm._v(_vm._s(list.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "mb-0" }, [
+                    _vm._v(_vm._s(list.count))
                   ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "avatar-sm ml-auto" }, [
+                  _c(
+                    "div",
+                    {
+                      class:
+                        "avatar-title bg-light rounded-circle text-" +
+                        list.color +
+                        " font-size-20"
+                    },
+                    [_c("i", { class: "bx " + list.icon + "" })]
+                  )
                 ])
-              }),
-              0
-            )
+              ])
+            ])
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "text-center text-muted" }, [
+              _c(
+                "div",
+                { staticClass: "row justify-content-center" },
+                _vm._l(_vm.statuses, function(list, index) {
+                  return _c("div", { key: list.id, staticClass: "col-lg-2" }, [
+                    _c("div", { staticClass: "mt-2" }, [
+                      _c("p", { staticClass: "mb-2 text-truncate" }, [
+                        _c("i", {
+                          class: "bx bxs-circle text-" + list.color + " mr-1"
+                        }),
+                        _vm._v(_vm._s(list.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v(_vm._s(list.counts))])
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66028,7 +66096,7 @@ var render = function() {
                           { staticClass: "form-group" },
                           [
                             _c("label", [
-                              _vm._v("Institution: "),
+                              _vm._v("Funding Agency: "),
                               _vm.errors.institution
                                 ? _c("span", { staticClass: "haveerror" }, [
                                     _vm._v(

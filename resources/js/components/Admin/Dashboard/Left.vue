@@ -1,6 +1,24 @@
 <template>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-4" v-for="(list,index) in total" v-bind:key="list.id">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="d-flex flex-wrap">
+                    <div class="mr-3">
+                        <p class="text-muted text-truncate mb-2">{{list.name}}</p>
+                        <h5 class="mb-0">{{list.count}}</h5>
+                    </div>
+
+                    <div class="avatar-sm ml-auto">
+                        <div :class="'avatar-title bg-light rounded-circle text-'+list.color+' font-size-20'">
+                            <i :class="'bx '+list.icon+''"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
                 <div class="text-center text-muted">
@@ -26,11 +44,13 @@
                 currentUrl: window.location.origin,
                 errors: [],
                 statuses: [],
+                total: []
             }   
         },
 
         created(){
             this.fetchStatuses();
+            this.fetchTotals();
         },
 
         methods : {
@@ -42,6 +62,14 @@
                 .catch(err => console.log(err));
             },
 
+            fetchTotals(){
+                axios.get(this.currentUrl + '/request/admin/totals')
+                .then(response => {
+                    this.total = response.data[0];
+                    console.log(this.total);
+                })
+                .catch(err => console.log(err));
+            },
 
         }
     }

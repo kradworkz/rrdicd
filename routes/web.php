@@ -70,6 +70,7 @@ Route::prefix('request')->group(function () {
         Route::get('/event/remove/{id}', 'EventController@remove');
         Route::get('/event/today', 'EventController@today');
 
+        Route::get('/totals', 'DashboardController@total');
     });
 
     Route::prefix('common')->group(function () {

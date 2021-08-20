@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dropdown;
 use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
+use App\Http\Resources\DropdownResource;
 use App\Http\Requests\DropdownRequest;
 
 class DropdownController extends Controller
@@ -39,4 +40,17 @@ class DropdownController extends Controller
 
         return new DefaultResource($data);
     }
+
+    public function count($classification,$type)
+    {
+        ($type == '-') ? $type = '' : $type;
+        $query = Dropdown::query();
+        ($type != '') ? $query->where('type',$type) : '';
+        $data = $query->where('classification',$classification)->get();
+
+        return DropdownResource::collection($data);
+    }
+
+    
+    
 }

@@ -54,6 +54,7 @@ Route::prefix('request')->group(function () {
         Route::get('/dropdowns/{classification}/{type}', 'DropdownController@lists');
         Route::get('/dropdown/{classification}/{type}/{keyword}', 'DropdownController@list');
         Route::post('/dropdown/store', 'DropdownController@store');
+        Route::get('/dropdowncount/{classification}/{type}', 'DropdownController@count');
 
         Route::get('/organizations/{type}/{keyword}', 'OrganizationController@list');
         Route::get('/organization/list/{type}', 'OrganizationController@lists');
@@ -67,6 +68,7 @@ Route::prefix('request')->group(function () {
         Route::get('/event/attendees/{id}', 'EventController@attendees');
         Route::get('/event/print/{id}', 'EventController@print');
         Route::get('/event/remove/{id}', 'EventController@remove');
+        Route::get('/event/today', 'EventController@today');
 
     });
 

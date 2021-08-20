@@ -22,6 +22,10 @@ Vue.use(VueToast);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('secretariat', require('./components/Admin/Dashboard/Index.vue').default);
+Vue.component('secretariat-left', require('./components/Admin/Dashboard/Left.vue').default);
+Vue.component('secretariat-right', require('./components/Admin/Dashboard/Right.vue').default);
+Vue.component('secretariat-top', require('./components/Admin/Dashboard/Top.vue').default);
 
 Vue.component('dropdowns', require('./components/Admin/Dropdown/Index.vue').default);
 Vue.component('dropdown-create', require('./components/Admin/Dropdown/Create.vue').default);

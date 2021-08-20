@@ -17,6 +17,6 @@
             </div>
         </div>
 
-        <users></users>
+        <secretariat></secretariat>
        
 @endsection

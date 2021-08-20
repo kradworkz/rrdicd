@@ -65,7 +65,7 @@ class DropdownsTableSeeder extends Seeder
                 'name' => 'Ongoing',
                 'type' => 'Research Status',
                 'classification' => 'Status',
-                'color' => 'blue',
+                'color' => 'gray',
             ),
             6 => 
             array (
@@ -73,7 +73,7 @@ class DropdownsTableSeeder extends Seeder
                 'name' => 'Completed',
                 'type' => 'Research Status',
                 'classification' => 'Status',
-                'color' => 'green',
+                'color' => 'blue',
             ),
             7 => 
             array (
@@ -81,7 +81,7 @@ class DropdownsTableSeeder extends Seeder
                 'name' => 'Operational',
                 'type' => 'Research Status',
                 'classification' => 'Status',
-                'color' => 'info',
+                'color' => 'green',
             ),
             8 => 
             array (
@@ -89,7 +89,7 @@ class DropdownsTableSeeder extends Seeder
                 'name' => 'Declined',
                 'type' => 'Research Status',
                 'classification' => 'Status',
-                'color' => 'danger',
+                'color' => 'red',
             ),
             9 => 
             array (
@@ -322,6 +322,38 @@ class DropdownsTableSeeder extends Seeder
                 'type' => 'n/a',
                 'classification' => 'Designations',
                 'color' => 'n/a',
+            ),
+            38 => 
+            array (
+                'id' => 39,
+                'name' => 'Quarterly Meeting',
+                'type' => 'calendar',
+                'classification' => 'Events',
+                'color' => 'green',
+            ),
+            39 => 
+            array (
+                'id' => 40,
+                'name' => 'Special Meeting',
+                'type' => 'calendar-exclamation',
+                'classification' => 'Events',
+                'color' => 'red',
+            ),
+            40 => 
+            array (
+                'id' => 41,
+                'name' => 'Functional',
+                'type' => 'Inventory',
+                'classification' => 'Status',
+                'color' => 'green',
+            ),
+            41 => 
+            array (
+                'id' => 42,
+                'name' => 'Non-functional',
+                'type' => 'Inventory',
+                'classification' => 'Status',
+                'color' => 'red',
             ),
         ));
         

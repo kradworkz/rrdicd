@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\EventAttendance;
 use Illuminate\Http\Request;
 use App\Http\Resources\EventResource;
+use App\Http\Resources\DefaultResource;
 use App\Http\Resources\AttendeesResource;
 use App\Http\Requests\EventRequest;
 
@@ -48,7 +49,7 @@ class EventController extends Controller
         ]);
     
         $data = new EventAttendance;
-        $data->user_id = $request->input('user');
+        $data->user_id = $request->input('member');
         $data->event_id = $request->input('event');
         ($request->input('representative') != null) ? $data->representative = $request->input('representative') : '';
         $data->save();
@@ -86,5 +87,10 @@ class EventController extends Controller
 
         $pdf = \PDF::loadView('user_admin.print-attendance',$array);
         return $pdf->download($event['name'].'.pdf');
+    }
+
+    public function today(){
+        $data = Event::whereDate('schedule',date('Y-m-d'))->first();
+        return new EventResource($data);
     }
 }

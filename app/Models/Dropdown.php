@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Event;
+use App\Models\Research;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,5 +41,17 @@ class Dropdown extends Model
     public function getCreatedAtAttribute($value)
     {
         return date('M d, Y g:i a', strtotime($value));
+    }
+
+    public function count()
+    {
+        $count = Event::where('type_id',$this->id)->where('status_id',5)->count();
+        return $count;
+    }
+
+    public function statuses()
+    {
+        $count = Research::where('status_id',$this->id)->count();
+        return $count;
     }
 }

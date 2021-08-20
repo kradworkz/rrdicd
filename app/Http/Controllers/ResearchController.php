@@ -53,6 +53,7 @@ class ResearchController extends Controller
             $data->iprstatus_id = $i->id;
             $data->classification_id = $c->id;
             $data->user_id = $user_id;
+            $data->status_id = ($request->input('old') == 'true') ? $request->input('status') : 5;
             
             if($data->save()){
                 if($request->input('old') == 'true'){

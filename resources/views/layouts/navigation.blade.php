@@ -25,6 +25,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/files" class="waves-effect">
+                    <i class='bx bx-file'></i>
+                        <span key="t-chat">Files</span>
+                    </a>
+                </li>
+                <li>
                     <a class="waves-effect">
                     <i class='bx bxs-user-circle'></i>
                         <span key="t-chat">Users</span>

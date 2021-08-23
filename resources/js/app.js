@@ -59,6 +59,12 @@ Vue.component('coordinator', require('./components/Coordinator/Index.vue').defau
 Vue.component('inventory', require('./components/Coordinator/Inventory/Index.vue').default);
 Vue.component('inventory-create', require('./components/Coordinator/Inventory/Create.vue').default);
 Vue.component('inventory-view', require('./components/Coordinator/Inventory/View.vue').default);
+
+// SECRETARIAT //
+
+Vue.component('file', require('./components/Secretariat/File/Index.vue').default);
+Vue.component('file-create', require('./components/Secretariat/File/Create.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

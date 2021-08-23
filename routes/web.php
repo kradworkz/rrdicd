@@ -37,6 +37,7 @@ Route::middleware(['role:Administrator','auth'])->group(function () {
 
 Route::middleware(['role:Administrator,Secretariat','auth'])->group(function () {
     Route::get('/staffs', 'StaffController@index');
+    Route::get('/files', 'FileController@index');
     Route::get('/researches', 'ResearchController@index');
     Route::get('/researchers', 'ResearcherController@index');
 });
@@ -71,6 +72,9 @@ Route::prefix('request')->group(function () {
         Route::get('/event/today', 'EventController@today');
 
         Route::get('/totals', 'DashboardController@total');
+
+        Route::get('/files/{keyword}', 'FileController@list');
+        Route::post('/file/store', 'FileController@store');
     });
 
     Route::prefix('common')->group(function () {

@@ -3,7 +3,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h6 class="card-title mb-3 font-size-14">Current Event</h6>
+                <h6 class="card-title mb-3 font-size-14">Current Event </h6>
                     <div class="mt-2">
                         <div class="card border shadow-none mb-2" @click="attendance()">
                             <a href="javascript: void(0);" class="text-body">
@@ -14,10 +14,13 @@
                                                 <i class="bx bxs-alarm-exclamation bx-tada" style="font-size: 30px;"></i>
                                             </div>
                                         </div>
-
-                                        <div class="overflow-hidden mr-auto">
+                                        
+                                        <div v-if="event.length == 0" class="overflow-hidden mr-auto">
+                                            <h4 class="text-danger font-size-15 text-truncate mb-1 mt-2">NO CURRENT EVENT</h4>
+                                        </div>
+                                        <div v-else class="overflow-hidden mr-auto">
                                             <h5 class="text-info font-size-13 text-truncate mb-1 mt-1">{{event.name}}</h5>
-                                            <p class="text-warning text-truncate mb-0">{{event.type.name}}</p>
+                                            <p v-if="event.length > 0" class="text-warning text-truncate mb-0">{{event.type.name}}</p>
                                             <h6 class="text-muted font-size-12 text-truncate mt-1 mb-1">{{event.date}}</h6>
                                         </div>
                                     </div>

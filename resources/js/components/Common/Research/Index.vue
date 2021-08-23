@@ -64,7 +64,7 @@
                     </table>
                 </div>
             </div>
-            <div class="card-body" v-else>
+            <div class="w-100" v-else>
                 <research-view :research="research" @status="message"></research-view>
             </div>
 

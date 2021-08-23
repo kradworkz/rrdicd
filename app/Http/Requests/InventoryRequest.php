@@ -23,11 +23,26 @@ class InventoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:200',
-            'quantity' => 'required|integer',
-    
-        ];
+        if(!empty($this->lists)){
+            $rules = [
+                'type' => 'required|string',
+            ];
+
+            foreach($this->lists as $key => $staff) {
+                // just check if the email it's not unique
+                    $rules = array_merge($rules, ['lists.'.$key.'.name' => 'required|string|unique:inventories,name']);
+                    $rules = array_merge($rules, ['lists.'.$key.'.quantity' => 'required|integer']);
+            
+            }
+        }else{
+            $rules = [
+                'name' => 'required|string|unique:inventories,name',
+                'quantity' => 'required|integer',
+                'type' => 'required|string',
+            ];
+        }
+
+        return $rules;
     }
 
     public function messages()

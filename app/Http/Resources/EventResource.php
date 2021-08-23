@@ -14,35 +14,37 @@ class EventResource extends JsonResource
      */
     public function toArray($request)
     {   
-        $time = $this->schedule;
-        $times = explode(" ", $time);
+        if(!empty($this->schedule)){
+            $time = $this->schedule;
+            $times = explode(" ", $time);
 
-        $newtime = date('g:i a', strtotime($times[1]));
+            $newtime = date('g:i a', strtotime($times[1]));
 
-        $t = explode(" ", $newtime);
+            $t = explode(" ", $newtime);
 
-        $a = $t[1];
+            $a = $t[1];
 
-        $n = explode(":", $t[0]);
+            $n = explode(":", $t[0]);
 
-        $hh = $n[0];
-        $mm = $n[1];
+            $hh = $n[0];
+            $mm = $n[1];
 
-        $arr = [
-            'A' => strtoupper($a),
-            'hh' => $hh,
-            'mm' => $mm
-        ];
-
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'schedule' => $times[0],
-            'date' => $this->date(),
-            'time' => $arr,
-            'type' => $this->type,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
-        ];
+            $arr = [
+                'A' => strtoupper($a),
+                'hh' => $hh,
+                'mm' => $mm
+            ];
+        
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'schedule' => $times[0],
+                'date' => $this->date(),
+                'time' => $arr,
+                'type' => $this->type,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at
+            ];
+        }
     }
 }

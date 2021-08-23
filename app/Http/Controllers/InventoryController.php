@@ -42,18 +42,37 @@ class InventoryController extends Controller
 
     public function store(InventoryRequest $request){
         \DB::transaction(function () use ($request){
-            $data = ($request->input('editable')) ? Inventory::findOrFail($request->input('id')) : new Inventory;
-            $data->name = ucwords($request->input('name'));
-            $data->type = $request->input('type');
-            $data->organization_id = Auth::user()->organization->organization_id;
-            if($data->save()){
-                $this->list($data->type,$data->id,$request->input('quantity'));
-                return new DefaultResource($data);
+
+            if($request->input('editable')){
+                $data = ($request->input('editable')) ? Inventory::findOrFail($request->input('id')) : new Inventory;
+                $data->name = ucwords($request->input('name'));
+                $data->type = $request->input('type');
+                $data->organization_id = Auth::user()->organization->organization_id;
+                if($data->save()){
+                    $this->list($data->type,$data->id,$request->input('quantity'));
+                    return new DefaultResource($data);
+                }
+            }else{
+                $lists = $request->input('lists');
+                if(!empty($lists)){
+                    foreach($lists as $list)
+                    {
+                        $data = new Inventory;
+                        $data->name = ucwords(strtolower($list['name']));
+                        $data->type = $request->input('type');
+                        $data->organization_id = Auth::user()->organization->organization_id;
+                        if($data->save()){
+                            $this->listFunc($data->type,$data->id,$list['quantity']);
+                        }
+                    }
+                }else{
+                    return 'empty';
+                }
             }
         });
     }
 
-    public function list($type,$id,$quantity){ 
+    public function listFunc($type,$id,$quantity){ 
         ($type == "Basic") ? $type = 'BSC' : $type = 'SPCLZD';
         $count = InventoryList::where('inventory_id',$id)->count();
         $count = $count + 1;

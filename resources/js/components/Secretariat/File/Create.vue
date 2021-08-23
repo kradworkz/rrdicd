@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="modal-dialog modal-dialog-centered modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -34,6 +35,13 @@
 
         </div>
     </div>
+     <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        loader="dots"
+        background-color="black"
+        :is-full-page="fullPage">
+        </loading>
+        </div>
 </template>
 
 <script>
@@ -47,6 +55,8 @@
                 file: '',
                 attachments: [],
                 editable : false,
+                 isLoading: false,
+                fullPage: true
             }
         },
 
@@ -75,6 +85,7 @@
                         }
                     });
                 }else{
+                     this.isLoading = true;
                     const config = {
                         headers: {
                             'content-type': 'multipart/form-data'
@@ -91,7 +102,9 @@
                         this.$emit('status', true);
                     })
                     .catch(error => {
+                         this.isLoading = false;
                         existingObj.output = err;
+                        
                     });
                 }
             },

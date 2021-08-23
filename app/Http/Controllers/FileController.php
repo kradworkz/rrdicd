@@ -22,7 +22,7 @@ class FileController extends Controller
         return FileResource::collection($data);
     }
 
-    public function store(FileRequest $request){
+    public function store(Request $request){
         if($request->input('editable')){
             $data = File::findOrFail($request->input('id'));
             $data->name = pathinfo($file_name, PATHINFO_FILENAME);

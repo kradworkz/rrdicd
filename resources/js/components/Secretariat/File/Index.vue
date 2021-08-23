@@ -138,7 +138,6 @@ export default {
                     position: 'bottom-right'
                 });
             }
-
             $("#add").modal('hide');
         },
 

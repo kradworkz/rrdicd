@@ -5753,6 +5753,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5762,7 +5770,9 @@ __webpack_require__.r(__webpack_exports__);
       name: '',
       file: '',
       attachments: [],
-      editable: false
+      editable: false,
+      isLoading: false,
+      fullPage: true
     };
   },
   methods: {
@@ -5791,6 +5801,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       } else {
+        this.isLoading = true;
         var config = {
           headers: {
             'content-type': 'multipart/form-data'
@@ -5806,6 +5817,7 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('/request/admin/file/store', data, config).then(function (response) {
           _this.$emit('status', true);
         })["catch"](function (error) {
+          _this.isLoading = false;
           existingObj.output = err;
         });
       }
@@ -70820,129 +70832,169 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "modal-dialog modal-dialog-centered modal",
-      attrs: { role: "document" }
-    },
     [
-      _c("div", { staticClass: "modal-content" }, [
-        _c("div", { staticClass: "modal-header" }, [
-          _c(
-            "h5",
-            { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-            [_vm._v("File")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "close",
-              attrs: {
-                type: "button",
-                "data-dismiss": "modal",
-                "aria-label": "Close"
-              },
-              on: { click: _vm.close }
-            },
-            [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.save.apply(null, arguments)
-              }
-            }
-          },
-          [
-            _c("div", { staticClass: "modal-body" }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
               _c(
-                "div",
+                "h5",
                 {
-                  staticClass: "row customerform",
-                  staticStyle: { "margin-right": "10px", "margin-left": "10px" }
+                  staticClass: "modal-title",
+                  attrs: { id: "exampleModalLabel" }
                 },
-                [
-                  _vm.editable == true
-                    ? _c("div", { staticClass: "col-md-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", [
-                            _vm._v("Name: "),
-                            _vm.errors.name
-                              ? _c("span", { staticClass: "haveerror" }, [
-                                  _vm._v("(" + _vm._s(_vm.errors.name[0]) + ")")
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.file.name,
-                                expression: "file.name"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            staticStyle: { "text-transform": "capitalize" },
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.file.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.file, "name", $event.target.value)
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "mt-2 mb-4",
-                      attrs: { multiple: "", type: "file" },
-                      on: { change: _vm.uploadFieldChange }
-                    })
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [
-                  _vm.editable == false
-                    ? _c("span", [_vm._v("Save")])
-                    : _c("span", [_vm._v("Update")])
-                ]
+                [_vm._v("File")]
               ),
               _vm._v(" "),
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "button", "data-dismiss": "modal" },
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "modal",
+                    "aria-label": "Close"
+                  },
                   on: { click: _vm.close }
                 },
-                [_vm._v("Cancel")]
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
               )
-            ])
-          ]
-        )
-      ])
-    ]
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.save.apply(null, arguments)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "modal-body" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "row customerform",
+                      staticStyle: {
+                        "margin-right": "10px",
+                        "margin-left": "10px"
+                      }
+                    },
+                    [
+                      _vm.editable == true
+                        ? _c("div", { staticClass: "col-md-12" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [
+                                _vm._v("Name: "),
+                                _vm.errors.name
+                                  ? _c("span", { staticClass: "haveerror" }, [
+                                      _vm._v(
+                                        "(" + _vm._s(_vm.errors.name[0]) + ")"
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.file.name,
+                                    expression: "file.name"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                staticStyle: { "text-transform": "capitalize" },
+                                attrs: { type: "text" },
+                                domProps: { value: _vm.file.name },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.file,
+                                      "name",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "mt-2 mb-4",
+                          attrs: { multiple: "", type: "file" },
+                          on: { change: _vm.uploadFieldChange }
+                        })
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [
+                      _vm.editable == false
+                        ? _c("span", [_vm._v("Save")])
+                        : _c("span", [_vm._v("Update")])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                      on: { click: _vm.close }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ])
+              ]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("loading", {
+        attrs: {
+          active: _vm.isLoading,
+          "can-cancel": true,
+          loader: "dots",
+          "background-color": "black",
+          "is-full-page": _vm.fullPage
+        },
+        on: {
+          "update:active": function($event) {
+            _vm.isLoading = $event
+          }
+        }
+      })
+    ],
+    1
   )
 }
 var staticRenderFns = [
@@ -70959,7 +71011,7 @@ var staticRenderFns = [
       [
         _c("i", { staticClass: "mdi mdi-alert-outline mr-2" }),
         _vm._v(
-          "\n                            Allowed Filetype : PDF, Docx\n                        "
+          "\r\n                                Allowed Filetype : PDF, Docx\r\n                            "
         )
       ]
     )

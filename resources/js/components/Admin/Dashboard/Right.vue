@@ -41,7 +41,7 @@
                                             <i class="bx bxs-file bx-tada" style="font-size: 30px;"></i>
                                         </div>
                                     </div>
-                                     <div v-if="research.length == 0" class="overflow-hidden mr-auto">
+                                     <div v-if="research == null" class="overflow-hidden mr-auto">
                                         <h4 class="text-danger font-size-15 text-truncate mb-1 mt-2">NO RESEARCH FOUND</h4>
                                     </div>
                                     <div v-else class="overflow-hidden mr-auto">

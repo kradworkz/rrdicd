@@ -63905,7 +63905,7 @@ var render = function() {
                   _c("div", { staticClass: "d-flex" }, [
                     _vm._m(0),
                     _vm._v(" "),
-                    _vm.research.length == 0
+                    _vm.research == null
                       ? _c("div", { staticClass: "overflow-hidden mr-auto" }, [
                           _c(
                             "h4",

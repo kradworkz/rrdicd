@@ -30,6 +30,9 @@
                                 <a @click="change('Events')" :class="{active:selected == 'Events'}">
                                     <i class='bx bx-list-check mr-2'></i>Events
                                 </a>
+                                  <a @click="change('Qualifications')" :class="{active:selected == 'Qualifications'}">
+                                    <i class='bx bx-list-check mr-2'></i>Qualifications
+                                </a>
                             </div>
                         </div>
                     </div>

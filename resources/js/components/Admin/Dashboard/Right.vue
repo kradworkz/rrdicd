@@ -3,32 +3,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h6 class="card-title mb-3 font-size-14">Current Event </h6>
-                    <div class="mt-2">
-                        <div class="card border shadow-none mb-2" @click="attendance()">
-                            <a href="javascript: void(0);" class="text-body">
-                                <div class="p-2">
-                                    <div class="d-flex">
-                                       <div class="avatar-xs align-self-center ml-2 mr-3">
-                                            <div class="'avatar-title rounded bg-transparent text-warning font-size-20'">
-                                                <i class="bx bxs-alarm-exclamation bx-tada" style="font-size: 30px;"></i>
-                                            </div>
-                                        </div>
-                                        
-                                        <div v-if="event.length == 0" class="overflow-hidden mr-auto">
-                                            <h4 class="text-danger font-size-15 text-truncate mb-1 mt-2">NO CURRENT EVENT</h4>
-                                        </div>
-                                        <div v-else class="overflow-hidden mr-auto">
-                                            <h5 class="text-info font-size-13 text-truncate mb-1 mt-1">{{event.name}}</h5>
-                                            <p v-if="event.length > 0" class="text-warning text-truncate mb-0">{{event.type.name}}</p>
-                                            <h6 class="text-muted font-size-12 text-truncate mt-1 mb-1">{{event.date}}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>           
-                    </div>
-                <hr></hr>
+                <h6 class="card-title mb-3 font-size-12">Latests Happenings</h6>
                 <div class="chat-leftsidebar-nav">
                     <div class="mt-2" v-for="(event,index) in events" v-bind:key="event.id">
                         <div class="card border shadow-none mb-2">
@@ -55,6 +30,73 @@
                         </div>           
                     </div>
                 </div>
+                <hr></hr>
+                <div class="mt-2">
+                    <div class="card border shadow-none mb-2">
+                        <a class="text-body">
+                            <div class="p-2">
+                                <div class="d-flex">
+                                    <div class="avatar-xs align-self-center ml-2 mr-3">
+                                        <div class="'avatar-title rounded bg-transparent text-danger font-size-20'">
+                                            <i class="bx bxs-file bx-tada" style="font-size: 30px;"></i>
+                                        </div>
+                                    </div>
+                                     <div v-if="research.length == 0" class="overflow-hidden mr-auto">
+                                        <h4 class="text-danger font-size-15 text-truncate mb-1 mt-2">NO RESEARCH FOUND</h4>
+                                    </div>
+                                    <div class="overflow-hidden mr-auto">
+                                        <h5 class="text-danger font-size-13 text-truncate mb-1 mt-1">{{research.title}}</h5>
+                                        <p class="text-secondary text-truncate mb-0">{{research.user.profile.firstname}} {{research.user.profile.lastname}}</p>
+                                        <h6 class="text-muted font-size-12 text-truncate mt-1 mb-1">{{research.created_at}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>           
+                </div>
+                <div class="mt-2">
+                    <div class="card border shadow-none mb-2" @click="attendance()">
+                        <a class="text-body">
+                            <div class="p-2">
+                                <div class="d-flex">
+                                    <div class="avatar-xs align-self-center ml-2 mr-3">
+                                        <div class="'avatar-title rounded bg-transparent text-warning font-size-20'">
+                                            <i class="bx bxs-calendar-exclamation bx-tada" style="font-size: 30px;"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div v-if="event.length == 0" class="overflow-hidden mr-auto">
+                                        <h4 class="text-warning font-size-15 text-truncate mb-1 mt-2">NO CURRENT EVENT</h4>
+                                    </div>
+                                    <div v-else class="overflow-hidden mr-auto">
+                                        <h5 class="text-warning font-size-13 text-truncate mb-1 mt-1">{{event.name}}</h5>
+                                        <p v-if="event.length > 0" class="text-warning text-truncate mb-0">{{event.type.name}}</p>
+                                        <h6 class="text-muted font-size-12 text-truncate mt-1 mb-1">{{event.date}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>           
+                </div>
+                <div class="mt-2">
+                    <div class="card border shadow-none mb-2">
+                        <a :href="currentUrl+file.path" target="_blank" class="text-body">
+                            <div class="p-2">
+                                <div class="d-flex">
+                                    <div class="avatar-xs align-self-center ml-2 mr-3">
+                                        <div class="'avatar-title rounded bg-transparent text-info font-size-20'">
+                                            <i class='bx bx-cloud-download bx-tada' style="font-size: 30px;"></i>
+                                        </div>
+                                    </div>
+                                   <div class="overflow-hidden mr-auto">
+                                        <p class="text-info text-truncate mb-0">{{file.name.substring(0,30)+".."}}</p>
+                                        <h6 class="text-muted font-size-12 text-truncate mt-1 mb-1">{{file.created_at}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>           
+                </div>
             </div>
         </div>
     </div>
@@ -73,28 +115,27 @@
                 events: [],
                 event: {
                     type: ''
-                }
+                },
+                file: {
+                    name: ''
+                },
+                research: {}
             }   
         },
 
         created(){
-            this.fetchEvents();
-            this.fetchEvent();
+            this.fetch();
         },
 
         methods : {
-            fetchEvents(){
-                axios.get(this.currentUrl + '/request/admin/dropdowncount/Events/-')
+            fetch(){
+                axios.get(this.currentUrl + '/request/admin/side')
                 .then(response => {
-                    this.events = response.data.data;
-                })
-                .catch(err => console.log(err));
-            },
+                   this.event = response.data[0][0];
+                   this.file = response.data[0][1];
+                   this.events =  response.data[0][2];
+                   this.research = response.data[0][3];
 
-            fetchEvent(){
-                axios.get(this.currentUrl + '/request/admin/event/today')
-                .then(response => {
-                    this.event = response.data.data;
                 })
                 .catch(err => console.log(err));
             },

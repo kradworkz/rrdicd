@@ -72,9 +72,12 @@ Route::prefix('request')->group(function () {
         Route::get('/event/today', 'EventController@today');
 
         Route::get('/totals', 'DashboardController@total');
+        Route::get('/side', 'DashboardController@side');
+        Route::get('/ages', 'DashboardController@ages');
 
         Route::get('/files/{keyword}', 'FileController@list');
         Route::post('/file/store', 'FileController@store');
+        Route::get('/file/today', 'FileController@today');
     });
 
     Route::prefix('common')->group(function () {

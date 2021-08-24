@@ -25,4 +25,22 @@ class UserProfile extends Model
     {
         return date('M d, Y g:i a', strtotime($value));
     }
+
+    public function scopeAgedBetween($query, $start, $end = null)
+    {
+        if (is_null($end)) {
+            $end = $start;
+        }
+
+        $now = $this->freshTimestamp();
+        $start = $now->subYears($start);
+        $start = date('Y-m-d', strtotime($start));
+        $end = $now->subYears($end)->addYear()->subDay(); // plus 1 year minus a day
+        $end = date('Y-m-d', strtotime($end));
+
+        return $query->whereHas('user',function ($query) {
+            $query->where('type','Researcher');
+        })
+        ->whereBetween('birthdate', [$end, $start])->count();
+    }
 }

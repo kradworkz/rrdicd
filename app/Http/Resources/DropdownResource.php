@@ -19,7 +19,7 @@ class DropdownResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'color' => $this->color,
-            'counts' => ($this->classification == 'Events') ? $this->count() : $this->statuses() ,
+            'counts' => ($this->classification == 'Events') ? $this->count() : $this->specialty() ,
         ];
     }
 }

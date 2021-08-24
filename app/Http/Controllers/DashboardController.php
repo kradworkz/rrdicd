@@ -126,11 +126,33 @@ class DashboardController extends Controller
                 'color' => 'danger',
             ],
         ];
-
         return $counts;
-
-        
     }
 
+    public function gender(){
+        $counts = [  
+            $data[] = [
+                'name' => 'Female',
+                'count' =>  Researcher::whereHas('user',function ($query) {
+                    $query->whereHas('profile',function ($query) {
+                        $query->where('gender','Female');
+                    });
+                })->count(),
+                'color' => 'danger',
+                'icon' => 'bx-female'
+            ],
+            $data[] = [
+                'name' => 'Male',
+                'count' =>  Researcher::whereHas('user',function ($query) {
+                    $query->whereHas('profile',function ($query) {
+                        $query->where('gender','Male');
+                    });
+                })->count(),
+                'color' => 'info',
+                'icon' => 'bx-male'
+            ],
+        ];
 
+        return $counts;
+    }
 }

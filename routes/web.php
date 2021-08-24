@@ -74,6 +74,7 @@ Route::prefix('request')->group(function () {
         Route::get('/totals', 'DashboardController@total');
         Route::get('/side', 'DashboardController@side');
         Route::get('/ages', 'DashboardController@ages');
+        Route::get('/gender', 'DashboardController@gender');
 
         Route::get('/files/{keyword}', 'FileController@list');
         Route::post('/file/store', 'FileController@store');

@@ -63928,17 +63928,21 @@ var render = function() {
                         [_vm._v(_vm._s(_vm.research.title))]
                       ),
                       _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticClass: "text-secondary text-truncate mb-0" },
-                        [
-                          _vm._v(
-                            _vm._s(_vm.research.user.profile.firstname) +
-                              " " +
-                              _vm._s(_vm.research.user.profile.lastname)
+                      _vm.research.length > 0
+                        ? _c(
+                            "p",
+                            {
+                              staticClass: "text-secondary text-truncate mb-0"
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(_vm.research.user.profile.firstname) +
+                                  " " +
+                                  _vm._s(_vm.research.user.profile.lastname)
+                              )
+                            ]
                           )
-                        ]
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "h6",

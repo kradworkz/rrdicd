@@ -78,7 +78,7 @@ class ResearcherController extends Controller
 
     public function researcher(Request $request,$id){
         $organization_id = (!empty(Auth::user()->organization->organization_id)) ? Auth::user()->organization->organization_id : $request->input('institution')['id'];
-        $data = new Researcher;
+        $data =  ($request->input('editable')) ? Researcher::where('user_id',$request->input('id'))->first() : new Researcher;
         $data->designation_id = $request->designation['id'];
         $data->specialty_id = $request->specialty['id'];
         $data->institution_id = $organization_id;

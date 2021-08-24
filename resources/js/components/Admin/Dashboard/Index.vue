@@ -7,6 +7,9 @@
         <div class="col-lg-4">
             <secretariat-right></secretariat-right>
         </div>
+        <div class="col-lg-12">
+            <secretariat-top></secretariat-top>
+        </div>
     </div>
 </template>
 

@@ -92,7 +92,7 @@ class DashboardController extends Controller
             $data[] = [
                 'name' => 'Below 20 years old',
                 'count' => $c = UserProfile::agedBetween(0, 20),
-                'percentage' => ($c / $user) * 100,
+                'percentage' => ($c != 0) ? ($c / $user) * 100 : 0,
                 'color' => 'primary',
             ],
             $data[]  = [

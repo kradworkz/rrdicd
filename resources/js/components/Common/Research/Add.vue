@@ -64,7 +64,7 @@
 
                         <div class="col-md-12">
                             <div class="custom-control custom-checkbox mb-4">
-                                <input type="checkbox" class="custom-control-input" @click="check" id="customCheck1">
+                                <input type="checkbox" class="custom-control-input" v-model="old" @click="check" id="customCheck1">
                                 <label class="custom-control-label text-danger" for="customCheck1">Check if old research</label>
                             </div>
                         </div>
@@ -244,6 +244,7 @@
             edit(research){
                 this.editable = true;
                 this.research = research;
+                this.old = research.old;
             },
 
             clear(){
@@ -260,6 +261,7 @@
                     institution: ''
                 },
                 this.editable = false;
+                this.old = false;
             },
 
             check : function(event) {

@@ -23,8 +23,10 @@ class ResearchResource extends JsonResource
             'period' => ($this->period != null) ? $this->period : 'n/a',
             'iprstatus' => $this->iprstatus,
             'classification' => $this->classification,
-            'researcher' => $this->user,
+            'researcher' => new ResearcherResource($this->user),
+            'user' => $this->user->profile->firstname.' '.$this->user->profile->lastname,
             'status' => new StatusResource($this->status()),
+            'old' => ($this->info != null) ? true : false,
             'created_at' => $this->created_at
         ];
     }

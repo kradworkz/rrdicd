@@ -30,7 +30,7 @@ class ResearchController extends Controller
         ($keyword == '-') ? $keyword = '' : $keyword;
         $query = Research::query();
         $query->with('statuses:status_id,research_id','statuses.status:id,name,color')->with('iprstatus');
-        $query->with('classification')->with('user')->with('info');
+        $query->with('classification')->with('user:id,email','user.profile')->with('info');
         $query->where('title','LIKE', '%'.$keyword.'%');
         (\Auth::user()->type == "Researcher") ? $query->where('user_id',\Auth::user()->id)  : '';
         $data = $query->paginate(10);

@@ -3,7 +3,7 @@
     <div class="w-100">
         <div class="card">
             
-            <div class="card-body" v-if="view == false">
+            <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-xl-6 col-sm-6 form-inline">
                     <button type="button" @click="addnew" class="btn btn-danger waves-effect waves-light mr-2"><i class='bx bx-plus-medical'></i></button>
@@ -36,10 +36,11 @@
                 <div class="table-responsive">
                     <table class="table table-centered table-nowrap">
                         <thead>
-                            <tr>
+                            <tr class="font-size-12">
                                 <th class="text-center">Title</th>  
-                                <th class="text-center">Classification</th>
-                                <th class="text-center">IPR Status</th>
+                                <th v-if="usertype == 'Researcher'" class="text-center">Classification</th>
+                                <th v-if="usertype == 'Researcher'"class="text-center">IPR Status</th>
+                                <th v-else class="text-center">Researcher</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Created Date</th>
                                 <th></th>
@@ -47,9 +48,10 @@
                         </thead>
                         <tbody>
                             <tr v-for="(research,index) in researches" v-bind:key="research.id">
-                                <td class="text-center"> {{research.title.substring(0,40)+".."}}</td>
-                                <td class="text-center">{{research.classification.name}}</td>
-                                <td class="text-center">{{research.iprstatus.name}}</td>
+                                <td class="text-center"> {{research.title.substring(0,50)+".."}}</td>
+                                <td v-if="usertype == 'Researcher'" class="text-center">{{research.classification.name}}</td>
+                                <td v-if="usertype == 'Researcher'" class="text-center">{{research.iprstatus.name}}</td>
+                                <td v-else class="text-center">{{research.user}}</td>
                                 <td class="text-center">
                                     <span :class="'font-size-11 badge badge-'+research.status.color">{{research.status.name}}</span>
                                 </td>
@@ -64,8 +66,9 @@
                     </table>
                 </div>
             </div>
-            <div class="w-100" v-else>
-                <research-view :research="research" @status="message"></research-view>
+         
+            <div v-if="view == true" class="modal fade exampleModal" id="view" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <research-modal :research="research" @status="message"></research-modal>
             </div>
 
             <div class="modal fade exampleModal" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -125,6 +128,11 @@ export default {
         show(research){
             this.research = research;
             this.view = true;
+            $("#view").modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
         },
 
         editresearch(research){

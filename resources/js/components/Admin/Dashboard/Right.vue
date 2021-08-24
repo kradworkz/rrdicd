@@ -44,7 +44,7 @@
                                      <div v-if="research.length == 0" class="overflow-hidden mr-auto">
                                         <h4 class="text-danger font-size-15 text-truncate mb-1 mt-2">NO RESEARCH FOUND</h4>
                                     </div>
-                                    <div class="overflow-hidden mr-auto">
+                                    <div v-else class="overflow-hidden mr-auto">
                                         <h5 class="text-danger font-size-13 text-truncate mb-1 mt-1">{{research.title}}</h5>
                                         <p class="text-secondary text-truncate mb-0" v-if="research.length > 0">{{research.user.profile.firstname}} {{research.user.profile.lastname}}</p>
                                         <h6 class="text-muted font-size-12 text-truncate mt-1 mb-1">{{research.created_at}}</h6>

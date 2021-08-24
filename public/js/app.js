@@ -63916,43 +63916,44 @@ var render = function() {
                             [_vm._v("NO RESEARCH FOUND")]
                           )
                         ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "overflow-hidden mr-auto" }, [
-                      _c(
-                        "h5",
-                        {
-                          staticClass:
-                            "text-danger font-size-13 text-truncate mb-1 mt-1"
-                        },
-                        [_vm._v(_vm._s(_vm.research.title))]
-                      ),
-                      _vm._v(" "),
-                      _vm.research.length > 0
-                        ? _c(
-                            "p",
+                      : _c("div", { staticClass: "overflow-hidden mr-auto" }, [
+                          _c(
+                            "h5",
                             {
-                              staticClass: "text-secondary text-truncate mb-0"
+                              staticClass:
+                                "text-danger font-size-13 text-truncate mb-1 mt-1"
                             },
-                            [
-                              _vm._v(
-                                _vm._s(_vm.research.user.profile.firstname) +
-                                  " " +
-                                  _vm._s(_vm.research.user.profile.lastname)
+                            [_vm._v(_vm._s(_vm.research.title))]
+                          ),
+                          _vm._v(" "),
+                          _vm.research.length > 0
+                            ? _c(
+                                "p",
+                                {
+                                  staticClass:
+                                    "text-secondary text-truncate mb-0"
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.research.user.profile.firstname
+                                    ) +
+                                      " " +
+                                      _vm._s(_vm.research.user.profile.lastname)
+                                  )
+                                ]
                               )
-                            ]
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            {
+                              staticClass:
+                                "text-muted font-size-12 text-truncate mt-1 mb-1"
+                            },
+                            [_vm._v(_vm._s(_vm.research.created_at))]
                           )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "h6",
-                        {
-                          staticClass:
-                            "text-muted font-size-12 text-truncate mt-1 mb-1"
-                        },
-                        [_vm._v(_vm._s(_vm.research.created_at))]
-                      )
-                    ])
+                        ])
                   ])
                 ])
               ])

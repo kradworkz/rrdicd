@@ -18,6 +18,8 @@ class CreateResearchInfosTable extends Migration
             $table->smallIncrements('id');
             $table->string('amount');
             $table->date('funded_date');
+            $table->year('published_date')->nullable();
+            $table->string('description')->nullable();
             $table->smallInteger('funded_id')->unsigned()->index();
             $table->foreign('funded_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->smallInteger('research_id')->unsigned()->index();

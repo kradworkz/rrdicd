@@ -20,6 +20,7 @@ class ResearchResource extends JsonResource
             'amount' => ($this->info != null) ? $this->info->amount : '',
             'date' => ($this->info != null) ? $this->info->funded_date : '',
             'institution' => ($this->info != null) ? $this->info->institution : '',
+            'published' => ($this->info != null) ? $this->info->published_date : '',
             'period' => ($this->period != null) ? $this->period : 'n/a',
             'iprstatus' => $this->iprstatus,
             'classification' => $this->classification,

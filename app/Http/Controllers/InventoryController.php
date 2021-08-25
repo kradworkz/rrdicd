@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\InventoryResource;
 use App\Http\Resources\EquipmentResource;
+use App\Http\Resources\EquipmentListResource;
 use App\Http\Requests\InventoryRequest;
 
 class InventoryController extends Controller
@@ -30,6 +31,17 @@ class InventoryController extends Controller
         return InventoryResource::collection($data);
     }
 
+    public function search($keyword){
+        ($keyword == '-') ? $keyword = '' : $keyword;
+        $data = InventoryList::with('inventory')
+        ->where('code','LIKE','%'.$keyword.'%')
+        ->orWhereHas('inventory',function ($query) use ($keyword) {
+            $query->where('name','LIKE','%'.$keyword.'%');
+        })->take(5)->get();
+
+        return EquipmentListResource::collection($data);
+    }
+
     
     public function equipments($id,$keyword){
         ($keyword == '-') ? $keyword = '' : $keyword;
@@ -49,8 +61,10 @@ class InventoryController extends Controller
                 $data->type = $request->input('type');
                 $data->organization_id = Auth::user()->organization->organization_id;
                 if($data->save()){
-                    $this->list($data->type,$data->id,$request->input('quantity'));
-                    return new DefaultResource($data);
+                    if(!$request->input('editable')){
+                        $this->list($data->type,$data->id,$request->input('quantity'));
+                        return new DefaultResource($data);
+                    }
                 }
             }else{
                 $lists = $request->input('lists');
@@ -95,5 +109,44 @@ class InventoryController extends Controller
         $data->save();
 
         return new EquipmentResource($data);
+    }
+
+    public function dashboard(){
+        $basic = InventoryList::with('inventory')->with('status')
+        ->whereHas('inventory',function ($query) {
+            $query->where('type','Basic');
+        })
+        ->orderBy('created_at','DESC')->take(5)->get();
+
+        $basic = EquipmentListResource::collection($basic);
+
+        $spe = InventoryList::with('inventory')
+        ->whereHas('inventory',function ($query) {
+            $query->where('type','Specialized');
+        })
+        ->orderBy('created_at','DESC')->take(5)->get();
+
+        $spe = EquipmentListResource::collection($spe);
+
+        $counts = [  
+            $data[] = [
+                'name' => 'Basic Equipments',
+                'lists' => $basic,
+                'counts' => $test = InventoryList::with('inventory')
+                ->whereHas('inventory',function ($query) {
+                    $query->where('type','Basic');
+                })->count()
+            ],
+            $data[] = [
+                'name' => 'Specialized Equipments',
+                'lists' => $spe,
+                'counts' => InventoryList::with('inventory')
+                ->whereHas('inventory',function ($query) {
+                    $query->where('type','Specialized');
+                })->count()
+            ],
+        ];
+
+        return $counts;
     }
 }

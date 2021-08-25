@@ -17,6 +17,6 @@
             </div>
         </div>
 
-        <coordinator></coordinator>
+        <coordinator :user="{{Auth::user()->profile}}" :insti="'{{Auth::user()->organization->organization->name}}'"></coordinator>
 
 @endsection

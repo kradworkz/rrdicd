@@ -38,7 +38,7 @@
                                 <div class="col-sm-4">
                                     <div>
                                         <p class="text-muted mb-1 font-size-11">Year Published</p>
-                                        <h5 class="font-size-13">{{ research.date}}</h5>
+                                        <h5 class="font-size-13">{{ research.published}}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="col-sm-4">
                                     <div>
                                         <p class="text-muted mb-1 font-size-11">Funded By</p>
-                                        <h5 class="font-size-13">{{ research.institution.acronym}}</h5>
+                                        <h5 class="font-size-13">{{ research.institution.name}}</h5>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

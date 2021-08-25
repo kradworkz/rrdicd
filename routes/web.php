@@ -103,6 +103,8 @@ Route::prefix('request')->group(function () {
         Route::get('/equipment/list/{id}/{keyword}', 'InventoryController@equipments');
         Route::post('/equipment/update', 'InventoryController@update');
         Route::get('/equipment/{type}/{id}/{quantity}', 'InventoryController@list');
+        Route::get('/equipment/dashboard', 'InventoryController@dashboard');
+        Route::get('/equipment/search/{keyword}', 'InventoryController@search');
     });
 
 });

@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Researcher', 'user_id');
     } 
 
+    public function publications()
+    {
+        return $this->hasMany('App\Models\Research', 'user_id');
+    } 
+
     public function attendees()
     {
         return $this->hasMany('App\Models\EventAttendance', 'user_id');

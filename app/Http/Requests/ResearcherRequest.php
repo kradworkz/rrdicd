@@ -23,7 +23,7 @@ class ResearcherRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'firstname' => 'required|string|max:100',
             'lastname' => 'required|string|max:100',
             'middlename' => 'required|string|max:10',
@@ -37,6 +37,25 @@ class ResearcherRequest extends FormRequest
             'specialty' => 'required|array|min:1',
             'avatar' => 'nullable|image64:jpeg,jpg,png',
         ];
+
+        if(!empty($this->lists) && $this->editable == false){
+            foreach($this->lists as $key => $staff) {
+                $rules = array_merge($rules, ['lists.'.$key.'.year' => 'sometimes|required|numeric']);
+                $rules = array_merge($rules, ['lists.'.$key.'.institution' => 'sometimes|required|string']);
+                $rules = array_merge($rules, ['lists.'.$key.'.degree' => 'sometimes|required|string']);
+                $rules = array_merge($rules, ['lists.'.$key.'.qualification' => 'sometimes|required']);
+            }
+        }
+
+        if(!empty($this->trainings) && $this->editable == false){
+            foreach($this->trainings as $key => $staff) {
+                $rules = array_merge($rules, ['trainings.'.$key.'.date' => 'sometimes|required']);
+                $rules = array_merge($rules, ['trainings.'.$key.'.title' => 'sometimes|required']);
+                $rules = array_merge($rules, ['trainings.'.$key.'.venue' => 'sometimes|required']);
+            }
+        }
+
+        return $rules;
     }
 
     public function messages()
@@ -53,8 +72,17 @@ class ResearcherRequest extends FormRequest
             'institution.required' => '* required',
             'designation.required' => '* required',
             'specialty.required' => '* required',
-
+            'lists.*.year.required' => 'required',
+            'lists.*.year.numeric' => 'year only',
+            'lists.*.institution.required' => 'required',
+            'lists.*.degree.required' => 'required',
+            'lists.*.qualification.required' => 'required',
+            'trainings.*.date.required' => 'required',
+            'trainings.*.title.required' => 'required',
+            'trainings.*.venue.required' => 'required',
         ];
+
+       
 
         return $message;
     }

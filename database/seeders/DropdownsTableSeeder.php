@@ -359,7 +359,7 @@ class DropdownsTableSeeder extends Seeder
             array (
                 'id' => 43,
                 'name' => 'Doctoral Level or Equivalent',
-                'type' => 'Research Status',
+                'type' => 'n/a',
                 'classification' => 'Qualifications',
                 'color' => 'red',
             ),
@@ -367,7 +367,7 @@ class DropdownsTableSeeder extends Seeder
             array (
                 'id' => 44,
                 'name' => 'Master Level or Equivalent',
-                'type' => 'Research Status',
+                'type' => 'n/a',
                 'classification' => 'Qualifications',
                 'color' => 'green',
             ),
@@ -375,7 +375,7 @@ class DropdownsTableSeeder extends Seeder
             array (
                 'id' => 45,
                 'name' => 'Bachelor Level or Equivalent',
-                'type' => 'Research Status',
+                'type' => 'n/a',
                 'classification' => 'Qualifications',
                 'color' => 'yellow',
             ),

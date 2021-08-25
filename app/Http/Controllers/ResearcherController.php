@@ -6,6 +6,8 @@ use Auth;
 use App\Models\User;
 use App\Models\UserProfile;
 use App\Models\Researcher;
+use App\Models\ResearcherTraining;
+use App\Models\ResearcherEducation;
 use Illuminate\Http\Request;
 use App\Services\StoreImage;
 use App\Http\Resources\DefaultResource;
@@ -23,7 +25,7 @@ class ResearcherController extends Controller
         ($keyword == '-') ? $keyword = '' : $keyword;
         
         $query = User::query();
-        $query->with('profile')->with('researcher.designation','researcher.institution')
+        $query->with('profile')->with('researcher.designation','researcher.institution')->with('publications:id,user_id,title','publications.info:id,research_id,published_date')
         ->where('type','Researcher')
         ->whereHas('profile',function ($query) use ($keyword) {
             $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', '%'.$keyword.'%');
@@ -84,7 +86,32 @@ class ResearcherController extends Controller
         $data->institution_id = $organization_id;
         $data->user_id = $id;
         if($data->save()){
-            return true;
+            $lists = $request->input('trainings');
+            if(!empty($lists)){
+                foreach($lists as $list)
+                {   
+                    $training = new ResearcherTraining;
+                    $training->title = ucwords(strtolower($list['title']));
+                    $training->venue = ucwords(strtolower($list['venue']));
+                    $training->date = $list['date']; 
+                    $training->researcher_id = $data->id;
+                    $training->save();
+                }
+            }
+
+            $lists = $request->input('lists');
+            if(!empty($lists)){
+                foreach($lists as $list)
+                {   
+                    $ed = new ResearcherEducation;
+                    $ed->year = ucwords(strtolower($list['year']));
+                    $ed->institution = ucwords(strtolower($list['institution']));
+                    $ed->program = $list['degree']; 
+                    $ed->qualification_id = $list['qualification']['id']; 
+                    $ed->researcher_id = $data->id;
+                    $ed->save();
+                }
+            }
         }else{
             return false;
         }

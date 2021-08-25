@@ -58,11 +58,8 @@ class DashboardController extends Controller
 
     public function side(){
 
-        $event = Event::first();
-        $event = new EventResource($event);
-
-        $file = File::first();
-        $file = new FileResource($file);
+        (!empty($event = Event::first()) > 0) ? $event = new EventResource($event) : $event = [];
+        (!empty($file = File::first()) > 0) ? $file = new FileResource($file) : $file = [];
 
         $events = Dropdown::where('classification','Events')->get();
         $events = DropdownResource::collection($events);

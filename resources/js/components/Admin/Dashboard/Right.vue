@@ -1,7 +1,7 @@
 <template>
 <div class="row">
     <div class="col-lg-12">
-        <div class="card">
+        <div class="card" style="min-height: 430px;">
             <div class="card-body">
                 <h6 class="card-title mb-3 font-size-12">Latests Happenings</h6>
                 <div class="chat-leftsidebar-nav">
@@ -88,7 +88,10 @@
                                             <i class='bx bx-cloud-download bx-tada' style="font-size: 30px;"></i>
                                         </div>
                                     </div>
-                                   <div class="overflow-hidden mr-auto">
+                                    <div v-if="file.length == 0" class="overflow-hidden mr-auto">
+                                        <h4 class="text-warning font-size-15 text-truncate mb-1 mt-2">NO CURRENT FILE</h4>
+                                    </div>
+                                    <div v-else class="overflow-hidden mr-auto">
                                         <p class="text-info text-truncate mb-0">{{file.name.substring(0,30)+".."}}</p>
                                         <h6 class="text-muted font-size-12 text-truncate mt-1 mb-1">{{file.created_at}}</h6>
                                     </div>

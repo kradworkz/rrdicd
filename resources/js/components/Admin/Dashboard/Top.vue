@@ -32,7 +32,7 @@
                     <tbody>
                         <tr class="font-size-11" v-for="(status,index) in qualifications" v-bind:key="status.id">
                             <td><p class="mb-0">{{status.name}}</p></td>
-                            <td><p class="mb-0"><b>{{status.counts}}</b></p></td>
+                            <td class="text-right"><p class="mb-0"><b>{{status.counts}}</b></p></td>
                         </tr>
                     </tbody>
                 </table>
@@ -45,7 +45,7 @@
                     <tbody>
                         <tr class="font-size-11" v-for="(status,index) in statuses" v-bind:key="status.id">
                             <td><p class="mb-0">{{status.name}}</p></td>
-                            <td><p class="mb-0"><b>{{status.counts}}</b></p></td>
+                            <td class="text-right"><p class="mb-0"><b>{{status.counts}}</b></p></td>
                         </tr>
                     </tbody>
                 </table>
@@ -54,19 +54,11 @@
         <div class="col-xl-4">
             <h6 class="card-title font-size-12 mb-2">Age Group</h6>
             <div class="table-responsive mt-3">
-                <table class="table table-centered table-nowrap font-size-11">
+                <table class="table table-centered table-nowrap">
                     <tbody>
-                        <tr v-for="(list) in ages" v-bind:key="list.id">
-                            <td style="width: 30%">
-                                <p class="mb-0">{{list.name}}</p>
-                            </td>
-                            <td style="width: 25%">
-                                <h5 class="mb-0 font-size-11"><b>{{list.count}}</b> <span class="text-muted font-size-11"> ({{list.percentage}}%)</span></h5></td>
-                            <td>
-                                <div class="progress progress-sm">
-                                    <div :class="'progress-bar bg-'+list.color+' rounded'" role="progressbar" :style="'width: '+list.percentage+'%'" :aria-valuenow="list.percentage" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
+                        <tr class="font-size-11" v-for="(list) in ages" v-bind:key="list.id">
+                            <td><p class="mb-0">{{list.name}}</p></td>
+                            <td class="text-right"><p class="mb-0"><b>{{list.count}}</b> </p></td>
                         </tr>
                     </tbody>
                 </table>

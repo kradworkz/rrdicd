@@ -72,7 +72,7 @@
 
                     <div v-if="old == true" class="row customerform" style="margin-right: 10px; margin-left: 10px;">
                         
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Status: <span v-if="errors.status" class="haveerror">({{ errors.status[0] }})</span></label>
                                 <multiselect 
@@ -83,16 +83,22 @@
                                 </multiselect>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Amount: <span v-if="errors.amount" class="haveerror">({{ errors.amount[0] }})</span></label>
                                 <input type="text" class="form-control" v-model="research.amount">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Date Funded: <span v-if="errors.date" class="haveerror">({{ errors.date[0] }})</span></label>
                                 <input type="date" class="form-control" v-model="research.date">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Year Published: <span v-if="errors.published" class="haveerror">({{ errors.published[0] }})</span></label>
+                                <input type="text" maxlength="4" class="form-control" v-model="research.published">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -138,7 +144,8 @@
                     date: '',
                     period: '',
                     status: '',
-                    institution: ''
+                    institution: '',
+                    published: ''
                 },
                 classifications: [],
                 researchers: [],
@@ -224,6 +231,7 @@
                 if(this.old == true){
                     frm.append('amount', this.research.amount);
                     frm.append('date', this.research.date);
+                    frm.append('published', this.research.published);
                     frm.append('institution', this.research.institution.id);
                     frm.append('status', this.research.status.id);
                 }
@@ -258,7 +266,8 @@
                     date: '',
                     period: '',
                     status: '',
-                    institution: ''
+                    institution: '',
+                    published: ''
                 },
                 this.editable = false;
                 this.old = false;

@@ -30,6 +30,7 @@ class ResearcherResource extends JsonResource
             'designation' => $this->researcher->designation,
             'specialty' => $this->researcher->specialty,
             'institution' => $this->researcher->institution,
+            'publications' => PublicationResource::collection($this->publications),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

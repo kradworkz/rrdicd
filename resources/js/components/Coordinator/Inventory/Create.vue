@@ -12,7 +12,7 @@
              <div data-simplebar style="max-height: 300px; overflow: auto;">
                 <div class="modal-body">
                   
-                        <div v-for="(list , index) in lists" v-bind:key="'a-'+list.id+index" class="row customerform" style="margin-right: 10px; margin-left: 10px;">
+                        <div v-if="editable == false" v-for="(list , index) in lists" v-bind:key="'a-'+list.id+index" class="row customerform" style="margin-right: 10px; margin-left: 10px;">
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <label>Name: <span v-if="errors['lists.'+index+'.name']" class="haveerror"> {{( errors['lists.'+index+'.name'][0] )}}</span></label>
@@ -29,10 +29,18 @@
                                 <input type="button" class="btn btn-danger btn-sm " value="x" @click="del(index)" />
                             </div>
                         </div>
+                        <div v-else class="row customerform" style="margin-right: 10px; margin-left: 10px;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Name: <span v-if="errors['name']" class="haveerror"> {{( errors['name'][0] )}}</span></label>
+                                    <input type="text" class="form-control" v-model="equipment.name" style="text-transform: capitalize;">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" @click="add" class="btn btn-secondary">Add</button>
+                    <button v-if="editable != true" type="button" @click="add" class="btn btn-secondary">Add</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
@@ -61,6 +69,7 @@
             create(){
                 axios.post(this.currentUrl + '/request/coordinator/equipment/store', {
                     id: this.equipment.id,
+                    name: this.equipment.name,
                     lists : this.lists,
                     type: this.type,
                     editable: this.editable

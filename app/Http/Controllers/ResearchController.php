@@ -60,6 +60,7 @@ class ResearchController extends Controller
                     $info =  new ResearchInfo;
                     $info->amount = $request->input('amount');
                     $info->funded_date = $request->input('date');
+                    $info->published_date = $request->input('published');
                     $info->funded_id = $request->input('institution');
                     $info->research_id = $data->id;
                     $info->save();

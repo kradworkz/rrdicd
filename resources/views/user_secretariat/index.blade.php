@@ -16,5 +16,7 @@
             </div>
         </div>
     </div>
+
+    <d-secretariat></d-secretariat>
        
 @endsection

@@ -153,13 +153,13 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Institution:  <span v-if="errors['lists.'+index+'.institution']" class="haveerror"> {{( errors['lists.'+index+'.institution'][0] )}}</span></label>
-                                        <input type="text" class="form-control" v-model="list.institution">
+                                        <input type="text" class="form-control" v-model="list.institution" style="text-transform: capitalize;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Degree\Program:  <span v-if="errors['lists.'+index+'.degree']" class="haveerror"> {{( errors['lists.'+index+'.degree'][0] )}}</span></label>
-                                        <input type="text" class="form-control" v-model="list.degree">
+                                        <input type="text" class="form-control" v-model="list.degree" style="text-transform: capitalize;">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -185,7 +185,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Title: <span v-if="errors['trainings.'+index+'.title']" class="haveerror"> {{( errors['trainings.'+index+'.title'][0] )}}</span></label>
-                                        <input type="text" class="form-control" v-model="training.title" maxlength="4">
+                                        <input type="text" class="form-control" v-model="training.title" style="text-transform: capitalize;">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -197,7 +197,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Venue:  <span v-if="errors['trainings.'+index+'.venue']" class="haveerror"> {{( errors['trainings.'+index+'.venue'][0] )}}</span></label>
-                                        <input type="text" class="form-control" v-model="training.venue">
+                                        <input type="text" class="form-control" v-model="training.venue" style="text-transform: capitalize;">
                                     </div>
                                 </div>
                                 

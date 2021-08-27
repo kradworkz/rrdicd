@@ -50,6 +50,8 @@ Route::middleware(['role:Laboratory Coordinator','auth'])->group(function () {
 
 Route::prefix('request')->group(function () {
 
+    Route::post('/user/password', 'HomeController@password');
+
     Route::prefix('admin')->group(function () {
 
         Route::get('/dropdowns/{classification}/{type}', 'DropdownController@lists');
@@ -86,6 +88,7 @@ Route::prefix('request')->group(function () {
         Route::get('/staffs/{keyword}', 'StaffController@lists');
         Route::post('/staff/store', 'StaffController@store');
         Route::post('/staff/search', 'StaffController@search');
+        Route::post('/staff/status', 'StaffController@status');
 
         Route::get('/researches/{keyword}', 'ResearchController@lists');
         Route::get('/research/{id}', 'ResearchController@research');
@@ -94,6 +97,7 @@ Route::prefix('request')->group(function () {
         Route::get('/researchers/{keyword}', 'ResearcherController@lists');
         Route::post('/researcher/store', 'ResearcherController@store');
         Route::post('/researcher/search', 'ResearcherController@search');
+        Route::get('/researcher/print/{id}', 'ResearcherController@print');
 
     });
 

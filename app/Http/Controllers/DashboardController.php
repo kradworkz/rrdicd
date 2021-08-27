@@ -18,10 +18,28 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function total(){
+
+        $organization_id = (!empty(\Auth::user()->organization->organization_id)) ? \Auth::user()->organization->organization_id : 0;
+
+        $query = Research::query();
+        if($organization_id != 0){
+            $query->whereHas('user',function ($query) use ($organization_id){
+                $query->whereHas('researcher',function ($query) use ($organization_id){
+                    $query->where('institution_id', $organization_id);
+                });
+            });
+        }
+        $research = $query->count();
+
+        $query = Researcher::query();
+        $query->select('user_id')->with('user:id','user.profile:user_id,gender');
+        ($organization_id != 0) ? $query->where('institution_id',$organization_id) : '';
+        $researchers = $query->get()->toArray();
+
         $counts[] = [  
             $data[] = [
                 'name' => 'Total Research',
-                'count' => Research::count(),
+                'count' => $research,
                 'color' => 'primary',
                 'female' => 'n/a',
                 'male' => 'n/a',
@@ -29,17 +47,9 @@ class DashboardController extends Controller
             ],
             $data[]  = [
                 'name' => 'Total Researcher',
-                'count' => Researcher::count(),
-                'female' => Researcher::whereHas('user',function ($query) {
-                    $query->whereHas('profile',function ($query) {
-                        $query->where('gender','Female');
-                    });
-                })->count(),
-                'male' => Researcher::whereHas('user',function ($query) {
-                    $query->whereHas('profile',function ($query) {
-                        $query->where('gender','Male');
-                    });
-                })->count(),
+                'count' => count($researchers),
+                'female' => count(array_filter($researchers,function($element) {return $element['user']['profile']['gender']=='Female';})),
+                'male' => count(array_filter($researchers,function($element) {return $element['user']['profile']['gender']=='Male';})),
                 'color' => 'success',
                 'icon' => 'bxs-user-circle'
             ],
@@ -64,17 +74,33 @@ class DashboardController extends Controller
         $events = Dropdown::where('classification','Events')->get();
         $events = DropdownResource::collection($events);
 
-        $research =  Research::with('statuses:status_id,research_id','statuses.status:id,name,color')->with('iprstatus')
-        ->with('classification')->with('user:id','user.profile:firstname,lastname,user_id')->with('info')
-        ->first();
+        $organization_id = (!empty(\Auth::user()->organization->organization_id)) ? \Auth::user()->organization->organization_id : 0;
 
-        // $research = new ResearchResource($research);
+        $query =  Research::query();
+        $query->with('statuses:status_id,research_id','statuses.status:id,name,color')->with('iprstatus')
+        ->with('classification')->with('user:id','user.profile:firstname,lastname,user_id')->with('info');
+
+        if($organization_id != 0){
+            $query->whereHas('user',function ($query) use ($organization_id){
+                $query->whereHas('researcher',function ($query) use ($organization_id){
+                    $query->where('institution_id', $organization_id);
+                });
+            });
+        }
+        $research = $query->first();
+        
+        $query = Researcher::query();
+        $query->select('user_id')->with('user:id','user.profile');
+        ($organization_id != 0) ? $query->where('institution_id',$organization_id) : '';
+        $researcher = $query->first();
+
 
         $counts[] = [  
             $data[] = $event,
             $data[] = $file,
             $data[] = $events,
-            $data[] = $research
+            $data[] = $research,
+            $data[] = $researcher
         ];
 
         return $counts;

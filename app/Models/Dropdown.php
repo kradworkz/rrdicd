@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Event;
 use App\Models\Research;
 use App\Models\Researcher;
+use App\Models\ResearcherEducation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -59,6 +60,12 @@ class Dropdown extends Model
     public function specialty()
     {
         $count = Researcher::where('specialty_id',$this->id)->count();
+        return $count;
+    }
+
+    public function qualification()
+    {
+        $count = ResearcherEducation::where('qualification_id',$this->id)->count();
         return $count;
     }
 }

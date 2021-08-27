@@ -63,16 +63,18 @@
                                     <p class="text-muted mb-0">{{user.type}}</p>
                                 </td>
                                 <td class="text-center">
-                                    <span v-if="user.status == 'Active'" class="badge badge-success font-size-12">Active</span>
-                                    <span v-else-if="user.status == 'Inactive'" class="badge badge-secondary font-size-12">Inactive</span>
-                                    <span v-else-if="user.status == 'Disabled'" class="badge badge-warning font-size-12">Disabled</span>
-                                    <span v-else class="badge badge-danger font-size-12">Retired</span>
+                                    <span v-if="user.status == 'Active'" class="badge badge-success font-size-11">Active</span>
+                                    <span v-else-if="user.status == 'Inactive'" class="badge badge-secondary font-size-11">Inactive</span>
+                                    <span v-else-if="user.status == 'Disabled'" class="badge badge-dark font-size-11">Disabled</span>
+                                    <span v-else class="badge badge-danger font-size-11">Retired</span>
                                 </td>
                                 <td class="text-center font-size-12">{{user.created_at}}</td>
                                 <td class="text-center">
-                                    <a class="mr-3 text-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class='bx bx-show'></i></a>
-                                    <a class="mr-3 text-warning" @click="edit(user)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class='bx bx-edit-alt' ></i></a>
-                                    <a class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class='bx bx-trash'></i></a>
+                                    <a class="mr-3 " @click="updatestatus(user)">
+                                    <i v-bind:class="{'text-danger bx bxs-lock': user.status == 'Active','text-success bx bx-lock-open': user.status == 'Inactive','text-dark bx bx-block': user.status == 'Disabled'}"></i></a>
+                                    <a class="mr-3 text-info"><i class='bx bx-show'></i></a>
+                                    <a class="mr-3 text-warning" @click="edit(user)"><i class='bx bx-edit-alt' ></i></a>
+                                    <a class="text-danger"><i class='bx bx-trash'></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -86,6 +88,11 @@
     <div class="modal fade exampleModal" id="new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <staff-create @status="message" :type="user_type" ref="create"></staff-create>
     </div>
+
+    <div class="modal fade exampleModal" id="updatestatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <staff-status @status="message" ref="status"></staff-status>
+    </div>
+  
   
 </div>
 </template>
@@ -140,6 +147,12 @@ export default {
             this.editable = true;
             $("#new").modal('show');
             this.$refs.create.edit(user,true);
+        },
+
+        updatestatus(user){
+            $("#updatestatus").modal('show');
+            this.$refs.status.update(user.status,user.id);
+            this.editable = true;
         },
 
         message(val){

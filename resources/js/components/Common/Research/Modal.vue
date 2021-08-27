@@ -2,14 +2,13 @@
    <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="max-width: 1000px;">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <h5 class="modal-title mt-0" id="myExtraLargeModalLabel">
                     {{research.title}} <span :class="'mr-2 badge badge-'+research.status.color">{{ research.status.name}}</span>
                     </h5>
                     <p class="text-muted" style="margin-top: -5px; margin-bottom: -10px;"><i class="bx bx-calendar-plus font-size-12 align-middle text-primary mr-1"></i><span class="font-size-11">{{research.created_at}}</span></p>
                 </div>
                 <div class="form-inline float-right">
-                    
                     <div data-toggle="tooltip" data-placement="bottom" data-original-title="Close">
                         <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-light waves-light waves-effect  mr-2">
                         <i class='bx bx-x-circle'></i>

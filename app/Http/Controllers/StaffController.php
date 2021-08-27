@@ -123,4 +123,10 @@ class StaffController extends Controller
         return MemberResource::collection($data);
     }
 
+    public function status(Request $request){
+        $data = User::findOrFail($request->input('id'));
+        $data->status = $request->input('status');
+        $data->save();
+    }
+
 }

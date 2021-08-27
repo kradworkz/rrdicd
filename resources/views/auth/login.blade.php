@@ -62,9 +62,6 @@
                                             </div>
                     
                                             <div class="form-group">
-                                                <div class="float-right">
-                                                    <a href="auth-recoverpw-2.html" class="text-muted">Forgot password?</a>
-                                                </div>
                                                 <label for="password">Password</label>
                                                 <input type="password" name="password" class="form-control" id="password" placeholder="Enter password"  required autocomplete="current-password">
                                             </div>
@@ -80,7 +77,7 @@
 
                                         </form>
                                         <div class="mt-5 text-center">
-                                            <p>Don't have an account ? <a href="auth-register-2.html" class="font-weight-medium text-primary"> Signup now </a> </p>
+                                            <p>Forgot password? <a href="/password/reset" class="font-weight-medium text-primary"> Retrieve now </a> </p>
                                         </div>
                                     </div>
                                 </div>

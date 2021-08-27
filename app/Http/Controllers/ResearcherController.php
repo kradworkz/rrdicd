@@ -104,9 +104,9 @@ class ResearcherController extends Controller
                 foreach($lists as $list)
                 {   
                     $ed = new ResearcherEducation;
-                    $ed->year = ucwords(strtolower($list['year']));
+                    $ed->year =$list['year'];
                     $ed->institution = ucwords(strtolower($list['institution']));
-                    $ed->program = $list['degree']; 
+                    $ed->program = ucwords(strtolower($list['degree'])); 
                     $ed->qualification_id = $list['qualification']['id']; 
                     $ed->researcher_id = $data->id;
                     $ed->save();
@@ -133,5 +133,21 @@ class ResearcherController extends Controller
         $data = $query->take(3)->get();
 
         return SearchResearcherResource::collection($data);
+    }
+
+    public function print($id){
+
+        
+        $data = User::with('profile')
+        ->with('researcher.designation','researcher.institution')
+        ->with('publications:id,user_id,title','publications.info:id,research_id,published_date')
+        ->where('id',$id)->where('type','Researcher')->first();  
+        
+        $array = [
+            'researcher' => new ResearcherResource($data)
+        ];
+
+        $pdf = \PDF::loadView('user_common.print-researcher',$array);
+        return $pdf->download($data->profile->lastname.'_'.$data->profile->firstname.' (researcher).pdf');
     }
 }

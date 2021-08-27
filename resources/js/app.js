@@ -22,6 +22,8 @@ Vue.use(VueToast);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('password', require('./components/Password.vue').default);
+Vue.component('verify', require('./components/Verify.vue').default);
 Vue.component('secretariat', require('./components/Admin/Dashboard/Index.vue').default);
 Vue.component('secretariat-left', require('./components/Admin/Dashboard/Left.vue').default);
 Vue.component('secretariat-right', require('./components/Admin/Dashboard/Right.vue').default);
@@ -43,6 +45,7 @@ Vue.component('event-attendance', require('./components/Admin/Event/Attendance.v
 
 Vue.component('staffs', require('./components/Common/Staff/Index.vue').default);
 Vue.component('staff-create', require('./components/Common/Staff/Create.vue').default);
+Vue.component('staff-status', require('./components/Common/Staff/Status.vue').default);
 
 Vue.component('research', require('./components/Common/Research/Index.vue').default);
 Vue.component('research-create', require('./components/Common/Research/Create.vue').default);
@@ -62,6 +65,11 @@ Vue.component('inventory-create', require('./components/Coordinator/Inventory/Cr
 Vue.component('inventory-view', require('./components/Coordinator/Inventory/View.vue').default);
 
 // SECRETARIAT //
+
+Vue.component('d-secretariat', require('./components/Secretariat/Dashboard/Index.vue').default);
+Vue.component('d-secretariat-left', require('./components/Secretariat/Dashboard/Left.vue').default);
+Vue.component('d-secretariat-right', require('./components/Secretariat/Dashboard/Right.vue').default);
+Vue.component('d-secretariat-top', require('./components/Secretariat/Dashboard/Top.vue').default);
 
 Vue.component('file', require('./components/Secretariat/File/Index.vue').default);
 Vue.component('file-create', require('./components/Secretariat/File/Create.vue').default);

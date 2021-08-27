@@ -31,6 +31,8 @@ class ResearcherResource extends JsonResource
             'specialty' => $this->researcher->specialty,
             'institution' => $this->researcher->institution,
             'publications' => PublicationResource::collection($this->publications),
+            'educations' => DefaultResource::collection($this->researcher->educations),
+            'trainings' => DefaultResource::collection($this->researcher->trainings),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -6960,6 +6960,13 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    download: function download(id) {
+      axios.post(this.currentUrl + '/request/admin/file/download', {
+        id: id
+      }).then(function (response) {})["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -75683,9 +75690,10 @@ var render = function() {
                   "a",
                   {
                     staticClass: "text-body",
-                    attrs: {
-                      href: _vm.currentUrl + _vm.file.path,
-                      target: "_blank"
+                    on: {
+                      click: function($event) {
+                        return _vm.download(_vm.file.id)
+                      }
                     }
                   },
                   [

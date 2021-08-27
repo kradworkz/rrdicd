@@ -24,7 +24,7 @@
                         <div class="text-center mb-5">
                             <h1 class="display-2 font-weight-medium">5<i class='bx bx-alarm-exclamation bx-tada display-3 text-danger'></i></i>3</h1>
                             <h4 class="text-danger">Site is Under Maintenance</h4>
-                            <p class="text-muted font-size-12">Please try again and come back later</p>
+                            <p class="text-muted font-size-12">Please come back and try again later</p>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Hash;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -36,6 +37,10 @@ class HomeController extends Controller
         }else{
             return view('user_admin.index');
         }
+    }
+
+    public function settings(){
+        return view('user_common.settings');
     }
 
     public function password(Request $request){

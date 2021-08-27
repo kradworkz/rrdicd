@@ -2096,6 +2096,13 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
+    download: function download(id) {
+      axios.post(this.currentUrl + '/request/admin/file/download', {
+        id: id
+      }).then(function (response) {})["catch"](function (err) {
+        return console.log(err);
+      });
+    },
     message: function message(val) {
       if (val) {
         $("#attendance").modal('hide');
@@ -6666,6 +6673,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6693,7 +6707,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.current_password = '';
           _this.password = '';
           _this.password_confirmation = '';
-          alert(response.data.success);
+          _this.errors = [];
+          _this.test = '';
+          _this.test1 = response.data.success;
+
+          _this.$parent.xsettings();
         }
       })["catch"](function (error) {
         if (error.response.status == 422) {
@@ -6703,6 +6721,8 @@ __webpack_require__.r(__webpack_exports__);
         if (error.response.status == 401) {
           _this.test = error.response.data.error;
         }
+
+        _this.test1 = '';
       });
     }
   }
@@ -7255,6 +7275,19 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
+    destroy: function destroy(id) {
+      var _this2 = this;
+
+      axios.get(this.currentUrl + '/request/admin/file/destroy/' + id).then(function (response) {
+        _this2.fetch();
+
+        Vue.$toast.success('<strong>Successfullt Deleted</strong>', {
+          position: 'bottom-right'
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
     show: function show(research) {
       this.research = research;
     },
@@ -7285,6 +7318,13 @@ __webpack_require__.r(__webpack_exports__);
       // this.edit = false;
       this.$refs.edit.clear();
       $("#add").modal('show');
+    },
+    download: function download(id) {
+      axios.post(this.currentUrl + '/request/admin/file/download', {
+        id: id
+      }).then(function (response) {})["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -7436,7 +7476,23 @@ Vue.component('file-create', __webpack_require__(/*! ./components/Secretariat/Fi
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: function data() {
+    return {
+      currentUrl: window.location.origin
+    };
+  },
+  methods: {
+    settings: function settings() {
+      $("#settings").modal('show');
+    },
+    xsettings: function xsettings() {
+      $("#settings").modal('hide');
+      Vue.$toast.success('<strong>Successfully Updated</strong>', {
+        position: 'bottom-right'
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -65625,9 +65681,10 @@ var render = function() {
                   "a",
                   {
                     staticClass: "text-body",
-                    attrs: {
-                      href: _vm.currentUrl + _vm.file.path,
-                      target: "_blank"
+                    on: {
+                      click: function($event) {
+                        return _vm.download(_vm.file.id)
+                      }
                     }
                   },
                   [
@@ -75161,148 +75218,198 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "form",
-      {
-        staticClass: "form-horizontal",
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.changepassword.apply(null, arguments)
-          }
-        }
-      },
-      [
+  return _c(
+    "div",
+    {
+      staticClass: "modal-dialog modal-dialog-centered modal",
+      attrs: { role: "document" }
+    },
+    [
+      _c("div", { staticClass: "modal-content" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "userpassword" } }, [
-            _vm._v("Current Password "),
-            _vm.test
-              ? _c(
-                  "b",
-                  { staticStyle: { color: "red", "font-size": "12px" } },
-                  [_vm._v(" (" + _vm._s(_vm.test) + ")")]
-                )
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.current_password,
-                expression: "current_password"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "password", placeholder: "Enter password" },
-            domProps: { value: _vm.current_password },
+        _c(
+          "form",
+          {
+            staticClass: "form-horizontal",
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.current_password = $event.target.value
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.changepassword.apply(null, arguments)
               }
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "userpassword" } }, [
-            _vm._v("New Password "),
-            _vm.errors.password
-              ? _c(
-                  "b",
-                  { staticStyle: { color: "red", "font-size": "12px" } },
-                  [_vm._v(" (" + _vm._s(_vm.errors.password[0]) + ")")]
-                )
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.password,
-                expression: "password"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "password", placeholder: "Enter password" },
-            domProps: { value: _vm.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.password = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.password_confirmation,
-                expression: "password_confirmation"
-              }
-            ],
-            staticClass: "form-control",
-            staticStyle: { "margin-top": "5px" },
-            attrs: { type: "password", placeholder: "Enter password" },
-            domProps: { value: _vm.password_confirmation },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.password_confirmation = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _vm._m(1)
-      ]
-    )
-  ])
+          },
+          [
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "customerform" }, [
+                _vm.test1 != ""
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-success",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.test1) +
+                            "\n                    "
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "userpassword" } }, [
+                    _vm._v("Current Password "),
+                    _vm.test
+                      ? _c(
+                          "b",
+                          {
+                            staticStyle: { color: "red", "font-size": "12px" }
+                          },
+                          [_vm._v(" (" + _vm._s(_vm.test) + ")")]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.current_password,
+                        expression: "current_password"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "password", placeholder: "Enter password" },
+                    domProps: { value: _vm.current_password },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.current_password = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "userpassword" } }, [
+                    _vm._v("New Password "),
+                    _vm.errors.password
+                      ? _c(
+                          "b",
+                          {
+                            staticStyle: { color: "red", "font-size": "12px" }
+                          },
+                          [_vm._v(" (" + _vm._s(_vm.errors.password[0]) + ")")]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.password,
+                        expression: "password"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "password", placeholder: "Enter password" },
+                    domProps: { value: _vm.password },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.password = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.password_confirmation,
+                        expression: "password_confirmation"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    staticStyle: { "margin-top": "5px" },
+                    attrs: { type: "password", placeholder: "Enter password" },
+                    domProps: { value: _vm.password_confirmation },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.password_confirmation = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
+          ]
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "user-thumb text-center mb-1" }, [
-      _c("img", {
-        staticClass: "rounded-circle img-thumbnail avatar-md",
-        attrs: { src: "", alt: "thumbnail" }
-      }),
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Update Password")]
+      ),
       _vm._v(" "),
-      _c("h5", { staticClass: "font-size-15 mt-3" })
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-0" }, [
-      _c("div", { staticClass: "col-12 text-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary w-md waves-effect waves-light",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Unlock")]
-        )
-      ])
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Save")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
     ])
   }
 ]
@@ -76226,10 +76333,11 @@ var render = function() {
                         {
                           staticClass:
                             "btn btn-primary btn-sm btn-rounded waves-effect waves-light",
-                          attrs: {
-                            href: _vm.currentUrl + file.path,
-                            target: "_blank",
-                            type: "button"
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.download(file.id)
+                            }
                           }
                         },
                         [
@@ -76262,7 +76370,24 @@ var render = function() {
                         [_c("i", { staticClass: "bx bx-edit-alt" })]
                       ),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-danger",
+                          attrs: {
+                            "data-toggle": "tooltip",
+                            "data-placement": "top",
+                            title: "",
+                            "data-original-title": "Delete"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.destroy(file.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "bx bx-trash" })]
+                      )
                     ])
                   ])
                 }),
@@ -76324,24 +76449,6 @@ var staticRenderFns = [
         }
       },
       [_c("i", { staticClass: "bx bx-show" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "text-danger",
-        attrs: {
-          "data-toggle": "tooltip",
-          "data-placement": "top",
-          title: "",
-          "data-original-title": "Delete"
-        }
-      },
-      [_c("i", { staticClass: "bx bx-trash" })]
     )
   }
 ]

@@ -48,14 +48,14 @@
                                 <td><i class="bx bxs-file-pdf font-size-16 align-middle text-primary mr-2"></i> {{file.name.substring(0,80)+".."}}</td>
                                 <td class="text-center font-size-11">{{file.created_at}}</td>
                                 <td class="text-center font-size-11">
-                                    <a :href="currentUrl+file.path" target="_blank" type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
+                                    <a @click="download(file.id)" type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
                                        Download
                                     </a> 
                                 </td>
                                 <td class="text-right">
                                     <a class="mr-3 text-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class='bx bx-show'></i></a>
                                     <a class="mr-3 text-warning" @click="editfile(file)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class='bx bx-edit-alt' ></i></a>
-                                    <a class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class='bx bx-trash'></i></a>
+                                    <a class="text-danger" @click="destroy(file.id)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class='bx bx-trash'></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -115,6 +115,17 @@ export default {
             .catch(err => console.log(err));
         },
 
+        destroy(id){
+            axios.get(this.currentUrl + '/request/admin/file/destroy/'+id)
+            .then(response => {
+                this.fetch();
+                Vue.$toast.success('<strong>Successfullt Deleted</strong>', {
+                    position: 'bottom-right'
+                });
+            })
+            .catch(err => console.log(err));
+        },
+
         show(research){
             this.research = research;
         },
@@ -147,7 +158,18 @@ export default {
             // this.edit = false;
             this.$refs.edit.clear();
             $("#add").modal('show');
-        }
+        },
+
+        download(id){
+            axios.post(this.currentUrl + '/request/admin/file/download', {
+                id: id
+            })
+            .then(response => {
+            
+            })
+            .catch(err => console.log(err));
+        },
+
     }, 
 }
 </script>

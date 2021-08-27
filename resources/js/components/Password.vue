@@ -1,30 +1,37 @@
 <template>
-    <div>
-        <form class="form-horizontal" @submit.prevent="changepassword">
-            <div class="user-thumb text-center mb-1">
-                <img src="" class="rounded-circle img-thumbnail avatar-md" alt="thumbnail">
-                <h5 class="font-size-15 mt-3"></h5>
+     <div class="modal-dialog modal-dialog-centered modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-
-
-            <div class="form-group">
-                <label for="userpassword">Current Password <b v-if="test" style="color: red; font-size: 12px;"> ({{ test }})</b></label>
-                <input type="password" class="form-control" v-model="current_password" placeholder="Enter password">
-            </div>
-               <div class="form-group">
-                <label for="userpassword">New Password <b v-if="errors.password" style="color: red; font-size: 12px;"> ({{ errors.password[0] }})</b></label>
-                <input type="password" class="form-control" v-model="password" placeholder="Enter password">
-                <input type="password" class="form-control" v-model="password_confirmation" placeholder="Enter password" style="margin-top: 5px;">
-            </div>
-
-            <div class="form-group row mb-0">
-                <div class="col-12 text-right">
-                    <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Unlock</button>
+            
+            <form class="form-horizontal" @submit.prevent="changepassword">
+                <div class="modal-body">
+                    <div class="customerform">
+                        <div v-if="test1 != ''" class="alert alert-success" role="alert">
+                            {{ test1 }}
+                        </div>
+                        <div class="form-group">
+                            <label for="userpassword">Current Password <b v-if="test" style="color: red; font-size: 12px;"> ({{ test }})</b></label>
+                            <input type="password" class="form-control" v-model="current_password" placeholder="Enter password">
+                        </div>
+                        <div class="form-group">
+                            <label for="userpassword">New Password <b v-if="errors.password" style="color: red; font-size: 12px;"> ({{ errors.password[0] }})</b></label>
+                            <input type="password" class="form-control" v-model="password" placeholder="Enter password">
+                            <input type="password" class="form-control" v-model="password_confirmation" placeholder="Enter password" style="margin-top: 5px;">
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-        </form>
-     </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 <script>
 export default {
@@ -54,7 +61,10 @@ export default {
                     this.current_password = '';
                     this.password = '';
                     this.password_confirmation = '';
-                    alert(response.data.success);
+                    this.errors = [];
+                    this.test = '';
+                    this.test1 = response.data.success;
+                     this.$parent.xsettings();
                 }
             })
             .catch(error => {
@@ -65,6 +75,8 @@ export default {
                 if(error.response.status == 401){
                    this.test = error.response.data.error;
                 }
+
+                this.test1 = '';
             });
         }
     }

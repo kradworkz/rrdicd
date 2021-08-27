@@ -82,4 +82,20 @@ Vue.component('file-create', require('./components/Secretariat/File/Create.vue')
 
 const app = new Vue({
     el: '#app',
+    data(){
+        return {
+            currentUrl: window.location.origin,
+        }
+    },
+    methods : {
+        settings(){
+            $("#settings").modal('show');
+        },
+        xsettings(){
+            $("#settings").modal('hide');
+            Vue.$toast.success('<strong>Successfully Updated</strong>', {
+                position: 'bottom-right'
+            });
+        }
+    }
 });

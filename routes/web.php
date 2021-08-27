@@ -27,6 +27,10 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/settings', 'HomeController@settings');
+});
+
 Route::middleware(['role:Administrator','auth'])->group(function () {
     Route::get('/dropdowns', 'DropdownController@index');
     Route::get('/member-committees', 'OrganizationController@members');
@@ -81,6 +85,8 @@ Route::prefix('request')->group(function () {
         Route::get('/files/{keyword}', 'FileController@list');
         Route::post('/file/store', 'FileController@store');
         Route::get('/file/today', 'FileController@today');
+        Route::get('/file/destroy/{id}', 'FileController@destroy');
+        Route::post('/file/download', 'FileController@download');
     });
 
     Route::prefix('common')->group(function () {

@@ -24,33 +24,25 @@
                             <div class="card overflow-hidden">
                                 <div class="bg-soft-primary">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="text-primary p-4">
-                                                <h5 class="text-primary">Account Verification</h5>
-                                                <p>Please check your email address.</p>
+                                        <div class="col-12" style="margin-bottom: -15px;">
+                                            <div class="text-primary p-3">
+                                                <h5 class="text-primary" style="margin-bottom: 0px;">Update Password</h5>
+                                                <p class="font-size-11">Please update your password.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body pt-0"> 
-                                    <div>
-                                        <a >
-                                            <div class="avatar-md profile-user-wid mb-4">
-                                                <span class="avatar-title rounded-circle bg-light">
-                                                    <img src="{{asset('images/avatars/'.Auth::user()->profile->avatar)}}" alt="" class="rounded-circle" height="34">
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="p-2" style="margin-top: -50px;">
-                                       <verify></verify>
+                                   
+                                    <div class="p-2 mt-3">
+                                       <password></password>
                                     </div>
                 
                                 </div>
                             </div>
                             <div class="mt-5 text-center">
                                 <div>
-                                    <p>©  RRDICOM. Developed by DOST-IX</p>
+                                    <p>©  DOST - IX. <i class="mdi mdi-heart text-danger"></i> 2021</p>
                                 </div>
                             </div>
     

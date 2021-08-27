@@ -47,8 +47,24 @@ class FileController extends Controller
         }
     }
 
+    public function destroy($id){
+        $data = File::findOrFail($id);
+        $path = $data->path;
+        \Storage::delete('public/'.$path);
+        $data->delete();
+
+        return new FileResource($data);
+    }
+
     public function today(){
         $data =File::first();
         return new FileResource($data);
     }
+
+    public function download(Request $request){
+        $data = File::findOrFail($request->id);
+        $path = $data->path;
+        return \Storage::download('public/'.$path);
+    }
+    
 }

@@ -80,7 +80,7 @@
                 </div>
                 <div class="mt-2">
                     <div class="card border shadow-none mb-2">
-                        <a :href="currentUrl+file.path" target="_blank" class="text-body">
+                        <a @click="download(file.id)" class="text-body">
                             <div class="p-2">
                                 <div class="d-flex">
                                     <div class="avatar-xs align-self-center ml-2 mr-3">
@@ -139,6 +139,16 @@
                    this.events =  response.data[0][2];
                    this.research = response.data[0][3];
 
+                })
+                .catch(err => console.log(err));
+            },
+
+            download(id){
+                axios.post(this.currentUrl + '/request/admin/file/download', {
+                    id: id
+                })
+                .then(response => {
+                
                 })
                 .catch(err => console.log(err));
             },

@@ -17,6 +17,6 @@
             </div>
         </div>
 
-        <secretariat></secretariat>
+        <secretariat :usertype="'{{ Auth::user()->type }}'"></secretariat>
        
 @endsection

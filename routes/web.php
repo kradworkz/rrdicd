@@ -61,8 +61,10 @@ Route::prefix('request')->group(function () {
             Route::post('/file/download', 'FileController@download');
             Route::get('/totals', 'DashboardController@total');
             Route::get('/side', 'DashboardController@side');
-            Route::get('/ages', 'DashboardController@ages');
-            Route::get('/gender', 'DashboardController@gender');
+            Route::get('/ages/{val}', 'DashboardController@ages');
+            Route::get('/gender/{val}', 'DashboardController@gender');
+            Route::get('/institutions', 'DashboardController@institution');
+            Route::get('/dropdowns/{type}/{key}', 'DashboardController@dropdowns');
         });
     });
 
@@ -72,7 +74,7 @@ Route::prefix('request')->group(function () {
             Route::get('/dropdowns/{classification}/{type}', 'DropdownController@lists');
             Route::get('/dropdown/{classification}/{type}/{keyword}', 'DropdownController@list');
             Route::post('/dropdown/store', 'DropdownController@store');
-            Route::get('/dropdowncount/{classification}/{type}', 'DropdownController@count');
+            Route::get('/dropdowncount/{classification}/{type}/{id}', 'DropdownController@count');
 
             Route::get('/organizations/{type}/{keyword}', 'OrganizationController@list');
             Route::get('/organization/list/{type}', 'OrganizationController@lists');
@@ -111,6 +113,9 @@ Route::prefix('request')->group(function () {
             Route::post('/researcher/store', 'ResearcherController@store');
             Route::post('/researcher/search', 'ResearcherController@search');
             Route::get('/researcher/print/{id}', 'ResearcherController@print');
+
+            Route::get('/report/print/{type}/{key}', 'ReportController@index');
+            Route::get('/report/print/institution', 'ReportController@institution');
 
         });
     });

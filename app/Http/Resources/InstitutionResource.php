@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PublicationResource extends JsonResource
+class InstitutionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,13 @@ class PublicationResource extends JsonResource
      */
     public function toArray($request)
     {
+     
+
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'published' => ($this->info == null) ? 'n/a' : $this->info->published_date,
-            'description' => ($this->info == null) ? 'n/a' : $this->info->description
+            'name' => $this->name,
+            'researchers' => $this->researchers_count,
+            'research' => array_sum(json_decode(json_encode(CountResource::collection($this->researchers)), true))
         ];
     }
 }

@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Research', 'user_id');
     } 
 
+    public function count()
+    {
+        return $this->hasMany('App\Models\Research', 'user_id')->count();
+    } 
+
     public function attendees()
     {
         return $this->hasMany('App\Models\EventAttendance', 'user_id');

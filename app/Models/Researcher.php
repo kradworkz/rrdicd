@@ -39,6 +39,18 @@ class Researcher extends Model
         return $this->hasMany('App\Models\ResearcherTraining', 'researcher_id');
     } 
 
+    public function scopeGender($query,$type,$id = null){
+        $data = $query;
+        ($id != null) ? $data = $query->where('institution_id',$id) : '';
+        $data = $query->whereHas('user',function ($query) use ($type) {
+            $query->whereHas('profile',function ($query) use ($type){
+                $query->where('gender',$type);
+            });
+        })->count();
+
+        return $data;
+    }
+
     public function getUpdatedAtAttribute($value)
     {
         return date('M d, Y g:i a', strtotime($value));

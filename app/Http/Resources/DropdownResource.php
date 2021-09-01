@@ -6,20 +6,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class DropdownResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
+    
     public function toArray($request)
-    {   
+    {  
         if($this->classification == 'Events'){ 
             $count = $this->count();
         }else if($this->classification == 'Qualifications'){
             $count = $this->qualification();
         }else{
-            $count = $this->specialty();
+            $count = $this->specialty(2);
         }
 
         return [

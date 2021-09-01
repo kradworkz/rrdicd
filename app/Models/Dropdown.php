@@ -57,9 +57,11 @@ class Dropdown extends Model
         return $count;
     }
 
-    public function specialty()
+    public function specialty($id = null)
     {
-        $count = Researcher::where('specialty_id',$this->id)->count();
+        $query = Researcher::query();
+        ($id != null) ? $query->where('institution_id',$id) : '';
+        $count = $query->where('specialty_id',$this->id)->count();
         return $count;
     }
 

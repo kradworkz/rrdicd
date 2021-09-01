@@ -41,16 +41,23 @@ class DropdownController extends Controller
         return new DefaultResource($data);
     }
 
-    public function count($classification,$type)
+    public function count($classification,$type,$val)
     {
+         if($val == '-'){
+            $id = '';
+        }else{
+            $id = explode("*", $val);
+            $id = ($id[0] == '-') ? '': $id[0] ;
+        }
+
         ($type == '-') ? $type = '' : $type;
         $query = Dropdown::query();
         ($type != '') ? $query->where('type',$type) : '';
         $data = $query->where('classification',$classification)->get();
+        
+       return $data;
 
         return DropdownResource::collection($data);
     }
-
-    
     
 }

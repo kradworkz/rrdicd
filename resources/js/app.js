@@ -28,6 +28,7 @@ Vue.component('secretariat', require('./components/Admin/Dashboard/Index.vue').d
 Vue.component('secretariat-left', require('./components/Admin/Dashboard/Left.vue').default);
 Vue.component('secretariat-right', require('./components/Admin/Dashboard/Right.vue').default);
 Vue.component('secretariat-top', require('./components/Admin/Dashboard/Top.vue').default);
+Vue.component('secretariat-bottom-right', require('./components/Admin/Dashboard/RightBottom.vue').default);
 
 Vue.component('dropdowns', require('./components/Admin/Dropdown/Index.vue').default);
 Vue.component('dropdown-create', require('./components/Admin/Dropdown/Create.vue').default);
@@ -56,6 +57,12 @@ Vue.component('research-modal', require('./components/Common/Research/Modal.vue'
 Vue.component('researchers', require('./components/Common/Researcher/Index.vue').default);
 Vue.component('researcher-create', require('./components/Common/Researcher/Create.vue').default);
 Vue.component('researcher-view', require('./components/Common/Researcher/View.vue').default);
+
+Vue.component('reports', require('./components/Common/Report/Report.vue').default);
+Vue.component('report-research', require('./components/Common/Report/Research.vue').default);
+Vue.component('report-researcher', require('./components/Common/Report/Researcher.vue').default);
+Vue.component('report-institution', require('./components/Common/Report/Institution.vue').default);
+Vue.component('report-filter', require('./components/Common/Report/Filter.vue').default);
 
 
 // LABORATORY COORDINATOR// 

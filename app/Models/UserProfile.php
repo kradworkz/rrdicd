@@ -26,7 +26,7 @@ class UserProfile extends Model
         return date('M d, Y g:i a', strtotime($value));
     }
 
-    public function scopeAgedBetween($query, $start, $end = null)
+    public function scopeAgedBetween($query, $start, $end = null,$id = null)
     {
         if (is_null($end)) {
             $end = $start;
@@ -38,8 +38,10 @@ class UserProfile extends Model
         $end = $now->subYears($end)->addYear()->subDay(); // plus 1 year minus a day
         $end = date('Y-m-d', strtotime($end));
 
-        return $query->whereHas('user',function ($query) {
-            $query->where('type','Researcher');
+        return $query->whereHas('user',function ($query) use ($id) {
+            $query->where('type','Researcher')->whereHas('researcher',function ($query) use ($id){
+                ($id != null) ? $query->where('institution_id',$id) : '';
+            });
         })
         ->whereBetween('birthdate', [$end, $start])->count();
     }

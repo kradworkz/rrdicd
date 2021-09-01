@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Research;
 use App\Models\ResearchInfo;
 use App\Models\ResearchStatus;
@@ -33,6 +34,14 @@ class ResearchController extends Controller
         $query->with('classification')->with('user:id,email','user.profile')->with('info');
         $query->where('title','LIKE', '%'.$keyword.'%');
         (\Auth::user()->type == "Researcher") ? $query->where('user_id',\Auth::user()->id)  : '';
+        if(Auth::user()->type == "Secretariat"){
+            $id = Auth::user()->organization->organization_id;
+            $query->whereHas('user',function ($query) use ($id){
+                $query->whereHas('researcher',function ($query) use ($id){
+                    ($id != '') ? $query->where('institution_id', $id) : '';
+                });
+            });
+        }
         $data = $query->paginate(10);
         return ResearchResource::collection($data);
     }

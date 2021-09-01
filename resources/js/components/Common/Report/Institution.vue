@@ -2,7 +2,7 @@
 <div style="margin-top: 10px; margin-left: 20px; margin-right: 20px;">
     <div class="row">
         <div class="col-xl-12">
-            <div class="table-responsive mt-3" data-simplebar style="height: 40vh;">
+            <div class="table-responsive mt-3 mb-4" data-simplebar style="height: 40vh;">
                 <table class="table table-centered table-nowrap">
                     <thead>
                         <tr>

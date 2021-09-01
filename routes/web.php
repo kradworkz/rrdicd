@@ -17,7 +17,7 @@ use App\Http\Controllers\Auth\WelcomeController;
 
 Route::get('/', function () {
     if(!Auth::check()){
-        return view('auth.login');
+        return view('welcome');
     }else{
         return redirect()->route('home');
     }
@@ -26,6 +26,7 @@ Route::get('/', function () {
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/search/{keyword}', 'PublicController@search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/settings', 'HomeController@settings');
@@ -129,6 +130,13 @@ Route::prefix('request')->group(function () {
             Route::get('/equipment/{type}/{id}/{quantity}', 'InventoryController@list');
             Route::get('/equipment/dashboard', 'InventoryController@dashboard');
             Route::get('/equipment/search/{keyword}', 'InventoryController@search');
+        });
+    });
+
+    Route::middleware(['role:Researcher','auth'])->group(function () {
+        Route::prefix('researcher')->group(function () {
+            Route::get('/researches/{keyword}', 'MyController@researches');
+            Route::get('/status', 'MyController@status');
         });
     });
 

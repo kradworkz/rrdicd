@@ -59,7 +59,7 @@
                         <span key="t-chat">Dropdowns</span>
                     </a>
                 </li>
-                @elseif(Auth::user()->type == "Researcher" || Auth::user()->type == "Secretariat")
+                @elseif(Auth::user()->type == "Secretariat")
                 <li>
                     <a href="/researchers" class="waves-effect">
                     <i class='bx bxs-user-rectangle' ></i>
@@ -76,6 +76,13 @@
                     <a href="/staffs" class="waves-effect">
                     <i class='bx bx-user-circle'></i>
                         <span key="t-chat">Staffs</span>
+                    </a>
+                </li>
+                @elseif(Auth::user()->type == "Researcher")
+                <li>
+                    <a href="/researches" class="waves-effect">
+                    <i class='bx bxs-book'></i>
+                        <span key="t-chat">Researches</span>
                     </a>
                 </li>
                 @elseif(Auth::user()->type == "Laboratory Coordinator")

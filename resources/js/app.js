@@ -10,6 +10,7 @@ window.Vue = require('vue').default;
 import VueToast from 'vue-toast-notification';
 Vue.use(VueToast);
 
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -80,6 +81,17 @@ Vue.component('d-secretariat-top', require('./components/Secretariat/Dashboard/T
 
 Vue.component('file', require('./components/Secretariat/File/Index.vue').default);
 Vue.component('file-create', require('./components/Secretariat/File/Create.vue').default);
+
+//RESEARCHER
+
+Vue.component('r-index', require('./components/Researcher/Index.vue').default);
+Vue.component('r-left', require('./components/Researcher/Left.vue').default);
+Vue.component('r-right', require('./components/Researcher/Right.vue').default);
+
+//PUBLIC
+
+Vue.component('public-search', require('./components/Public/Index.vue').default);
+Vue.component('public-view', require('./components/Public/View.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

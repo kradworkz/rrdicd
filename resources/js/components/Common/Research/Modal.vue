@@ -9,6 +9,9 @@
                     <p class="text-muted" style="margin-top: -5px; margin-bottom: -10px;"><i class="bx bx-calendar-plus font-size-12 align-middle text-primary mr-1"></i><span class="font-size-11">{{research.created_at}}</span></p>
                 </div>
                 <div class="form-inline float-right">
+                    <button @click="ups" type="button"  class="btn btn-light waves-light waves-effect  mr-2">
+                    <i class='bx bx-cloud-upload'></i>
+                    </button>
                     <div data-toggle="tooltip" data-placement="bottom" data-original-title="Close">
                         <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-light waves-light waves-effect  mr-2">
                         <i class='bx bx-x-circle'></i>
@@ -89,10 +92,24 @@
                             </div>
                         </div>
                          <hr></hr>
-                        <div class="row justify-content-center">
-                            <div class="col-xl-4 col-sm-6">
+
+                        <div class="col-md-12" v-if="upload == true">
+                        <form @submit.prevent="save">
+                            
+                                <div class="mt-4 alert alert-warning alert-dismissible fade show" role="alert">
+                                    <i class="mdi mdi-alert-outline mr-2"></i>
+                                    Allowed Filetype : PDF, Docx
+                                </div>
+                                <button type="submit" class="btn btn-primary float-right">Upload</button>
+                                 <input class="mt-2 mb-4" multiple type="file" @change="uploadFieldChange">
+                            
+                        </form>
+                        </div>
+
+                        <div v-else class="row justify-content-center">
+                            <div class="col-xl-3 col-sm-8" v-for="(file,index) in f" v-bind:key="file.id">
                                 <div class="card border shadow-none mb-2">
-                                    <a href="javascript: void(0);" class="text-body">
+                                    <a @click="download(file.id)" class="text-body">
                                         <div class="p-2">
                                             <div class="d-flex">
                                                 <div class="avatar-xs align-self-center mr-2">
@@ -101,9 +118,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="overflow-hidden mr-auto">
-                                                    <h5 class="font-size-13 text-truncate mb-1">Document</h5>
-                                                    <p class="text-muted text-truncate mb-0">21 Files</p>
+                                                <div class="overflow-hidden">
+                                                    <h5 class="font-size-13 text-truncate mt-2">{{file.path}}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -130,6 +146,9 @@
             return {
                 currentUrl: window.location.origin,
                 errors: [],
+                f: [],
+                attachments: [],
+                upload: false
             }
         },
 
@@ -137,6 +156,62 @@
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace(',', '.')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            },
+
+            uploadFieldChange(e) {
+                e.preventDefault();
+                var files = e.target.files || e.dataTransfer.files;
+
+                if (!files.length)
+                    return;
+                for (var i = files.length - 1; i >= 0; i--) {
+                    this.attachments.push(files[i]);
+                }
+            },
+
+            fetchFile(){
+                axios.get(this.currentUrl + '/request/common/research/files/'+this.research.id)
+                .then(response => {
+                    this.f = response.data.data;
+                })
+                .catch(err => console.log(err));
+            },
+
+            save(){
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+                let existingObj = this;
+                let data = new FormData();
+                for (var i = this.attachments.length - 1; i >= 0; i--) {
+                    data.append('files[]', this.attachments[i]);
+                }
+                data.append('id', this.research.id);
+                axios.post('/request/common/research/upload', data, config)
+                .then(response => {
+                   this.fetchFile();
+                   this.attachments = [];
+                   this.upload = false;
+                })
+                .catch(error => {
+                    this.isLoading = false;
+                    existingObj.output = err;
+                });
+            },
+
+            ups(){
+                (this.upload == true) ? this.upload = false : this.upload = true;
+            },
+
+            download(id){
+                axios.post(this.currentUrl + '/request/common/research/download', {
+                    id: id,
+                    research_id: this.research.id
+                })
+                .then(response => {})
+                .catch(err => console.log(err));
             },
         }
     }

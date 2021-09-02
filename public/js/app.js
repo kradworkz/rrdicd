@@ -4835,6 +4835,7 @@ __webpack_require__.r(__webpack_exports__);
         keyboard: false,
         show: true
       });
+      this.$refs.view.fetchFile();
     },
     editresearch: function editresearch(research) {
       this.$refs.edit.edit(research);
@@ -5008,6 +5009,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     'research': Object
@@ -5015,13 +5032,71 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       currentUrl: window.location.origin,
-      errors: []
+      errors: [],
+      f: [],
+      attachments: [],
+      upload: false
     };
   },
   methods: {
     formatPrice: function formatPrice(value) {
       var val = (value / 1).toFixed(2).replace(',', '.');
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    uploadFieldChange: function uploadFieldChange(e) {
+      e.preventDefault();
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+
+      for (var i = files.length - 1; i >= 0; i--) {
+        this.attachments.push(files[i]);
+      }
+    },
+    fetchFile: function fetchFile() {
+      var _this = this;
+
+      axios.get(this.currentUrl + '/request/common/research/files/' + this.research.id).then(function (response) {
+        _this.f = response.data.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    save: function save() {
+      var _this2 = this;
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var existingObj = this;
+      var data = new FormData();
+
+      for (var i = this.attachments.length - 1; i >= 0; i--) {
+        data.append('files[]', this.attachments[i]);
+      }
+
+      data.append('id', this.research.id);
+      axios.post('/request/common/research/upload', data, config).then(function (response) {
+        _this2.fetchFile();
+
+        _this2.attachments = [];
+        _this2.upload = false;
+      })["catch"](function (error) {
+        _this2.isLoading = false;
+        existingObj.output = err;
+      });
+    },
+    ups: function ups() {
+      this.upload == true ? this.upload = false : this.upload = true;
+    },
+    download: function download(id) {
+      axios.post(this.currentUrl + '/request/common/research/download', {
+        id: id,
+        research_id: this.research.id
+      }).then(function (response) {})["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -72680,6 +72755,7 @@ var render = function() {
               },
               [
                 _c("research-modal", {
+                  ref: "view",
                   attrs: { research: _vm.research },
                   on: { status: _vm.message }
                 })
@@ -72796,7 +72872,19 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "form-inline float-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-light waves-light waves-effect  mr-2",
+                attrs: { type: "button" },
+                on: { click: _vm.ups }
+              },
+              [_c("i", { staticClass: "bx bx-cloud-upload" })]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ])
         ]),
         _vm._v(" "),
         _vm.research != null
@@ -72955,7 +73043,90 @@ var render = function() {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm.upload == true
+                    ? _c("div", { staticClass: "col-md-12" }, [
+                        _c(
+                          "form",
+                          {
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                return _vm.save.apply(null, arguments)
+                              }
+                            }
+                          },
+                          [
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary float-right",
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v("Upload")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "mt-2 mb-4",
+                              attrs: { multiple: "", type: "file" },
+                              on: { change: _vm.uploadFieldChange }
+                            })
+                          ]
+                        )
+                      ])
+                    : _c(
+                        "div",
+                        { staticClass: "row justify-content-center" },
+                        _vm._l(_vm.f, function(file, index) {
+                          return _c(
+                            "div",
+                            { key: file.id, staticClass: "col-xl-3 col-sm-8" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "card border shadow-none mb-2" },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "text-body",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.download(file.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("div", { staticClass: "p-2" }, [
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm._m(2, true),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "overflow-hidden" },
+                                            [
+                                              _c(
+                                                "h5",
+                                                {
+                                                  staticClass:
+                                                    "font-size-13 text-truncate mt-2"
+                                                },
+                                                [_vm._v(_vm._s(file.path))]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
                 ])
               ])
             ])
@@ -72969,81 +73140,62 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-inline float-right" }, [
-      _c(
-        "div",
-        {
-          attrs: {
-            "data-toggle": "tooltip",
-            "data-placement": "bottom",
-            "data-original-title": "Close"
-          }
-        },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-light waves-light waves-effect  mr-2",
-              attrs: {
-                type: "button",
-                "data-dismiss": "modal",
-                "aria-label": "Close"
-              }
-            },
-            [_c("i", { staticClass: "bx bx-x-circle" })]
-          )
-        ]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        attrs: {
+          "data-toggle": "tooltip",
+          "data-placement": "bottom",
+          "data-original-title": "Close"
+        }
+      },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-light waves-light waves-effect  mr-2",
+            attrs: {
+              type: "button",
+              "data-dismiss": "modal",
+              "aria-label": "Close"
+            }
+          },
+          [_c("i", { staticClass: "bx bx-x-circle" })]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-xl-4 col-sm-6" }, [
-        _c("div", { staticClass: "card border shadow-none mb-2" }, [
-          _c(
-            "a",
-            {
-              staticClass: "text-body",
-              attrs: { href: "javascript: void(0);" }
-            },
-            [
-              _c("div", { staticClass: "p-2" }, [
-                _c("div", { staticClass: "d-flex" }, [
-                  _c(
-                    "div",
-                    { staticClass: "avatar-xs align-self-center mr-2" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "avatar-title rounded bg-transparent text-primary font-size-20"
-                        },
-                        [_c("i", { staticClass: "bx bx-file" })]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "overflow-hidden mr-auto" }, [
-                    _c(
-                      "h5",
-                      { staticClass: "font-size-13 text-truncate mb-1" },
-                      [_vm._v("Document")]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-muted text-truncate mb-0" }, [
-                      _vm._v("21 Files")
-                    ])
-                  ])
-                ])
-              ])
-            ]
-          )
-        ])
-      ])
+    return _c(
+      "div",
+      {
+        staticClass: "mt-4 alert alert-warning alert-dismissible fade show",
+        attrs: { role: "alert" }
+      },
+      [
+        _c("i", { staticClass: "mdi mdi-alert-outline mr-2" }),
+        _vm._v(
+          "\n                                 Allowed Filetype : PDF, Docx\n                             "
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "avatar-xs align-self-center mr-2" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "avatar-title rounded bg-transparent text-primary font-size-20"
+        },
+        [_c("i", { staticClass: "bx bx-file" })]
+      )
     ])
   }
 ]
@@ -78646,7 +78798,10 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { type: "text", placeholder: "Search..." },
+                              attrs: {
+                                type: "text",
+                                placeholder: "Search research title..."
+                              },
                               domProps: { value: _vm.keyword },
                               on: {
                                 keyup: function($event) {

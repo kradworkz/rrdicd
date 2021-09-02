@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\Research;
 use App\Models\ResearchInfo;
+use App\Models\ResearchFile;
 use App\Models\ResearchStatus;
 use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
@@ -95,9 +96,27 @@ class ResearchController extends Controller
         {
             $files = $request->file('files');   
             foreach ($files as $file) {
-                $file_name = time().'.'.$file->getClientOriginalExtension();
-                $file_path = $file->storeAs('uploads', $file_name, 'public');
+                $file_name = $file->getClientOriginalName();;
+                $file_path = $file->storeAs($request->input('id'), $file_name, 'public');
+
+                $data = new ResearchFile;
+                $data->path = $file_path;
+                $data->research_id = $request->input('id');
+                $data->save();
             }
+
+            return new DefaultResource($data);
         }
+    }
+
+    public function files($id){
+        $data =  ResearchFile::where('research_id',$id)->get();
+        return DefaultResource::collection($data);
+    }
+
+    public function download(Request $request){
+        $data = ResearchFile::findOrFail($request->id);
+        $path = $data->path;
+        return \Storage::download('public/'.$path);
     }
 }

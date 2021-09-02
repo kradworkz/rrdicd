@@ -109,6 +109,9 @@ Route::prefix('request')->group(function () {
             Route::get('/researches/{keyword}', 'ResearchController@lists');
             Route::get('/research/{id}', 'ResearchController@research');
             Route::post('/research/store', 'ResearchController@store');
+            Route::post('/research/upload', 'ResearchController@upload');
+            Route::get('/research/files/{id}', 'ResearchController@files');
+            Route::post('/research/download', 'ResearchController@download');
 
             Route::get('/researchers/{keyword}', 'ResearcherController@lists');
             Route::post('/researcher/store', 'ResearcherController@store');

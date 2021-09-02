@@ -68,7 +68,7 @@
             </div>
          
             <div v-if="view == true" class="modal fade exampleModal" id="view" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <research-modal :research="research" @status="message"></research-modal>
+                <research-modal :research="research" @status="message" ref="view"></research-modal>
             </div>
 
             <div class="modal fade exampleModal" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -133,6 +133,7 @@ export default {
                 keyboard: false,
                 show: true
             });
+            this.$refs.view.fetchFile();
         },
 
         editresearch(research){

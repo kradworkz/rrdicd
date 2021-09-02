@@ -9,7 +9,7 @@
                         <div class="row justify-content-center">
                             <div class="search-box chat-search-box py-4">
                                 <div class="position-relative" style="width: 600px;">
-                                    <input type="text" class="form-control" placeholder="Search..." v-model="keyword" @keyup="fetch()">
+                                    <input type="text" class="form-control" placeholder="Search research title..." v-model="keyword" @keyup="fetch()">
                                     <i class="bx bx-search-alt search-icon"></i>
                                 </div>
                             </div>

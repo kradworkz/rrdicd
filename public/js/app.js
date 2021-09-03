@@ -5025,6 +5025,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     'research': Object
@@ -5033,6 +5037,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       currentUrl: window.location.origin,
       errors: [],
+      mess: '',
       f: [],
       attachments: [],
       upload: false
@@ -5081,10 +5086,19 @@ __webpack_require__.r(__webpack_exports__);
         _this2.fetchFile();
 
         _this2.attachments = [];
+        _this2.errors = [];
+        _this2.mess = '';
         _this2.upload = false;
       })["catch"](function (error) {
-        _this2.isLoading = false;
-        existingObj.output = err;
+        if (error.response.status == 422) {
+          _this2.errors = error.response.data.errors;
+          _this2.mess = error.response.data.message;
+          _this2.attachments = [];
+        } else {
+          Vue.$toast.error('<strong>Please contact Administrator</strong>', {
+            position: 'bottom-right'
+          });
+        }
       });
     },
     ups: function ups() {
@@ -7764,7 +7778,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['research'],
   data: function data() {
@@ -7781,6 +7794,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     back: function back() {
       this.$emit('status');
+    },
+    download: function download(id) {
+      axios.post(this.currentUrl + '/research/download', {
+        id: id,
+        research_id: this.research.id
+      }).then(function (response) {})["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -73058,6 +73079,27 @@ var render = function() {
                           [
                             _vm._m(1),
                             _vm._v(" "),
+                            _vm.mess != ""
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "mt-4 alert alert-danger alert-dismissible fade show",
+                                    attrs: { role: "alert" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "mdi mdi-alert-outline mr-2"
+                                    }),
+                                    _vm._v(
+                                      "\n                                 " +
+                                        _vm._s(_vm.mess) +
+                                        " \n                             "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
                             _c(
                               "button",
                               {
@@ -73081,7 +73123,7 @@ var render = function() {
                         _vm._l(_vm.f, function(file, index) {
                           return _c(
                             "div",
-                            { key: file.id, staticClass: "col-xl-3 col-sm-8" },
+                            { key: file.id, staticClass: "col-xl-4 col-sm-6" },
                             [
                               _c(
                                 "div",
@@ -73112,7 +73154,7 @@ var render = function() {
                                                   staticClass:
                                                     "font-size-13 text-truncate mt-2"
                                                 },
-                                                [_vm._v(_vm._s(file.path))]
+                                                [_vm._v(_vm._s(file.name))]
                                               )
                                             ]
                                           )
@@ -73178,7 +73220,7 @@ var staticRenderFns = [
       [
         _c("i", { staticClass: "mdi mdi-alert-outline mr-2" }),
         _vm._v(
-          "\n                                 Allowed Filetype : PDF, Docx\n                             "
+          "\n                                 Allowed Filetype : PDF, Docx \n                             "
         )
       ]
     )
@@ -79164,7 +79206,58 @@ var render = function() {
               _vm._v(" "),
               _c("hr"),
               _vm._v(" "),
-              _vm._m(0)
+              _c(
+                "div",
+                { staticClass: "row justify-content-center" },
+                _vm._l(_vm.research.files, function(file, index) {
+                  return _c(
+                    "div",
+                    { key: file.id, staticClass: "col-xl-4 col-sm-6" },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "card border shadow-none mb-2" },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-body",
+                              on: {
+                                click: function($event) {
+                                  return _vm.download(file.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "p-2" }, [
+                                _c("div", { staticClass: "d-flex" }, [
+                                  _vm._m(0, true),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "overflow-hidden" },
+                                    [
+                                      _c(
+                                        "h5",
+                                        {
+                                          staticClass:
+                                            "font-size-13 text-truncate mt-2"
+                                        },
+                                        [_vm._v(_vm._s(file.name))]
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
             ])
           ])
         ])
@@ -79177,50 +79270,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center mb-4" }, [
-      _c("div", { staticClass: "col-xl-4 col-sm-6" }, [
-        _c("div", { staticClass: "card border shadow-none mb-2" }, [
-          _c(
-            "a",
-            {
-              staticClass: "text-body",
-              attrs: { href: "javascript: void(0);" }
-            },
-            [
-              _c("div", { staticClass: "p-2" }, [
-                _c("div", { staticClass: "d-flex" }, [
-                  _c(
-                    "div",
-                    { staticClass: "avatar-xs align-self-center mr-2" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "avatar-title rounded bg-transparent text-primary font-size-20"
-                        },
-                        [_c("i", { staticClass: "bx bx-file" })]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "overflow-hidden mr-auto" }, [
-                    _c(
-                      "h5",
-                      { staticClass: "font-size-13 text-truncate mb-1" },
-                      [_vm._v("Document")]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-muted text-truncate mb-0" }, [
-                      _vm._v("21 Files")
-                    ])
-                  ])
-                ])
-              ])
-            ]
-          )
-        ])
-      ])
+    return _c("div", { staticClass: "avatar-xs align-self-center mr-2" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "avatar-title rounded bg-transparent text-primary font-size-20"
+        },
+        [_c("i", { staticClass: "bx bx-file" })]
+      )
     ])
   }
 ]

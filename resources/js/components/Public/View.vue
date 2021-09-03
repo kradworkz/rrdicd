@@ -79,10 +79,10 @@
                                 </div>
                             </div>
                             <hr></hr>
-                            <div class="row justify-content-center mb-4">
-                                <div class="col-xl-4 col-sm-6">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-4 col-sm-6" v-for="(file,index) in research.files" v-bind:key="file.id">
                                     <div class="card border shadow-none mb-2">
-                                        <a href="javascript: void(0);" class="text-body">
+                                        <a @click="download(file.id)" class="text-body">
                                             <div class="p-2">
                                                 <div class="d-flex">
                                                     <div class="avatar-xs align-self-center mr-2">
@@ -91,9 +91,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="overflow-hidden mr-auto">
-                                                        <h5 class="font-size-13 text-truncate mb-1">Document</h5>
-                                                        <p class="text-muted text-truncate mb-0">21 Files</p>
+                                                    <div class="overflow-hidden">
+                                                        <h5 class="font-size-13 text-truncate mt-2">{{file.name}}</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,6 +119,7 @@
                 pagination: {},
             }
         },
+        
 
         methods : {
             formatPrice(value) {
@@ -129,7 +129,16 @@
 
             back(){
                 this.$emit('status');
-            }
+            },
+
+            download(id){
+                axios.post(this.currentUrl + '/research/download', {
+                    id: id,
+                    research_id: this.research.id
+                })
+                .then(response => {})
+                .catch(err => console.log(err));
+            },
         }
     }
 </script>

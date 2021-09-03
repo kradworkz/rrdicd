@@ -98,7 +98,11 @@
                             
                                 <div class="mt-4 alert alert-warning alert-dismissible fade show" role="alert">
                                     <i class="mdi mdi-alert-outline mr-2"></i>
-                                    Allowed Filetype : PDF, Docx
+                                    Allowed Filetype : PDF, Docx 
+                                </div>
+                                 <div v-if="mess != ''" class="mt-4 alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="mdi mdi-alert-outline mr-2"></i>
+                                    {{ mess }} 
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right">Upload</button>
                                  <input class="mt-2 mb-4" multiple type="file" @change="uploadFieldChange">
@@ -107,7 +111,7 @@
                         </div>
 
                         <div v-else class="row justify-content-center">
-                            <div class="col-xl-3 col-sm-8" v-for="(file,index) in f" v-bind:key="file.id">
+                            <div class="col-xl-4 col-sm-6" v-for="(file,index) in f" v-bind:key="file.id">
                                 <div class="card border shadow-none mb-2">
                                     <a @click="download(file.id)" class="text-body">
                                         <div class="p-2">
@@ -119,7 +123,7 @@
                                                 </div>
 
                                                 <div class="overflow-hidden">
-                                                    <h5 class="font-size-13 text-truncate mt-2">{{file.path}}</h5>
+                                                    <h5 class="font-size-13 text-truncate mt-2">{{file.name}}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,6 +150,7 @@
             return {
                 currentUrl: window.location.origin,
                 errors: [],
+                mess: '',
                 f: [],
                 attachments: [],
                 upload: false
@@ -193,11 +198,20 @@
                 .then(response => {
                    this.fetchFile();
                    this.attachments = [];
+                   this.errors = [];
+                   this.mess = '';
                    this.upload = false;
                 })
                 .catch(error => {
-                    this.isLoading = false;
-                    existingObj.output = err;
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors;
+                        this.mess = error.response.data.message;
+                        this.attachments = [];
+                    }else{
+                        Vue.$toast.error('<strong>Please contact Administrator</strong>', {
+                            position: 'bottom-right'
+                        });
+                    }
                 });
             },
 

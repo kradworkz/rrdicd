@@ -10,6 +10,7 @@ use App\Models\ResearchStatus;
 use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\ResearchResource;
+use App\Http\Resources\ResearchFileResource;
 use App\Http\Requests\UploadRequest;
 use App\Http\Requests\ResearchRequest;
 use App\Models\ResearchTrainingAttachment as Attachment;
@@ -111,7 +112,7 @@ class ResearchController extends Controller
 
     public function files($id){
         $data =  ResearchFile::where('research_id',$id)->get();
-        return DefaultResource::collection($data);
+        return ResearchFileResource::collection($data);
     }
 
     public function download(Request $request){

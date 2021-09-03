@@ -27,6 +27,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search/{keyword}', 'PublicController@search');
+Route::post('/research/download', 'ResearchController@download');
 
 Route::middleware('auth')->group(function () {
     Route::get('/settings', 'HomeController@settings');

@@ -36,6 +36,11 @@ class Research extends Model
         return $this->hasMany('App\Models\ResearchStatus', 'research_id');
     } 
 
+    public function files()
+    {
+        return $this->hasMany('App\Models\ResearchFile', 'research_id');
+    } 
+
     public function status()
     {
         return $this->hasMany('App\Models\ResearchStatus', 'research_id')->select('status_id')->with('status')->orderBy('created_at', 'desc')->first();

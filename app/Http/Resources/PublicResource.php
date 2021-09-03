@@ -28,7 +28,8 @@ class PublicResource extends JsonResource
             'user' => $this->user->profile->firstname.' '.$this->user->profile->lastname,
             'status' => new StatusResource($this->status()),
             'old' => ($this->info != null) ? true : false,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'files' => ResearchFileResource::collection($this->files)
         ];
     }
 }

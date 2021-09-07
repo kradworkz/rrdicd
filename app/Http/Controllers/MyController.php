@@ -18,7 +18,7 @@ class MyController extends Controller
         $query->with('statuses:status_id,research_id','statuses.status:id,name,color')->with('iprstatus');
         $query->with('classification')->with('user:id,email','user.profile')->with('info');
         $query->where('title','LIKE', '%'.$keyword.'%');
-        $query->where('user_id',\Auth::user()->id);
+        $query->where('user_id',\Auth::user()->id)->orderBy('created_at','DESC');
         $data = $query->paginate(10);
         return ResearchResource::collection($data);
     }

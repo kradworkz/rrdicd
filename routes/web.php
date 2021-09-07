@@ -73,11 +73,6 @@ Route::prefix('request')->group(function () {
     Route::middleware(['role:Administrator','auth'])->group(function () {
         Route::prefix('admin')->group(function () {
 
-            Route::get('/dropdowns/{classification}/{type}', 'DropdownController@lists');
-            Route::get('/dropdown/{classification}/{type}/{keyword}', 'DropdownController@list');
-            Route::post('/dropdown/store', 'DropdownController@store');
-            Route::get('/dropdowncount/{classification}/{type}/{id}', 'DropdownController@count');
-
             Route::get('/organizations/{type}/{keyword}', 'OrganizationController@list');
             Route::get('/organization/list/{type}', 'OrganizationController@lists');
             Route::post('/organization/search', 'OrganizationController@search');
@@ -101,7 +96,6 @@ Route::prefix('request')->group(function () {
 
     Route::middleware(['role:Administrator,Secretariat','auth'])->group(function () {
         Route::prefix('common')->group(function () {
-
             Route::get('/staffs/{keyword}', 'StaffController@lists');
             Route::post('/staff/store', 'StaffController@store');
             Route::post('/staff/search', 'StaffController@search');
@@ -121,7 +115,13 @@ Route::prefix('request')->group(function () {
 
             Route::get('/report/print/{type}/{key}', 'ReportController@index');
             Route::get('/report/print/institution', 'ReportController@institution');
+        });
 
+        Route::prefix('admin')->group(function (){
+            Route::get('/dropdowns/{classification}/{type}', 'DropdownController@lists');
+            Route::get('/dropdown/{classification}/{type}/{keyword}', 'DropdownController@list');
+            Route::post('/dropdown/store', 'DropdownController@store');
+            Route::get('/dropdowncount/{classification}/{type}/{id}', 'DropdownController@count');
         });
     });
 

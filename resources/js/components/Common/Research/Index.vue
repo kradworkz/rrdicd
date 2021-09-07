@@ -48,7 +48,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="(research,index) in researches" v-bind:key="research.id">
-                                <td class="text-center"> {{research.title.substring(0,50)+".."}}</td>
+                                <td class="text-center"><a @click="show(research)"> {{research.title.substring(0,50)+".."}}</a></td>
                                 <td v-if="usertype == 'Researcher'" class="text-center">{{research.classification.name}}</td>
                                 <td v-if="usertype == 'Researcher'" class="text-center">{{research.iprstatus.name}}</td>
                                 <td v-else class="text-center">{{research.user}}</td>

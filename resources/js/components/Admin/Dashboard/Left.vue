@@ -45,7 +45,7 @@
                                     <h5 class="font-size-14 mb-0">Researches</h5>
                                 </div><hr></hr>
                                 
-                                <button @click="addresearch" class="btn btn-sm btn-block btn-primary">Create Research</button>
+                                <button @click="addresearch" class="btn btn-sm btn-block btn-primary">Add Research</button>
 
                                <hr></hr>
                                 <button @click="generate('Research')" class="btn btn-sm btn-block btn-light">Generate Reports</button>
@@ -63,7 +63,7 @@
                                 </div>
                                 <hr></hr>
                                 
-                                <button @click="addresearcher" class="btn btn-sm btn-block btn-warning">Create Researcher</button>
+                                <button @click="addresearcher" class="btn btn-sm btn-block btn-warning">Add Researcher</button>
                                 <hr></hr>
                                 <button @click="generate('Researcher')" class="btn btn-sm btn-block btn-light">Generate Reports</button>
                             </div>
@@ -80,7 +80,7 @@
                                     <h5 class="font-size-14 mb-0">Institutions</h5>
                                 </div>
                                 <hr></hr>
-                                <button class="btn btn-sm btn-block btn-success">Create Institution</button>
+                                <button class="btn btn-sm btn-block btn-success">Add Institution</button>
                                 <hr></hr>
                                 <button @click="generate('Institution')" class="btn btn-sm btn-block btn-light">Generate Reports</button>
                             </div>

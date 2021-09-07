@@ -8253,7 +8253,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -67590,7 +67589,7 @@ var render = function() {
                             staticClass: "btn btn-sm btn-block btn-primary",
                             on: { click: _vm.addresearch }
                           },
-                          [_vm._v("Create Research")]
+                          [_vm._v("Add Research")]
                         ),
                         _vm._v(" "),
                         _c("hr"),
@@ -67622,7 +67621,7 @@ var render = function() {
                             staticClass: "btn btn-sm btn-block btn-warning",
                             on: { click: _vm.addresearcher }
                           },
-                          [_vm._v("Create Researcher")]
+                          [_vm._v("Add Researcher")]
                         ),
                         _vm._v(" "),
                         _c("hr"),
@@ -67651,7 +67650,7 @@ var render = function() {
                         _c(
                           "button",
                           { staticClass: "btn btn-sm btn-block btn-success" },
-                          [_vm._v("Create Institution")]
+                          [_vm._v("Add Institution")]
                         ),
                         _vm._v(" "),
                         _c("hr"),
@@ -72678,8 +72677,20 @@ var render = function() {
                 _vm._l(_vm.researches, function(research, index) {
                   return _c("tr", { key: research.id }, [
                     _c("td", { staticClass: "text-center" }, [
-                      _vm._v(
-                        " " + _vm._s(research.title.substring(0, 50) + "..")
+                      _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.show(research)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            " " + _vm._s(research.title.substring(0, 50) + "..")
+                          )
+                        ]
                       )
                     ]),
                     _vm._v(" "),
@@ -79800,7 +79811,7 @@ var render = function() {
         [
           _c("div", { staticClass: "card-body" }, [
             _c("h6", { staticClass: "card-title font-size-12" }, [
-              _vm._v("Latest Researcher")
+              _vm._v("My Latest Researcher")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
@@ -79881,6 +79892,82 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
+            _c("h6", { staticClass: "card-title font-size-12" }, [
+              _vm._v("My Latest Research")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("div", { staticClass: "card border shadow-none mb-2" }, [
+                _c("a", { staticClass: "text-body" }, [
+                  _c("div", { staticClass: "p-2" }, [
+                    _c("div", { staticClass: "d-flex" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm.research == null
+                        ? _c(
+                            "div",
+                            { staticClass: "overflow-hidden mr-auto" },
+                            [
+                              _c(
+                                "h4",
+                                {
+                                  staticClass:
+                                    "text-danger font-size-15 text-truncate mb-1 mt-2"
+                                },
+                                [_vm._v("NO RESEARCH FOUND")]
+                              )
+                            ]
+                          )
+                        : _c(
+                            "div",
+                            { staticClass: "overflow-hidden mr-auto" },
+                            [
+                              _c(
+                                "h5",
+                                {
+                                  staticClass:
+                                    "text-danger font-size-13 text-truncate mb-1 mt-1"
+                                },
+                                [_vm._v(_vm._s(_vm.research.title))]
+                              ),
+                              _vm._v(" "),
+                              _vm.research.length > 0
+                                ? _c(
+                                    "p",
+                                    {
+                                      staticClass:
+                                        "text-secondary text-truncate mb-0"
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.research.user.profile.firstname
+                                        ) +
+                                          " " +
+                                          _vm._s(
+                                            _vm.research.user.profile.lastname
+                                          )
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "h6",
+                                {
+                                  staticClass:
+                                    "text-muted font-size-12 text-truncate mt-1 mb-1"
+                                },
+                                [_vm._v(_vm._s(_vm.research.created_at))]
+                              )
+                            ]
+                          )
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
             _c("hr"),
             _vm._v(" "),
             _c("h6", { staticClass: "card-title font-size-12" }, [
@@ -79902,7 +79989,7 @@ var render = function() {
                   _c("a", { staticClass: "text-body" }, [
                     _c("div", { staticClass: "p-2" }, [
                       _c("div", { staticClass: "d-flex" }, [
-                        _vm._m(1),
+                        _vm._m(2),
                         _vm._v(" "),
                         _vm.event == null
                           ? _c(
@@ -79979,7 +80066,7 @@ var render = function() {
                   [
                     _c("div", { staticClass: "p-2" }, [
                       _c("div", { staticClass: "d-flex" }, [
-                        _vm._m(2),
+                        _vm._m(3),
                         _vm._v(" "),
                         _vm.file == null
                           ? _c(
@@ -80029,82 +80116,6 @@ var render = function() {
                   ]
                 )
               ])
-            ]),
-            _vm._v(" "),
-            _c("h6", { staticClass: "card-title font-size-12" }, [
-              _vm._v("My Latest Research")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mt-2" }, [
-              _c("div", { staticClass: "card border shadow-none mb-2" }, [
-                _c("a", { staticClass: "text-body" }, [
-                  _c("div", { staticClass: "p-2" }, [
-                    _c("div", { staticClass: "d-flex" }, [
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _vm.research == null
-                        ? _c(
-                            "div",
-                            { staticClass: "overflow-hidden mr-auto" },
-                            [
-                              _c(
-                                "h4",
-                                {
-                                  staticClass:
-                                    "text-danger font-size-15 text-truncate mb-1 mt-2"
-                                },
-                                [_vm._v("NO RESEARCH FOUND")]
-                              )
-                            ]
-                          )
-                        : _c(
-                            "div",
-                            { staticClass: "overflow-hidden mr-auto" },
-                            [
-                              _c(
-                                "h5",
-                                {
-                                  staticClass:
-                                    "text-danger font-size-13 text-truncate mb-1 mt-1"
-                                },
-                                [_vm._v(_vm._s(_vm.research.title))]
-                              ),
-                              _vm._v(" "),
-                              _vm.research.length > 0
-                                ? _c(
-                                    "p",
-                                    {
-                                      staticClass:
-                                        "text-secondary text-truncate mb-0"
-                                    },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.research.user.profile.firstname
-                                        ) +
-                                          " " +
-                                          _vm._s(
-                                            _vm.research.user.profile.lastname
-                                          )
-                                      )
-                                    ]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "h6",
-                                {
-                                  staticClass:
-                                    "text-muted font-size-12 text-truncate mt-1 mb-1"
-                                },
-                                [_vm._v(_vm._s(_vm.research.created_at))]
-                              )
-                            ]
-                          )
-                    ])
-                  ])
-                ])
-              ])
             ])
           ])
         ]
@@ -80127,6 +80138,26 @@ var staticRenderFns = [
         [
           _c("i", {
             staticClass: "bx bx-user-circle bx-tada",
+            staticStyle: { "font-size": "30px" }
+          })
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "avatar-xs align-self-center ml-2 mr-3" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "'avatar-title rounded bg-transparent text-danger font-size-20'"
+        },
+        [
+          _c("i", {
+            staticClass: "bx bxs-file bx-tada",
             staticStyle: { "font-size": "30px" }
           })
         ]
@@ -80167,26 +80198,6 @@ var staticRenderFns = [
         [
           _c("i", {
             staticClass: "bx bx-cloud-download bx-tada",
-            staticStyle: { "font-size": "30px" }
-          })
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "avatar-xs align-self-center ml-2 mr-3" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "'avatar-title rounded bg-transparent text-danger font-size-20'"
-        },
-        [
-          _c("i", {
-            staticClass: "bx bxs-file bx-tada",
             staticStyle: { "font-size": "30px" }
           })
         ]

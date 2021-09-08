@@ -86,6 +86,7 @@ Route::prefix('request')->group(function () {
             Route::get('/event/print/{id}', 'EventController@print');
             Route::get('/event/remove/{id}', 'EventController@remove');
             Route::get('/event/today', 'EventController@today');
+            Route::post('/event/save', 'EventController@save');
 
             Route::get('/files/{keyword}', 'FileController@list');
             Route::post('/file/store', 'FileController@store');

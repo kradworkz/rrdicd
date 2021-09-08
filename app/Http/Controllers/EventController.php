@@ -36,6 +36,7 @@ class EventController extends Controller
         $data->name = ucwords($request->input('name'));
         $data->schedule = $request->input('schedule').' '.$time;
         $data->type_id = $request->input('type')['id'];
+        $data->location = ucwords($request->input('location'));
         $data->status_id = 5;
         $data->save();
 
@@ -92,5 +93,13 @@ class EventController extends Controller
     public function today(){
         $data = Event::whereDate('schedule',date('Y-m-d'))->first();
         return new EventResource($data);
+    }
+
+    public function save(Request $request)
+    {
+        $data = Event::findOrFail($request->input('id'));
+        $data->content = $request->input('content');
+        $data->save();
+        return new DefaultResource($data);
     }
 }

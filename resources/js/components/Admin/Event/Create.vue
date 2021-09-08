@@ -17,7 +17,13 @@
                                 <input type="text" class="form-control" v-model="event.name" style="text-transform: capitalize;">
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label>Location: <span v-if="errors.location" class="haveerror">({{ errors.location[0] }})</span></label>
+                                <input type="text" class="form-control" v-model="event.location" style="text-transform: capitalize;">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Type: <span v-if="errors.type" class="haveerror">({{ errors.type[0] }})</span></label>
                                 <multiselect 
@@ -28,13 +34,13 @@
                                 </multiselect>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <div class="form-group">
                                 <label>Schedule: <span v-if="errors.schedule" class="haveerror">({{ errors.schedule[0] }})</span></label>
                                 <input type="date" class="form-control" v-model="event.schedule">
                             </div>
                         </div>
-                         <div class="col-md-4">
+                         <div class="col-md-5">
                             <div class="form-group">
                                 <label>Time: <span v-if="errors.time" class="haveerror">({{ errors.time[0] }})</span></label>
                                 <br><vue-timepicker format="hh:mm A" v-model="event.time"></vue-timepicker>
@@ -65,7 +71,8 @@
                     name: '',
                     schedule: '',
                     type: {id: ''},
-                    time: ''
+                    time: '',
+                    location: ''
                 },
                 types: [],
                 editable: false,
@@ -90,6 +97,7 @@
                     id: this.event.id,
                     name: this.event.name,
                     schedule: this.event.schedule,
+                    location: this.event.location,
                     type: this.event.type,
                     time: this.event.time,
                     editable: this.editable,

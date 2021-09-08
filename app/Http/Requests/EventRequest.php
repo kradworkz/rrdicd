@@ -26,6 +26,7 @@ class EventRequest extends FormRequest
         return [
             'name' => 'required|string|max:150|unique:events,name,'.$this->id,
             'schedule' => 'required',
+            'location' => 'required',
             'time' => 'required',
             'type' => 'required',
         ];
@@ -38,6 +39,7 @@ class EventRequest extends FormRequest
             'schedule.required' => '* required',
             'time.required' => '* required',
             'type.required' => '* required',
+            'location.required' => '* required',
         ];
 
         return $message;

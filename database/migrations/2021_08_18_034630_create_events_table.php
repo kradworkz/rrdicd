@@ -17,6 +17,8 @@ class CreateEventsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
+            $table->string('location')->nullable();
+            $table->longText('content')->nullable();
             $table->datetime('schedule');
             $table->smallInteger('type_id')->unsigned()->index();
             $table->foreign('type_id')->references('id')->on('dropdowns')->onDelete('cascade');

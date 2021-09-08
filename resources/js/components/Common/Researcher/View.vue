@@ -140,10 +140,7 @@
 
         methods : {
             print(id){
-                axios.get(this.currentUrl + '/request/common/researcher/print/'+id)
-                .then(response => {
-                })
-                .catch(err => console.log(err));
+                window.open(this.currentUrl + '/request/common/researcher/print/'+id);
             },
         }
     }

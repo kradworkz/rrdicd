@@ -68,7 +68,7 @@
                 {!! str_replace("<br>","",$event['content']) !!}
             </div>
             <br>
-            <p style="font-size: 13px; margin-top: 10px;"><b>HALID M. TAMANO/JUDILYN E. ALVAREZ</b></p>
+            <p style="font-size: 13px; margin-top: 10px;"><b>JUDILYN E. ALVAREZ</b></p>
             <p style="font-size: 12px; margin-top: -12px; margin-bottom: 16px;">Minutes Taker</p>
             
             <p style="font-size: 11px; margin-bottom: 5px;"><i>Certified Correct: </i></p>

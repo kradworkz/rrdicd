@@ -112,8 +112,8 @@
                                         <td class="text-center font-size-11">{{research.created_at}}</td>
                                         <td class="text-right">
                                             <a @click="show(research)" class="mr-3 text-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class='bx bx-show'></i></a>
-                                            <a class="mr-3 text-warning" @click="editresearch(research)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class='bx bx-edit-alt' ></i></a>
-                                            <a class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class='bx bx-trash'></i></a>
+                                            <a class="mr-3 text-warning" @click="editstatus(research)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class='bx bx-edit-alt' ></i></a>
+                                           
                                         </td>
                                     </tr>
                                 </tbody>
@@ -134,6 +134,15 @@
         <div class="modal fade exampleModal" id="reports" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <reports :type="type" @status="message" ref="report"></reports>
         </div>
+
+         <div v-if="view == true" class="modal fade exampleModal" id="view" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <research-modal :research="research" @status="message" ref="view"></research-modal>
+        </div>
+
+        <div class="modal fade exampleModal" id="statusss" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <research-status  @status="message" ref="status"></research-status>
+        </div>
+
     </div>
 </template>
 
@@ -148,7 +157,9 @@
                 total: [],
                 results: [],
                 keyword: '',
-                type: ''
+                type: '',
+                research: {},
+                view: false
             }
         },
 
@@ -184,12 +195,28 @@
                 .catch(err => console.log(err));
             },
 
+            show(research){
+                this.research = research;
+                this.view = true;
+                $("#view").modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+                this.$refs.view.fetchFile();
+            },
+
+            editstatus(research){
+                this.$refs.status.set(research);
+                $("#statusss").modal("show");
+            },
+
             fetchTotals() {
                 axios.get(this.currentUrl + '/request/admin/totals')
-                    .then(response => {
-                        this.total = response.data[0];
-                    })
-                    .catch(err => console.log(err));
+                .then(response => {
+                    this.total = response.data[0];
+                })
+                .catch(err => console.log(err));
             },
 
             addresearch(){
@@ -212,6 +239,8 @@
                     
                     $("#addresearcher").modal('hide');
                     $("#addresearch").modal('hide');
+                    $("#statusss").modal('hide');
+                    this.fetch();
                 }
             },
 

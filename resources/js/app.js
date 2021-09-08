@@ -54,6 +54,7 @@ Vue.component('research-create', require('./components/Common/Research/Create.vu
 Vue.component('research-add', require('./components/Common/Research/Add.vue').default);
 Vue.component('research-view', require('./components/Common/Research/View.vue').default);
 Vue.component('research-modal', require('./components/Common/Research/Modal.vue').default);
+Vue.component('research-status', require('./components/Common/Research/Status.vue').default);
 
 Vue.component('researchers', require('./components/Common/Researcher/Index.vue').default);
 Vue.component('researcher-create', require('./components/Common/Researcher/Create.vue').default);

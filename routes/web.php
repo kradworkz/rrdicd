@@ -108,6 +108,7 @@ Route::prefix('request')->group(function () {
             Route::post('/research/upload', 'ResearchController@upload');
             Route::get('/research/files/{id}', 'ResearchController@files');
             Route::post('/research/download', 'ResearchController@download');
+            Route::post('/research/update', 'ResearchController@update');
 
             Route::get('/researchers/{keyword}', 'ResearcherController@lists');
             Route::post('/researcher/store', 'ResearcherController@store');

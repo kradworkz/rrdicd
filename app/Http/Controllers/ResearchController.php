@@ -120,4 +120,17 @@ class ResearchController extends Controller
         $path = $data->path;
         return \Storage::download('public/'.$path);
     }
+
+    public function update(Request $request){
+        $data = Research::findOrFail($request->id);
+        $data->status_id = $request->status;
+        if($data->save()){
+            $status = new ResearchStatus;
+            $status->status_id =  $request->input('status');
+            $status->research_id = $data->id;
+            $status->save();
+
+            return new DefaultResource($data);
+        }
+    }
 }

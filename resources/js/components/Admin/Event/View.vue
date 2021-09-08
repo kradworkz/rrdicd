@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div v-else>
-                         <vue-editor v-model="content" style="max-height: 500px; overflow-y: scroll"></vue-editor>
+                         <vue-editor v-model="content"></vue-editor>
                          <button @click="save" type="button" class="float-right mt-2 btn btn-success w-lg waves-effect waves-light">Save</button>
                     </div>
 
@@ -175,10 +175,13 @@
             },
 
             print(id){
-                axios.get(this.currentUrl + '/request/admin/event/print/'+id)
-                .then(response => {
-                })
-                .catch(err => console.log(err));
+                
+                window.open(this.currentUrl + '/request/admin/event/print/'+id)
+                // axios.get(this.currentUrl + '/request/admin/event/print/'+id)
+                // .then(response => {
+                        
+                // })
+                // .catch(err => console.log(err));
             },
 
             notes(){

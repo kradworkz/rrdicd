@@ -3410,9 +3410,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     print: function print(id) {
-      axios.get(this.currentUrl + '/request/admin/event/print/' + id).then(function (response) {})["catch"](function (err) {
-        return console.log(err);
-      });
+      window.open(this.currentUrl + '/request/admin/event/print/' + id); // axios.get(this.currentUrl + '/request/admin/event/print/'+id)
+      // .then(response => {
+      // })
+      // .catch(err => console.log(err));
     },
     notes: function notes() {
       this.note == true ? this.note = false : this.note = true;
@@ -70473,10 +70474,6 @@ var render = function() {
                 "div",
                 [
                   _c("vue-editor", {
-                    staticStyle: {
-                      "max-height": "500px",
-                      "overflow-y": "scroll"
-                    },
                     model: {
                       value: _vm.content,
                       callback: function($$v) {

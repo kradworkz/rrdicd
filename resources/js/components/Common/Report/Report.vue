@@ -59,15 +59,9 @@
         methods : {
             print(){
                 if(this.type == "Institution"){
-                     axios.get(this.currentUrl + '/request/common/report/print/institution')
-                    .then(response => {
-                    })
-                    .catch(err => console.log(err));
+                    window.open(this.currentUrl + '/request/common/report/print/institution')
                 }else{
-                    axios.get(this.currentUrl + '/request/common/report/print/'+this.type+'/'+this.id)
-                    .then(response => {
-                    })
-                    .catch(err => console.log(err));
+                    window.open(this.currentUrl + '/request/common/report/print/'+this.type+'/'+this.id)
                 }
             },
 

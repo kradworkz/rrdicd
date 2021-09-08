@@ -175,13 +175,7 @@
             },
 
             print(id){
-                
                 window.open(this.currentUrl + '/request/admin/event/print/'+id)
-                // axios.get(this.currentUrl + '/request/admin/event/print/'+id)
-                // .then(response => {
-                        
-                // })
-                // .catch(err => console.log(err));
             },
 
             notes(){

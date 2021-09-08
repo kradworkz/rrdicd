@@ -3410,10 +3410,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     print: function print(id) {
-      window.open(this.currentUrl + '/request/admin/event/print/' + id); // axios.get(this.currentUrl + '/request/admin/event/print/'+id)
-      // .then(response => {
-      // })
-      // .catch(err => console.log(err));
+      window.open(this.currentUrl + '/request/admin/event/print/' + id);
     },
     notes: function notes() {
       this.note == true ? this.note = false : this.note = true;
@@ -4018,13 +4015,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     print: function print() {
       if (this.type == "Institution") {
-        axios.get(this.currentUrl + '/request/common/report/print/institution').then(function (response) {})["catch"](function (err) {
-          return console.log(err);
-        });
+        window.open(this.currentUrl + '/request/common/report/print/institution');
       } else {
-        axios.get(this.currentUrl + '/request/common/report/print/' + this.type + '/' + this.id).then(function (response) {})["catch"](function (err) {
-          return console.log(err);
-        });
+        window.open(this.currentUrl + '/request/common/report/print/' + this.type + '/' + this.id);
       }
     },
     filter: function filter() {

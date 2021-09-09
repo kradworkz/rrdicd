@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: phpv7.3
+    image: rrdicom-php7.3
     container_name: rrdicom-app
     restart: unless-stopped
     tty: true

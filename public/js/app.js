@@ -3563,6 +3563,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['org_id'],
@@ -3659,6 +3660,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -4462,6 +4465,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4480,7 +4489,8 @@ __webpack_require__.r(__webpack_exports__);
         period: '',
         status: '',
         institution: '',
-        published: ''
+        published: '',
+        description: ''
       },
       classifications: [],
       researchers: [],
@@ -4574,6 +4584,7 @@ __webpack_require__.r(__webpack_exports__);
         frm.append('published', this.research.published);
         frm.append('institution', this.research.institution.id);
         frm.append('status', this.research.status.id);
+        frm.append('description', this.research.description);
       }
 
       axios.post(this.currentUrl + '/request/common/research/store', frm).then(function (response) {
@@ -4771,6 +4782,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -7770,6 +7785,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7818,6 +7838,47 @@ __webpack_require__.r(__webpack_exports__);
     },
     message: function message() {
       this.view = false;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Navigation.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Navigation.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      currentUrl: window.location.origin,
+      errors: []
+    };
+  },
+  methods: {
+    show: function show(num) {
+      this.$parent.show(num);
     }
   }
 });
@@ -8987,6 +9048,9 @@ Vue.component('r-right', __webpack_require__(/*! ./components/Researcher/Right.v
 
 Vue.component('public-search', __webpack_require__(/*! ./components/Public/Index.vue */ "./resources/js/components/Public/Index.vue").default);
 Vue.component('public-view', __webpack_require__(/*! ./components/Public/View.vue */ "./resources/js/components/Public/View.vue").default);
+Vue.component('public-history', __webpack_require__(/*! ./components/Public/History.vue */ "./resources/js/components/Public/History.vue").default);
+Vue.component('public-function', __webpack_require__(/*! ./components/Public/Functions.vue */ "./resources/js/components/Public/Functions.vue").default);
+Vue.component('public-navigation', __webpack_require__(/*! ./components/Public/Navigation.vue */ "./resources/js/components/Public/Navigation.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -8997,7 +9061,10 @@ var app = new Vue({
   el: '#app',
   data: function data() {
     return {
-      currentUrl: window.location.origin
+      currentUrl: window.location.origin,
+      func: false,
+      search: true,
+      history: false
     };
   },
   methods: {
@@ -9009,6 +9076,21 @@ var app = new Vue({
       Vue.$toast.success('<strong>Successfully Updated</strong>', {
         position: 'bottom-right'
       });
+    },
+    show: function show(num) {
+      if (num == 1) {
+        this.search = true;
+        this.history = false;
+        this.func = false;
+      } else if (num == 2) {
+        this.search = false;
+        this.history = true;
+        this.func = false;
+      } else {
+        this.search = false;
+        this.history = false;
+        this.func = true;
+      }
     }
   }
 });
@@ -9049,6 +9131,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['KradWorks'] = 'XNndUUEA95BKwQ2blrLbYcU0IRCb5YQW';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -63813,6 +63896,80 @@ component.options.__file = "resources/js/components/Password.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Public/Functions.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Public/Functions.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Functions_vue_vue_type_template_id_45bc4f40___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Functions.vue?vue&type=template&id=45bc4f40& */ "./resources/js/components/Public/Functions.vue?vue&type=template&id=45bc4f40&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__.default)(
+  script,
+  _Functions_vue_vue_type_template_id_45bc4f40___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Functions_vue_vue_type_template_id_45bc4f40___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Public/Functions.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Public/History.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/Public/History.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _History_vue_vue_type_template_id_092346f9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./History.vue?vue&type=template&id=092346f9& */ "./resources/js/components/Public/History.vue?vue&type=template&id=092346f9&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__.default)(
+  script,
+  _History_vue_vue_type_template_id_092346f9___WEBPACK_IMPORTED_MODULE_0__.render,
+  _History_vue_vue_type_template_id_092346f9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Public/History.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Public/Index.vue":
 /*!**************************************************!*\
   !*** ./resources/js/components/Public/Index.vue ***!
@@ -63848,6 +64005,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/Public/Index.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Public/Navigation.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Public/Navigation.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Navigation_vue_vue_type_template_id_e9f9ec82___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navigation.vue?vue&type=template&id=e9f9ec82& */ "./resources/js/components/Public/Navigation.vue?vue&type=template&id=e9f9ec82&");
+/* harmony import */ var _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navigation.vue?vue&type=script&lang=js& */ "./resources/js/components/Public/Navigation.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Navigation_vue_vue_type_template_id_e9f9ec82___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Navigation_vue_vue_type_template_id_e9f9ec82___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Public/Navigation.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -64873,6 +65069,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Public/Navigation.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Public/Navigation.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Navigation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Navigation.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Public/View.vue?vue&type=script&lang=js&":
 /*!**************************************************************************!*\
   !*** ./resources/js/components/Public/View.vue?vue&type=script&lang=js& ***!
@@ -65766,6 +65978,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Public/Functions.vue?vue&type=template&id=45bc4f40&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/Public/Functions.vue?vue&type=template&id=45bc4f40& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Functions_vue_vue_type_template_id_45bc4f40___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Functions_vue_vue_type_template_id_45bc4f40___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Functions_vue_vue_type_template_id_45bc4f40___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Functions.vue?vue&type=template&id=45bc4f40& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Functions.vue?vue&type=template&id=45bc4f40&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Public/History.vue?vue&type=template&id=092346f9&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/Public/History.vue?vue&type=template&id=092346f9& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_History_vue_vue_type_template_id_092346f9___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_History_vue_vue_type_template_id_092346f9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_History_vue_vue_type_template_id_092346f9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./History.vue?vue&type=template&id=092346f9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/History.vue?vue&type=template&id=092346f9&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Public/Index.vue?vue&type=template&id=1f2c4b77&":
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/Public/Index.vue?vue&type=template&id=1f2c4b77& ***!
@@ -65779,6 +66025,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_1f2c4b77___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_1f2c4b77___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=1f2c4b77& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Index.vue?vue&type=template&id=1f2c4b77&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Public/Navigation.vue?vue&type=template&id=e9f9ec82&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Public/Navigation.vue?vue&type=template&id=e9f9ec82& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_template_id_e9f9ec82___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_template_id_e9f9ec82___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_template_id_e9f9ec82___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Navigation.vue?vue&type=template&id=e9f9ec82& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Navigation.vue?vue&type=template&id=e9f9ec82&");
 
 
 /***/ }),
@@ -70295,7 +70558,17 @@ var render = function() {
                       _vm._l(_vm.events, function(event) {
                         return _c("tr", { key: event.id }, [
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(event.name))
+                            _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.show(event)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(event.name))]
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
@@ -70397,7 +70670,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("Name")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Title")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Type")]),
         _vm._v(" "),
@@ -70820,7 +71093,27 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "modal-content" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "modal-header" }, [
+          _vm.org_id == 3
+            ? _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "exampleModalLabel" }
+                },
+                [_vm._v("Consortium Information")]
+              )
+            : _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "exampleModalLabel" }
+                },
+                [_vm._v("Organization Information")]
+              ),
+          _vm._v(" "),
+          _vm._m(0)
+        ]),
         _vm._v(" "),
         _c(
           "form",
@@ -71116,26 +71409,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Organization Information")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
@@ -71348,7 +71633,15 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center ont-size-12" }, [
-                      _vm._v(_vm._s(institution.created_at))
+                      _vm._v(
+                        "\r\n                                    " +
+                          _vm._s(
+                            institution.head != "n/a"
+                              ? institution.head.name
+                              : "n/a"
+                          ) +
+                          "\r\n                                "
+                      )
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
@@ -71421,7 +71714,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Acronym")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Created Date")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Head/Director")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
@@ -72178,7 +72471,7 @@ var render = function() {
           _c(
             "h5",
             { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-            [_vm._v("Reasearch Information")]
+            [_vm._v("Research Information")]
           ),
           _vm._v(" "),
           _c(
@@ -72292,127 +72585,148 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-4" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", [
-                          _vm._v("Classification: "),
-                          _vm.errors.classification
-                            ? _c("span", { staticClass: "haveerror" }, [
-                                _vm._v(
-                                  "(" +
-                                    _vm._s(_vm.errors.classification[0]) +
-                                    ")"
-                                )
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("multiselect", {
-                          attrs: {
-                            options: _vm.classifications,
-                            label: "name",
-                            "track-by": "id",
-                            "show-labels": false,
-                            "allow-empty": false,
-                            placeholder: "Select Classification"
-                          },
-                          model: {
-                            value: _vm.research.classification,
-                            callback: function($$v) {
-                              _vm.$set(_vm.research, "classification", $$v)
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-md-4",
+                      staticStyle: { "margin-top": "-15px" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("label", [
+                            _vm._v("Classification: "),
+                            _vm.errors.classification
+                              ? _c("span", { staticClass: "haveerror" }, [
+                                  _vm._v(
+                                    "(" +
+                                      _vm._s(_vm.errors.classification[0]) +
+                                      ")"
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("multiselect", {
+                            attrs: {
+                              options: _vm.classifications,
+                              label: "name",
+                              "track-by": "id",
+                              "show-labels": false,
+                              "allow-empty": false,
+                              placeholder: "Select Classification"
                             },
-                            expression: "research.classification"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
+                            model: {
+                              value: _vm.research.classification,
+                              callback: function($$v) {
+                                _vm.$set(_vm.research, "classification", $$v)
+                              },
+                              expression: "research.classification"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-4" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-md-4",
+                      staticStyle: { "margin-top": "-15px" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("label", [
+                            _vm._v("IPR Status: "),
+                            _vm.errors.iprstatus
+                              ? _c("span", { staticClass: "haveerror" }, [
+                                  _vm._v(
+                                    "(" + _vm._s(_vm.errors.iprstatus[0]) + ")"
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("multiselect", {
+                            attrs: {
+                              options: _vm.iprs,
+                              label: "name",
+                              "track-by": "id",
+                              "show-labels": false,
+                              "allow-empty": false,
+                              placeholder: "Select IPR Status"
+                            },
+                            on: {
+                              input: function($event) {
+                                return _vm.onChange(_vm.research.iprstatus.id)
+                              }
+                            },
+                            model: {
+                              value: _vm.research.iprstatus,
+                              callback: function($$v) {
+                                _vm.$set(_vm.research, "iprstatus", $$v)
+                              },
+                              expression: "research.iprstatus"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-md-4",
+                      staticStyle: { "margin-top": "-15px" }
+                    },
+                    [
+                      _c("div", { staticClass: "form-group" }, [
                         _c("label", [
-                          _vm._v("IPR Status: "),
-                          _vm.errors.iprstatus
+                          _vm._v("Period IPR Covered: "),
+                          _vm.errors.period
                             ? _c("span", { staticClass: "haveerror" }, [
-                                _vm._v(
-                                  "(" + _vm._s(_vm.errors.iprstatus[0]) + ")"
-                                )
+                                _vm._v("(" + _vm._s(_vm.errors.period[0]) + ")")
                               ])
                             : _vm._e()
                         ]),
                         _vm._v(" "),
-                        _c("multiselect", {
-                          attrs: {
-                            options: _vm.iprs,
-                            label: "name",
-                            "track-by": "id",
-                            "show-labels": false,
-                            "allow-empty": false,
-                            placeholder: "Select IPR Status"
-                          },
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.research.period,
+                              expression: "research.period"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { disabled: _vm.addc, type: "text" },
+                          domProps: { value: _vm.research.period },
                           on: {
                             input: function($event) {
-                              return _vm.onChange(_vm.research.iprstatus.id)
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.research,
+                                "period",
+                                $event.target.value
+                              )
                             }
-                          },
-                          model: {
-                            value: _vm.research.iprstatus,
-                            callback: function($$v) {
-                              _vm.$set(_vm.research, "iprstatus", $$v)
-                            },
-                            expression: "research.iprstatus"
                           }
                         })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-4" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [
-                        _vm._v("Period IPR Covered: "),
-                        _vm.errors.period
-                          ? _c("span", { staticClass: "haveerror" }, [
-                              _vm._v("(" + _vm._s(_vm.errors.period[0]) + ")")
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.research.period,
-                            expression: "research.period"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { disabled: _vm.addc, type: "text" },
-                        domProps: { value: _vm.research.period },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.research,
-                              "period",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
-                  ]),
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
                     _c(
@@ -72643,47 +72957,95 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-12" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
-                            _c("label", [
-                              _vm._v("Funding Agency: "),
-                              _vm.errors.institution
-                                ? _c("span", { staticClass: "haveerror" }, [
-                                    _vm._v(
-                                      "(" +
-                                        _vm._s(_vm.errors.institution[0]) +
-                                        ")"
-                                    )
-                                  ])
-                                : _vm._e()
-                            ]),
-                            _vm._v(" "),
-                            _c("multiselect", {
-                              attrs: {
-                                options: _vm.institutions,
-                                id: "ajax",
-                                label: "name",
-                                "track-by": "id",
-                                "show-labels": false,
-                                "allow-empty": false,
-                                placeholder: "Select Institution"
-                              },
-                              on: { "search-change": _vm.asyncFind },
-                              model: {
-                                value: _vm.research.institution,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.research, "institution", $$v)
+                      _c(
+                        "div",
+                        {
+                          staticClass: "col-md-12",
+                          staticStyle: { "margin-top": "-15px" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [
+                                _vm._v("Funding Agency: "),
+                                _vm.errors.institution
+                                  ? _c("span", { staticClass: "haveerror" }, [
+                                      _vm._v(
+                                        "(" +
+                                          _vm._s(_vm.errors.institution[0]) +
+                                          ")"
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("multiselect", {
+                                attrs: {
+                                  options: _vm.institutions,
+                                  id: "ajax",
+                                  label: "name",
+                                  "track-by": "id",
+                                  "show-labels": false,
+                                  "allow-empty": false,
+                                  placeholder: "Select Institution"
                                 },
-                                expression: "research.institution"
+                                on: { "search-change": _vm.asyncFind },
+                                model: {
+                                  value: _vm.research.institution,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.research, "institution", $$v)
+                                  },
+                                  expression: "research.institution"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "col-md-12",
+                          staticStyle: { "margin-top": "-5px" }
+                        },
+                        [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.research.description,
+                                  expression: "research.description"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                maxlength: "225",
+                                rows: "2",
+                                placeholder: "Brief Description/Abstract"
+                              },
+                              domProps: { value: _vm.research.description },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.research,
+                                    "description",
+                                    $event.target.value
+                                  )
+                                }
                               }
                             })
-                          ],
-                          1
-                        )
-                      ])
+                          ])
+                        ]
+                      )
                     ]
                   )
                 : _vm._e()
@@ -73017,6 +73379,12 @@ var render = function() {
                         _vm._v("Researcher")
                       ]),
                   _vm._v(" "),
+                  _vm.usertype == "Administrator"
+                    ? _c("th", { staticClass: "text-center" }, [
+                        _vm._v("Institution")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
                   _vm._v(" "),
                   _c("th", { staticClass: "text-center" }, [
@@ -73062,6 +73430,16 @@ var render = function() {
                       : _c("td", { staticClass: "text-center" }, [
                           _vm._v(_vm._s(research.user))
                         ]),
+                    _vm._v(" "),
+                    _vm.usertype == "Administrator"
+                      ? _c("td", { staticClass: "text-center" }, [
+                          _vm._v(
+                            "\r\n                                    " +
+                              _vm._s(research.researcher.institution.name) +
+                              "\r\n                                "
+                          )
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
                       _c(
@@ -76441,7 +76819,7 @@ var render = function() {
                             { staticClass: "form-group" },
                             [
                               _c("label", [
-                                _vm._v("Type: "),
+                                _vm._v("Designation: "),
                                 _vm.errors.type
                                   ? _c("span", { staticClass: "haveerror" }, [
                                       _vm._v(
@@ -79281,6 +79659,509 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Functions.vue?vue&type=template&id=45bc4f40&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Functions.vue?vue&type=template&id=45bc4f40& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      {
+        staticClass: "section pt-4 bg-white",
+        staticStyle: { "margin-top": "70px" },
+        attrs: { id: "functions" }
+      },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-12" }, [
+              _c("div", { staticClass: "text-center mb-5" }, [
+                _c("div", { staticClass: "small-title" }, [_vm._v("About Us")]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Functions")])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "The Regional Research, Development, and Innovation Committee or RRDICom is the research arm of the Regional Development Council IX. The RRDICom shall spearhead the preparation of the Regional Research Agenda as an accompanying document of the Regional Development Plan."
+            )
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "mt-4 mt-md-auto" }, [
+                _c("div", { staticClass: "d-flex align-items-center mb-2" }, [
+                  _c("h6", { staticClass: "mb-0" }, [_vm._v("Secretariat")])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted" }, [
+                  _vm._v(
+                    "DOST IX shall act as the Secretariat to the Committee. It shall perform the following functions: "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-muted mt-4" }, [
+                  _c("p", { staticClass: "mb-2" }, [
+                    _c("i", {
+                      staticClass: "bx bxs-circle text-success mr-2",
+                      staticStyle: { "font-size": "8px" }
+                    }),
+                    _vm._v(
+                      "Provide technical and administrative support to the Committee;"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-2" }, [
+                    _c("i", {
+                      staticClass: "bx bxs-circle text-success mr-2",
+                      staticStyle: { "font-size": "8px" }
+                    }),
+                    _vm._v(
+                      "Coordinate the preparation of the agenda of the Committee meetings;"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-2" }, [
+                    _c("i", {
+                      staticClass: "bx bxs-circle text-success mr-2",
+                      staticStyle: { "font-size": "8px" }
+                    }),
+                    _vm._v(
+                      "Document the proceedings of all Committee meetings;"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-2" }, [
+                    _c("i", {
+                      staticClass: "bx bxs-circle text-success mr-2",
+                      staticStyle: { "font-size": "8px" }
+                    }),
+                    _vm._v("Serve as record custodian of the Committee;")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-2" }, [
+                    _c("i", {
+                      staticClass: "bx bxs-circle text-success mr-2",
+                      staticStyle: { "font-size": "8px" }
+                    }),
+                    _vm._v("Prepare and review Committee reports; and,")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-2" }, [
+                    _c("i", {
+                      staticClass: "bx bxs-circle text-success mr-2",
+                      staticStyle: { "font-size": "8px" }
+                    }),
+                    _vm._v(
+                      "Perform other tasks as may be assigned by the Committee."
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-12",
+                staticStyle: { "margin-top": "20px" }
+              },
+              [
+                _c("div", { staticClass: "mt-4 mt-md-auto" }, [
+                  _c("div", { staticClass: "d-flex align-items-center mb-2" }, [
+                    _c("h6", { staticClass: "mb-0" }, [_vm._v("Members")])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      "The heads of the following agencies/institutions shall compose the members of the Committee:"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "text-muted mt-4" }, [
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Bureau of Fisheries and Aquatic Resources IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Commission on Higher Education IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Commission on Population and Development IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Department of Education IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v(
+                            "Department of Environment and Natural Resources IX"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v(
+                            "Department of Social Welfare and Development Field Office IX"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("National Commission on Indigenous Peoples IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("National Nutrition Council IX")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "text-muted mt-4" }, [
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Philippine Information Agency IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Philippine Statistics Authority IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Chairs of Provincial Local Government Units")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("SUCs, HEIs, and PASUC in Region IX")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v(
+                            "Science and Technology Consortia in Region IX"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v(
+                            "Industry and Sectoral Groups/Private Sector Representative"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("NGOs related to field of study (as needed)")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-2" }, [
+                          _c("i", {
+                            staticClass: "bx bxs-circle text-success mr-2",
+                            staticStyle: { "font-size": "8px" }
+                          }),
+                          _vm._v("Relevant Professional Organizations")
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-danger mt-4 font-size-10" }, [
+                    _vm._v(
+                      "The membership of the RRDICom may be changed, in the exigency of work requirements, and other experts may be invited as resource persons, as the need for them arises."
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-6",
+                staticStyle: { "margin-top": "20px" }
+              },
+              [
+                _c("div", { staticClass: "mt-4 mt-md-auto" }, [
+                  _c("div", { staticClass: "d-flex align-items-center mb-2" }, [
+                    _c("h6", { staticClass: "mb-0" }, [
+                      _vm._v("Technical Working Groups")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      "The Committee may form TWGs or ad hoc groups tasked to determine research policy initiatives, promote awareness of research and provide valuable input and technical assistance in areas of strategic importance to research and development."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      "The existing consortia (ZCHRD, WESMAARDEC, ZIEERDeC, ZPHERA) shall be the clearing house of research programs/projects in so far as the review of both technical and ethical soundness."
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-6",
+                staticStyle: { "margin-top": "20px" }
+              },
+              [
+                _c("div", { staticClass: "mt-4 mt-md-auto" }, [
+                  _c("div", { staticClass: "d-flex align-items-center mb-2" }, [
+                    _c("h6", { staticClass: "mb-0" }, [
+                      _vm._v("Committee Meetings")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      "The Committee shall meet every quarter or during the last Friday of the last month of the quarter.  The Committee Chair may call for a special meeting should the need arise."
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-6",
+                staticStyle: { "margin-top": "20px" }
+              },
+              [
+                _c("div", { staticClass: "mt-4 mt-md-auto" }, [
+                  _c("div", { staticClass: "d-flex align-items-center mb-2" }, [
+                    _c("h6", { staticClass: "mb-0" }, [
+                      _vm._v("Research Funding: Internal")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      "Internally funded research projects shall follow their institutional guidelines in approving projects. They are required to report these projects to the consortium concerned for consolidation."
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-md-6",
+                staticStyle: { "margin-top": "20px" }
+              },
+              [
+                _c("div", { staticClass: "mt-4 mt-md-auto" }, [
+                  _c("div", { staticClass: "d-flex align-items-center mb-2" }, [
+                    _c("h6", { staticClass: "mb-0" }, [
+                      _vm._v("Research Funding: External")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      "All projects for external funding shall pass through the RRDICom, RDC IX for review/recommendations/approval/endorsement."
+                    )
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/History.vue?vue&type=template&id=092346f9&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/History.vue?vue&type=template&id=092346f9& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      {
+        staticClass: "section bg-white pt-4",
+        staticStyle: { "margin-top": "70px" },
+        attrs: { id: "about" }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "container",
+            staticStyle: { height: "70vh" },
+            attrs: { "data-simplebar": "" }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-12" }, [
+                _c("div", { staticClass: "text-center mb-5" }, [
+                  _c("div", { staticClass: "small-title" }, [
+                    _vm._v("About us")
+                  ]),
+                  _vm._v(" "),
+                  _c("h4", [_vm._v("History")])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col-lg-12" }, [
+                _c("div", { staticClass: "text-muted" }, [
+                  _c("p", [
+                    _vm._v(
+                      "        Over the years, Department of Science and Technology (DOST) IX through its research councils, the Philippine Council for Agriculture, Aquatic and Natural Resources and Research and Development (PCAARRD) and Philippine Council for Health Research and Development (PCHRD), has been supporting two (2) R&D consortia in the region, namely:1) Western Mindanao Agriculture, Research and Development Consortium (WESMARRDEC) and 2) Zamboanga Consortium for Health, Research and Development Consortium (ZCHRD). While the presence of these research consortia has strengthened the R&D capabilities in the Zamboanga Peninsula region, however, there was an urgent need to create the RRDIC to formulate the Regional R&D agenda specifically addressing the needs of the various sectors in the region; provide policy directions to guide all stakeholders and partners toward a common goal of developing the RDI capability of the region; and foster inter-agency collaboration and partnership in RDI initiatives."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-4" }, [
+                    _vm._v(
+                      "The creation of Zamboanga Peninsula’s RRDICom was based on DOST Resolution No. 2017 – 002, series of 2017, “A Resolution Proposing the Creation of a Regional Research, Development and Innovation under the Regional Development Council and its Corresponding Terms of Reference.”"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-4" }, [
+                    _vm._v(
+                      "During the General Assembly of the WESMARRDEC held on 29 December 2018 at the Western Mindanao State University (WMSU), DOST IX Regional Director Martin A. Wee informed the body on the proposed organization of the RRDIC under the RDC IX."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-4" }, [
+                    _vm._v(
+                      "The terms of reference on the creation of the RRDICom was presented during the CY 2019 1st regular meeting of the Regional Social Development Committee (RSDC) of RDC IX on 19 February 2019. The RSDC IX favorably endorsed the RRDICom creation by virtue of RSDC IX Resolution No. Resolution No. 006, s. 2019, endorsing to RDC IX the proposed creation of an RRDICom, a special committee under RDC IX."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-4" }, [
+                    _vm._v(
+                      "During its 165th regular meeting on 14 March 2019, the Council approved the creation of RRDICom under RDC IX through Resolution No. 009, series of 2019. "
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Index.vue?vue&type=template&id=1f2c4b77&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Index.vue?vue&type=template&id=1f2c4b77& ***!
@@ -79299,7 +80180,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "section",
-    { class: [_vm.researches.length > 0 ? "" : "my-5 pt-sm-5"] },
+    {
+      staticClass: "section hero-section ",
+      staticStyle: { "margin-top": "-100px", height: "calc(100vh + 100px)" },
+      attrs: { id: "home" }
+    },
     [
       _vm.view == false
         ? _c("div", { staticClass: "container" }, [
@@ -79517,10 +80402,90 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "mt-5 text-center" }, [
-      _c("div", [_c("p", [_vm._v("©  RRDICOM. Developed by DOST-IX")])])
+      _c("div", [
+        _c("p", [
+          _vm._v("Email: rrdicom@ro9.dost.gov.ph  |  Telephone: 995-3654")
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v("©  RRDICOM. Developed by DOST-IX")])
+      ])
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Navigation.vue?vue&type=template&id=e9f9ec82&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Public/Navigation.vue?vue&type=template&id=e9f9ec82& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "ul",
+    { staticClass: "navbar-nav ml-auto", attrs: { id: "topnav-menu" } },
+    [
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link active",
+            on: {
+              click: function($event) {
+                return _vm.show(1)
+              }
+            }
+          },
+          [_vm._v("Home")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            on: {
+              click: function($event) {
+                return _vm.show(2)
+              }
+            }
+          },
+          [_vm._v("History")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            on: {
+              click: function($event) {
+                return _vm.show(3)
+              }
+            }
+          },
+          [_vm._v("Functions")]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

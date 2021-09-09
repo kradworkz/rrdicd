@@ -1,5 +1,5 @@
 <template>
-    <section v-bind:class="[(researches.length > 0) ? '' : 'my-5 pt-sm-5']">
+    <section class="section hero-section " style="margin-top: -100px; height: calc(100vh + 100px);" id="home">
         <div class="container" v-if="view == false">
             <div class="row">
                 <div class="col-12 text-center">
@@ -39,7 +39,12 @@
                             <a href="#" class="btn w-lg btn-danger">RRDICOM</a>
                             <a href="/login" class="btn w-lg btn-secondary">Login Here</a>
                         </div>
-                        <div class="mt-5 text-center"><div><p>©  RRDICOM. Developed by DOST-IX</p></div></div>
+                        <div class="mt-5 text-center">
+                            <div>
+                                <p>Email: rrdicom@ro9.dost.gov.ph  |  Telephone: 995-3654</p>
+                                <p>©  RRDICOM. Developed by DOST-IX</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

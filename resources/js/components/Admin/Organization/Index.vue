@@ -39,7 +39,7 @@
                                 <th></th>
                                 <th>Name</th>
                                 <th class="text-center">Acronym</th>
-                                <th class="text-center">Created Date</th>
+                                <th class="text-center">Head/Director</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -55,7 +55,9 @@
                                 </td>
                                 <td>{{institution.name}}</td>
                                 <td class="text-center">{{institution.acronym}}</td>
-                                <td class="text-center ont-size-12">{{institution.created_at}}</td>
+                                <td class="text-center ont-size-12">
+                                    {{(institution.head != 'n/a') ?  institution.head.name : 'n/a'}}
+                                </td>
                                 <td class="text-center">
                                     <a class="mr-3 text-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class='bx bx-show'></i></a>
                                     <a class="mr-3 text-warning" @click="edit(institution)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class='bx bx-edit-alt' ></i></a>

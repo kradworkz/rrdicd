@@ -87,7 +87,7 @@ class EventController extends Controller
         ];
 
         $pdf = \PDF::loadView('user_admin.print-attendance',$array);
-        return $pdf->download($event['name'].'.pdf');
+        return $pdf->stream($event['name'].'.pdf');
     }
 
     public function today(){

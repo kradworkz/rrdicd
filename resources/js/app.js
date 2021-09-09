@@ -93,6 +93,9 @@ Vue.component('r-right', require('./components/Researcher/Right.vue').default);
 
 Vue.component('public-search', require('./components/Public/Index.vue').default);
 Vue.component('public-view', require('./components/Public/View.vue').default);
+Vue.component('public-history', require('./components/Public/History.vue').default);
+Vue.component('public-function', require('./components/Public/Functions.vue').default);
+Vue.component('public-navigation', require('./components/Public/Navigation.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -105,6 +108,9 @@ const app = new Vue({
     data(){
         return {
             currentUrl: window.location.origin,
+            func: false,
+            search: true,
+            history: false
         }
     },
     methods : {
@@ -116,6 +122,21 @@ const app = new Vue({
             Vue.$toast.success('<strong>Successfully Updated</strong>', {
                 position: 'bottom-right'
             });
+        },
+        show(num){
+            if(num == 1){
+                this.search = true;
+                this.history = false;
+                this.func = false;
+            }else if(num == 2){
+                this.search = false;
+                this.history = true;
+                this.func = false;
+            }else{
+                this.search = false;
+                this.history = false;
+                this.func = true;
+            }
         }
     }
 });

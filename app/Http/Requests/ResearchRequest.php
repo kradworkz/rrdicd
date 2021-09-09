@@ -35,6 +35,7 @@ class ResearchRequest extends FormRequest
             'published' => 'sometimes|required|numeric|digits:4|max:9999',
             'institution' => 'sometimes|required|integer',
             'status' => 'sometimes|required|integer',
+            'description' => 'nullable|string',
         ];
     }
 
@@ -53,6 +54,7 @@ class ResearchRequest extends FormRequest
             'status.integer' => '* required',
             'published.required' => '* required',
             'published.numeric' => '* numbers only',
+            'description.string' => '* string only',
 
         ];
 

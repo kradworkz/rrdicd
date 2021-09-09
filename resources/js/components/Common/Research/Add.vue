@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 1000px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reasearch Information</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Research Information</h5>
                 <button type="button" @click="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -30,7 +30,7 @@
                                 </multiselect>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top: -15px;">
                             <div class="form-group">
                                 <label>Classification: <span v-if="errors.classification" class="haveerror">({{ errors.classification[0] }})</span></label>
                                 <multiselect 
@@ -41,7 +41,7 @@
                                 </multiselect>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top: -15px;">
                             <div class="form-group">
                                 <label>IPR Status: <span v-if="errors.iprstatus" class="haveerror">({{ errors.iprstatus[0] }})</span></label>
                                 <multiselect 
@@ -53,7 +53,7 @@
                                 </multiselect>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top: -15px;">
                             <div class="form-group">
                                 <label>Period IPR Covered: <span v-if="errors.period" class="haveerror">({{ errors.period[0] }})</span></label>
                                 <input :disabled="addc" type="text" class="form-control" v-model="research.period">
@@ -101,7 +101,7 @@
                                 <input type="text" maxlength="4" class="form-control" v-model="research.published">
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12" style="margin-top: -15px;">
                             <div class="form-group">
                                 <label>Funding Agency: <span v-if="errors.institution" class="haveerror">({{ errors.institution[0] }})</span></label>
                                 <multiselect 
@@ -111,6 +111,12 @@
                                 label="name" track-by="id" :show-labels="false" :allow-empty="false"
                                 placeholder="Select Institution">
                                 </multiselect>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="margin-top: -5px;">
+                            <div class="form-group">
+                                <textarea v-model="research.description" class="form-control" maxlength="225" rows="2" placeholder="Brief Description/Abstract"></textarea>
                             </div>
                         </div>
                          
@@ -145,7 +151,8 @@
                     period: '',
                     status: '',
                     institution: '',
-                    published: ''
+                    published: '',
+                    description: ''
                 },
                 classifications: [],
                 researchers: [],
@@ -234,6 +241,7 @@
                     frm.append('published', this.research.published);
                     frm.append('institution', this.research.institution.id);
                     frm.append('status', this.research.status.id);
+                    frm.append('description', this.research.description);
                 }
 
                 axios.post(this.currentUrl + '/request/common/research/store', frm)

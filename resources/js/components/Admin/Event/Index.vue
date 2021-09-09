@@ -36,7 +36,7 @@
                     <table class="table table-centered table-nowrap">
                         <thead>
                             <tr>
-                                <th class="text-center">Name</th>
+                                <th class="text-center">Title</th>
                                 <th class="text-center">Type</th>
                                 <th class="text-center">Scheduled At</th>
                                 <th class="text-center">Created At</th>
@@ -45,7 +45,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="event in events" v-bind:key="event.id">
-                                <td class="text-center">{{event.name}}</td>
+                                <td class="text-center"><a @click="show(event)">{{event.name}}</a></td>
                                 <td class="text-center">{{event.type.name}}</td>
                                 <td class="text-center">{{event.date}}</td>
                                 <td class="text-center ont-size-12">{{event.created_at}}</td>

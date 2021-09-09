@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Type: <span v-if="errors.type" class="haveerror">({{ errors.type[0] }})</span></label>
+                                        <label>Designation: <span v-if="errors.type" class="haveerror">({{ errors.type[0] }})</span></label>
                                         <multiselect 
                                         v-model="user.type" 
                                         :options="(type != 'Secretariat') ? types : types2" 

@@ -25,6 +25,7 @@ import 'vue-toast-notification/dist/theme-sugar.css';
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['KradWorks'] = 'XNndUUEA95BKwQ2blrLbYcU0IRCb5YQW';
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

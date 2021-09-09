@@ -48,7 +48,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/member-committees" key="t-login" class="font-size-11"><i class='bx bx-notepad'></i>Member Committees</a></li>
-                        <li><a href="/monitoring-agencies" key="t-login-2" class="font-size-11"><i class='bx bxs-tv'></i>Monitoring Agencies</a></li>
+                        <li><a href="/monitoring-agencies" key="t-login-2" class="font-size-11"><i class='bx bxs-tv'></i>Consortiums</a></li>
                         <li><a href="/funding-agencies" key="t-register" class="font-size-11"><i class='bx bx-money' ></i>Funding Agencies</a></li>
                     </ul>
                 </li>

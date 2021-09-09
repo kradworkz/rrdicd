@@ -68,18 +68,14 @@ class ResearchController extends Controller
             
             if($data->save()){
                 if($request->input('old') == 'true'){
-                    $info =  new ResearchInfo;
+                    $info =  ($request->input('editable') == 'true') ? ResearchInfo::where('research_id', $request->input('id'))->first() : new ResearchInfo;
                     $info->amount = $request->input('amount');
                     $info->funded_date = $request->input('date');
                     $info->published_date = $request->input('published');
+                    $info->description = $request->input('description');
                     $info->funded_id = $request->input('institution');
                     $info->research_id = $data->id;
                     $info->save();
-
-                    $status = new ResearchStatus;
-                    $status->status_id =  $request->input('status');
-                    $status->research_id = $data->id;
-                    $status->save();
                 }else{
                     $status = new ResearchStatus;
                     $status->status_id = 5;

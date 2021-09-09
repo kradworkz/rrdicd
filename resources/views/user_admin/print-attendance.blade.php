@@ -5,6 +5,11 @@
 <html lang="en">
     <head>
         <style>
+            html {
+                margin-top: 50px;
+                margin-left: 90px;
+                margin-right: 90px;
+            }
             table, td, th {
             border: .8px solid black;
             text-align: center;

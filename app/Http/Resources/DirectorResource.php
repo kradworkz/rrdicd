@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StatusResource extends JsonResource
+class DirectorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,7 @@ class StatusResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->status->id,
-            'color' => $this->status->color,
-            'name' => $this->status->name
+            'name' => $this->profile->firstname.' '.$this->profile->middlename.' '.$this->profile->lastname,
         ];
     }
 }

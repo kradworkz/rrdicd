@@ -41,6 +41,7 @@
                                 <th v-if="usertype == 'Researcher'" class="text-center">Classification</th>
                                 <th v-if="usertype == 'Researcher'"class="text-center">IPR Status</th>
                                 <th v-else class="text-center">Researcher</th>
+                                <th v-if="usertype == 'Administrator'"class="text-center">Institution</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Created Date</th>
                                 <th></th>
@@ -52,6 +53,9 @@
                                 <td v-if="usertype == 'Researcher'" class="text-center">{{research.classification.name}}</td>
                                 <td v-if="usertype == 'Researcher'" class="text-center">{{research.iprstatus.name}}</td>
                                 <td v-else class="text-center">{{research.user}}</td>
+                                <td v-if="usertype == 'Administrator'" class="text-center">
+                                    {{research.researcher.institution.name}}
+                                </td>
                                 <td class="text-center">
                                     <span :class="'font-size-11 badge badge-'+research.status.color">{{research.status.name}}</span>
                                 </td>

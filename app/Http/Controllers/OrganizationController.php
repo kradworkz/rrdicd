@@ -7,6 +7,7 @@ use App\Models\Organization;
 use Illuminate\Http\Request;
 use App\Services\StoreImage;
 use App\Http\Resources\DefaultResource;
+use App\Http\Resources\OrganizationResource;
 use App\Http\Requests\OrganizationRequest;
 
 class OrganizationController extends Controller
@@ -54,7 +55,7 @@ class OrganizationController extends Controller
         })
         ->orderBy('created_at','DESC')
         ->paginate(5);
-        return DefaultResource::collection($data);
+        return OrganizationResource::collection($data);
     }
 
     public function lists($type)

@@ -20,7 +20,7 @@ services:
     ports: 
       - "9001:9000"
     networks:
-      - rrdicom-app-network
+      - dostnetwork
 
   #Nginx Service
   webserver:
@@ -34,33 +34,13 @@ services:
       - ./:/var/www
       - ./dockerize/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - rrdicom-app-network
+      - dostnetwork
 
-  #MySQL Service
-  db:
-    image: mysql:5.7.29
-    container_name: rrdicom-db
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "33061:3306"
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - dbdata:/var/lib/mysql
-      - ./dockerize/mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - rrdicom-app-network
 
 #Docker Networks
 networks:
-  rrdicom-app-network:
-    driver: bridge
+  dostnetwork:
+    external: true
 volumes:
   dbdata:
     driver: local

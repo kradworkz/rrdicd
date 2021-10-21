@@ -25,7 +25,7 @@ class ResearchRequest extends FormRequest
     {
         ($this->title == 'undefined') ? $this->title = '' : '';
         return [
-            'title' => 'required|string|max:100',
+            'title' => 'required|string',
             'classification' => 'required',
             'iprstatus' => 'required',
             'period' => 'nullable|integer',

@@ -21,6 +21,7 @@ services:
       - "9001:9000"
     networks:
       - dostnetwork
+      - rrdicom-app-network
 
   #Nginx Service
   webserver:
@@ -34,13 +35,15 @@ services:
       - ./:/var/www
       - ./dockerize/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - dostnetwork
+      - rrdicom-app-network
 
 
 #Docker Networks
 networks:
   dostnetwork:
     external: true
+  rrdicom-app-network:
+    driver: bridge
 volumes:
   dbdata:
     driver: local

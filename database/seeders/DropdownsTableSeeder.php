@@ -190,7 +190,7 @@ class DropdownsTableSeeder extends Seeder
             21 => 
             array (
                 'id' => 22,
-                'name' => 'Intructor I',
+                'name' => 'Instructor I',
                 'type' => 'n/a',
                 'classification' => 'Designations',
                 'color' => 'n/a',

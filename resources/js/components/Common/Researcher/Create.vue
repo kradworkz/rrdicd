@@ -267,7 +267,7 @@
 
 
             fetchSpecialty() {
-                axios.get(this.currentUrl + '/request/admin/dropdown/Specialties/-/-')
+                axios.get(this.currentUrl + '/request/admin/dropdowns/Specialties/-/-')
                 .then(response => {
                     this.specialties = response.data.data;
                 })
@@ -275,7 +275,7 @@
             },
 
             fetchQualification() {
-                axios.get(this.currentUrl + '/request/admin/dropdown/Qualifications/-/-')
+                axios.get(this.currentUrl + '/request/admin/dropdowns/Qualifications/-/-')
                 .then(response => {
                     this.qualifications = response.data.data;
                 })
@@ -283,7 +283,7 @@
             },
 
             fetchDesignation() {
-                axios.get(this.currentUrl + '/request/admin/dropdown/Designations/-/-')
+                axios.get(this.currentUrl + '/request/admin/dropdowns/Designations/-/-')
                 .then(response => {
                     this.designations = response.data.data;
                 })

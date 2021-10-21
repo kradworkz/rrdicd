@@ -5695,7 +5695,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchSpecialty: function fetchSpecialty() {
       var _this2 = this;
 
-      axios.get(this.currentUrl + '/request/admin/dropdown/Specialties/-/-').then(function (response) {
+      axios.get(this.currentUrl + '/request/admin/dropdowns/Specialties/-/-').then(function (response) {
         _this2.specialties = response.data.data;
       })["catch"](function (err) {
         return console.log(err);
@@ -5704,7 +5704,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchQualification: function fetchQualification() {
       var _this3 = this;
 
-      axios.get(this.currentUrl + '/request/admin/dropdown/Qualifications/-/-').then(function (response) {
+      axios.get(this.currentUrl + '/request/admin/dropdowns/Qualifications/-/-').then(function (response) {
         _this3.qualifications = response.data.data;
       })["catch"](function (err) {
         return console.log(err);
@@ -5713,7 +5713,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchDesignation: function fetchDesignation() {
       var _this4 = this;
 
-      axios.get(this.currentUrl + '/request/admin/dropdown/Designations/-/-').then(function (response) {
+      axios.get(this.currentUrl + '/request/admin/dropdowns/Designations/-/-').then(function (response) {
         _this4.designations = response.data.data;
       })["catch"](function (err) {
         return console.log(err);

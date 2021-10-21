@@ -27,7 +27,7 @@ class ResearchResource extends JsonResource
             'classification' => $this->classification,
             'researcher' => new ResearcherResource($this->user),
             'user' => $this->user->profile->firstname.' '.$this->user->profile->lastname,
-            'status' => new StatusResource($this->status()),
+            'status' => ($this->status() != null ) ? new StatusResource($this->status()) : $this->stat,
             'old' => ($this->info != null) ? true : false,
             'created_at' => $this->created_at
         ];

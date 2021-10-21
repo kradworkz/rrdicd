@@ -11,6 +11,11 @@ class Research extends Model
 
     protected $table = 'researches';
 
+    public function stat()
+    {
+        return $this->belongsTo('App\Models\Dropdown', 'status_id', 'id');
+    }
+
     public function iprstatus()
     {
         return $this->belongsTo('App\Models\Dropdown', 'iprstatus_id', 'id');

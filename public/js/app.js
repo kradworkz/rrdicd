@@ -5696,7 +5696,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get(this.currentUrl + '/request/admin/dropdowns/Specialties/-').then(function (response) {
-        _this2.specialties = response.data;
+        _this2.specialties = response.data.data;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -5705,7 +5705,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.get(this.currentUrl + '/request/admin/dropdowns/Qualifications/-').then(function (response) {
-        _this3.qualifications = response.data;
+        _this3.qualifications = response.data.data;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -5714,7 +5714,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios.get(this.currentUrl + '/request/admin/dropdowns/Designations/-').then(function (response) {
-        _this4.designations = response.data;
+        _this4.designations = response.data.data;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -74846,12 +74846,7 @@ var render = function() {
                                               placeholder: "Select Institution"
                                             },
                                             on: {
-                                              "search-change": _vm.asyncFind,
-                                              input: function($event) {
-                                                return _vm.onChangeCustomer(
-                                                  _vm.institution.institution_id
-                                                )
-                                              }
+                                              "search-change": _vm.asyncFind
                                             },
                                             model: {
                                               value: _vm.user.institution,

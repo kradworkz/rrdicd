@@ -105,7 +105,7 @@
                                                 <multiselect 
                                                 v-model="user.institution" 
                                                 :options="institutions" 
-                                                id="ajax" @search-change="asyncFind" @input="onChangeCustomer(institution.institution_id)"
+                                                id="ajax" @search-change="asyncFind"
                                                 label="name" track-by="id" :show-labels="false" :allow-empty="false"
                                                 placeholder="Select Institution">
                                                 </multiselect>
@@ -269,7 +269,7 @@
             fetchSpecialty() {
                 axios.get(this.currentUrl + '/request/admin/dropdowns/Specialties/-')
                 .then(response => {
-                    this.specialties = response.data;
+                    this.specialties = response.data.data;
                 })
                 .catch(err => console.log(err));
             },
@@ -277,7 +277,7 @@
             fetchQualification() {
                 axios.get(this.currentUrl + '/request/admin/dropdowns/Qualifications/-')
                 .then(response => {
-                    this.qualifications = response.data;
+                    this.qualifications = response.data.data;
                 })
                 .catch(err => console.log(err));
             },
@@ -285,7 +285,7 @@
             fetchDesignation() {
                 axios.get(this.currentUrl + '/request/admin/dropdowns/Designations/-')
                 .then(response => {
-                    this.designations = response.data;
+                    this.designations = response.data.data;
                 })
                 .catch(err => console.log(err));
             },

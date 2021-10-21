@@ -66,7 +66,7 @@ Route::prefix('request')->group(function () {
             Route::get('/ages/{val}', 'DashboardController@ages');
             Route::get('/gender/{val}', 'DashboardController@gender');
             Route::get('/institutions', 'DashboardController@institution');
-            Route::get('/dropdowns/{type}/{key}', 'DashboardController@dropdowns');
+            Route::get('/dropdownss/{type}/{key}', 'DashboardController@dropdowns');
         });
     });
 

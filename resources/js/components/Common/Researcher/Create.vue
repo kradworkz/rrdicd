@@ -267,25 +267,25 @@
 
 
             fetchSpecialty() {
-                axios.get(this.currentUrl + '/request/admin/dropdowns/Specialties/-/-')
+                axios.get(this.currentUrl + '/request/admin/dropdowns/Specialties/-')
                 .then(response => {
-                    this.specialties = response.data.data;
+                    this.specialties = response.data;
                 })
                 .catch(err => console.log(err));
             },
 
             fetchQualification() {
-                axios.get(this.currentUrl + '/request/admin/dropdowns/Qualifications/-/-')
+                axios.get(this.currentUrl + '/request/admin/dropdowns/Qualifications/-')
                 .then(response => {
-                    this.qualifications = response.data.data;
+                    this.qualifications = response.data;
                 })
                 .catch(err => console.log(err));
             },
 
             fetchDesignation() {
-                axios.get(this.currentUrl + '/request/admin/dropdowns/Designations/-/-')
+                axios.get(this.currentUrl + '/request/admin/dropdowns/Designations/-')
                 .then(response => {
-                    this.designations = response.data.data;
+                    this.designations = response.data;
                 })
                 .catch(err => console.log(err));
             },
